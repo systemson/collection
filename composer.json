@@ -1,0 +1,29 @@
+{
+    "name": "amber/collection",
+    "description": "PHP data structures as an alternative to the array.",
+    "type": "library",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Deivi Peña",
+            "email": "systemson@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Amber\\Collection\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "php-ds/php-ds": "^1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "scripts": {
+        "test": "phpunit --coverage-html ./tmp/coverage/"
+    }
+}
