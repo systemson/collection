@@ -21,9 +21,11 @@
         "php-ds/php-ds": "^1.2"
     },
     "require-dev": {
+        "phpdocumentor/phpdocumentor": "^2.0",
         "phpunit/phpunit": "^6.5"
     },
     "scripts": {
-        "test": "phpunit --coverage-html ./tmp/coverage/"
+        "test": "phpunit --verbose --coverage-html ./tmp/coverage/",
+        "docs": "phpdoc -d ./src -i Tests/ -t ./tmp/docs/api"
     }
 }
