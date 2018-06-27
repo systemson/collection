@@ -2,8 +2,19 @@
 
 namespace Amber\Collection;
 
-use Ds\Collection as CollectionInterface;
+use Amber\Collection\Base\BaseCollection;
+use Ds\Vector;
 
-class Collection implements CollectionInterface
+class Collection extends BaseCollection
 {
+    public function __construct($items)
+    {
+        $array = [];
+
+        foreach ($items as $item) {
+            $array[] = $item;
+        }
+
+        $this->vector = new Vector($array);
+    }
 }
