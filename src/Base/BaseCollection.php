@@ -10,17 +10,39 @@ abstract class BaseCollection implements \JsonSerializable, \IteratorAggregate, 
 {
     use GenericCollection, ArrayAccessTrait, Statements;
 
+    /**
+     * Returns an array of the collection.
+     *
+     * @return array The items in the collection.
+     */
     public function toArray()
     {
-        return (array) $this->vector;
+        return $this->container->toArray();
     }
 
+    /**
+	 * Specify the data that should be serialized to JSON.
+	 *
+	 * @return array The data that should be serialized.
+	 */
     public function jsonSerialize()
     {
-        return (array) $this->vector;
+        return $this->container->toArray();
+    }
+    /**
+     * Implements IteratorAggregate.
+     */
+    public function getIterator() {
+        return new ArrayIterator($this->container);
     }
 
-    public function getIterator() {
-        return new ArrayIterator($this->vector);
+    /**
+     * Returns a copy of the current collection.
+     *
+     * @return object An instance of Amber\Collection\Collection.
+     */
+    public function clone()
+    {
+        return new Collection($this->container);
     }
 }

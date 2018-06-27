@@ -15,6 +15,6 @@ class Collection extends BaseCollection
             $array[] = $item;
         }
 
-        $this->vector = new Vector($array);
+        $this->container = new Vector($array);
     }
 }

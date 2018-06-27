@@ -4,25 +4,25 @@ namespace Amber\Collection\Base;
 
 trait ArrayAccessTrait
 {
-    public $vector;
+    public $container;
 
     public function offsetSet($offset, $value) {
         if (is_null($offset)) {
-            $this->vector[] = $value;
+            $this->container[] = $value;
         } else {
-            $this->vector[$offset] = $value;
+            $this->container[$offset] = $value;
         }
     }
 
     public function offsetExists($offset) {
-        return isset($this->vector[$offset]);
+        return isset($this->container[$offset]);
     }
 
     public function offsetUnset($offset) {
-        unset($this->vector[$offset]);
+        unset($this->container[$offset]);
     }
 
     public function offsetGet($offset) {
-        return $this->vector[$offset] ?? null;
+        return $this->container[$offset] ?? null;
     }
 }
