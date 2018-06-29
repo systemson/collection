@@ -10,48 +10,35 @@ class CollectionTest extends TestCase
 {
     public function testCollection()
     {
-        $array = [
-            'id' => null,
-            'name' => 'Pruebas',
-            'pass' => 'password',
-            'email' =>  null,
-        ];
+        $qty = 2;
 
-        for ($x = 1; $x <= 2; $x++) {
+        for ($x = 1; $x <= $qty; $x++) {
             $multiple[] = [
                 'id' => $x,
-                'name' => $array['name'].$x,
-                'pass' => $array['pass'].$x,
+                'name' => 'Pruebas'.$x,
+                'pass' => 'pass'.$x,
                 'email' => "email{$x}@email.com",
             ];
         }
 
         $collection = new Collection($multiple);
 
+        /* Test that the collection can be used as array */
         $this->assertEquals($multiple, $collection->toArray());
+        $this->assertInternalType('array', $collection->toArray());
+        $this->assertInstanceOf(\Traversable::class, $collection);
+        $this->assertFalse($collection->isEmpty());
+        $this->assertEquals($qty, $collection->count());
 
-        /* Test select() */
+        /* Test iterator */
+        foreach ($collection as $item) {
+        }
 
-        /* Test where() */
+        /* Test clear */
+        $collection->clear();
+        $this->assertEmpty($collection);
 
-        /* Test whereNot() */
-
-        /* Test whereIn() */
-
-        /* Test whereNotIn() */
-
-        /* Test orderBy() */
-        $this->assertEquals(
-            array_reverse($multiple),
-            $collection->orderBy('id', 'DESC')->toArray()
-        );
-
-        /*print_r($collection->select('id'));
-        print_r($collection->where('id', 1));
-        print_r($collection->whereNot('id', 2));
-        print_r($collection->whereIn('id', [1,3]));
-        print_r($collection->whereNotIn('id', [2,4]));*/
-        //print_r($collection->orderBy('name', 'DESC'));
+        $this->assertEquals($collection->clone(), $collection->copy());
 
         return $collection;
     }

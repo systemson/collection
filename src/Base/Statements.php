@@ -1,6 +1,6 @@
 <?php
 
-namespace Amber\Collection\Engine;
+namespace Amber\Collection\Base;
 
 use  Amber\Collection\Collection;
 
@@ -28,7 +28,7 @@ trait Statements
             return $result;
         });
 
-        return new Collection($vector);
+        return $this->make($vector);
     }
 
     /**
@@ -50,7 +50,7 @@ trait Statements
             return;
         });
 
-        return new Collection($vector);
+        return $this->make($vector);
     }
 
     /**
@@ -72,7 +72,7 @@ trait Statements
             return;
         });
 
-        return new Collection($vector);
+        return $this->make($vector);
     }
 
     /**
@@ -94,7 +94,7 @@ trait Statements
             return;
         });
 
-        return new Collection($vector);
+        return $this->make($vector);
     }
 
     /**
@@ -137,7 +137,7 @@ trait Statements
             }
         });
 
-        return new Collection($vector);
+        return $this->make($vector);
     }
 
     public function groupBy($column)
