@@ -6,9 +6,24 @@ use Amber\Collection\Collection;
 use Ds\Collection as CollectionInterface;
 use Ds\Traits\GenericCollection;
 
+/**
+ * Implements the basis for the Collection.
+ */
 abstract class BaseCollection implements \JsonSerializable, \IteratorAggregate, \ArrayAccess
 {
     use GenericCollection, ArrayAccessTrait, IteratorTrait, Statements;
+
+    /**
+     * Returns a new instanace of the collection.
+     *
+     * @param array The items for the collecction.
+     *
+     * @return Collection A new collection
+     */
+    public static function make($array)
+    {
+        return new static($array);
+    }
 
     /**
      * Returns an array of the collection.
@@ -27,13 +42,13 @@ abstract class BaseCollection implements \JsonSerializable, \IteratorAggregate, 
      */
     public function copy(): CollectionInterface
     {
-        return new Collection($this->container);
+        return $this->make($this->container);
     }
 
     /**
-     * Returns a copy of the current collection.
+     * Alias for copy.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection a shallow copy of the collection.
      */
     public function clone(): CollectionInterface
     {

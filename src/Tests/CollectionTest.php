@@ -34,6 +34,13 @@ class CollectionTest extends TestCase
         foreach ($collection as $item) {
         }
 
+        $collection[] = 'lol';
+        $collection[$qty] = 'lol';
+
+        isset($collection[$qty]);
+        unset($collection[$qty]);
+        $collection[$qty];
+
         /* Test clear */
         $collection->clear();
         $this->assertEmpty($collection);

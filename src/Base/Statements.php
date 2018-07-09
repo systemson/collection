@@ -11,7 +11,7 @@ trait Statements
      *
      * @param array|string $columns The collumns to filter by.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection A new collection.
      */
     public function select(...$columns)
     {
@@ -37,7 +37,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param mixed  $value The value to compare each item.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection A new collection.
      */
     public function where($column, $value)
     {
@@ -59,7 +59,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param mixed  $value The value to compare each item.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection A new collection.
      */
     public function whereNot($column, $value)
     {
@@ -81,7 +81,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection A new collection.
      */
     public function whereIn($column, array $values = [])
     {
@@ -103,7 +103,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection A new collection.
      */
     public function whereNotIn($column, array $value = [])
     {
@@ -125,7 +125,7 @@ trait Statements
      * @param string $column The column to order by.
      * @param string $order  The order to sort the items.
      *
-     * @return object An instance of Amber\Collection\Collection.
+     * @return Collection A new collection.
      */
     public function orderBy($column, $order = 'ASC')
     {
@@ -140,8 +140,13 @@ trait Statements
         return $this->make($vector);
     }
 
+    /**
+     * @todo Must be implemented.
+     *
+     * @return Collection A new collection.
+     */
     public function groupBy($column)
     {
-        return $this;
+        //return $this;
     }
 }
