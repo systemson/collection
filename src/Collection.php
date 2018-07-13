@@ -9,6 +9,6 @@ class Collection extends BaseCollection implements CollectionInterface
 {
     public function __construct($items)
     {
-    	$this->new($items);
+        $this->new($items);
     }
 }
