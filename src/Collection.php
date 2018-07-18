@@ -12,10 +12,10 @@ use Ds\Collection as CollectionInterface;
 class Collection extends BaseCollection implements CollectionInterface
 {
     /**
-     * Instantiates the collection
+     * Instantiates the collection.
      *
-     * @param \Iterable $items The items for the collection.
-     * @param bool     $sequence Whether the collection is numeric or not.
+     * @param \Iterable $items    The items for the collection.
+     * @param bool      $sequence Whether the collection is numeric or not.
      */
     public function __construct($items, $sequence = true)
     {

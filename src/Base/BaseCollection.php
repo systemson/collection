@@ -7,9 +7,9 @@ use Amber\Config\ConfigAware;
 use Amber\Config\ConfigAwareInterface;
 use Amber\Validator\Validator;
 use Ds\Collection as CollectionInterface;
+use Ds\Map;
 use Ds\Traits\GenericCollection;
 use Ds\Vector;
-use Ds\Map;
 
 /**
  * Implements the basis for the Collection.

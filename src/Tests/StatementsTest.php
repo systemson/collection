@@ -39,8 +39,8 @@ class StatementsTest extends TestCase
         );
 
         /* Test whereNot() */
-            $whereNot = $array;
-            unset($whereNot[0]);
+        $whereNot = $array;
+        unset($whereNot[0]);
 
         $this->assertEquals(
             array_values($whereNot),
@@ -54,9 +54,9 @@ class StatementsTest extends TestCase
         );
 
         /* Test whereNotIn() */
-            $whereNotIn = $array;
-            unset($whereNotIn[0]);
-            unset($whereNotIn[1]);
+        $whereNotIn = $array;
+        unset($whereNotIn[0]);
+        unset($whereNotIn[1]);
 
         $this->assertEquals(
             array_values($whereNotIn),
