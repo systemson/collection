@@ -15,7 +15,7 @@ trait Statements
      */
     public function select(...$columns)
     {
-        $vector = $this->container->map(function ($item) use ($columns) {
+        $container = $this->container->map(function ($item) use ($columns) {
             $result = [];
 
             foreach ($columns as $column) {
@@ -27,7 +27,7 @@ trait Statements
             return $result;
         });
 
-        return $this->make($vector);
+        return $this->make($container);
     }
 
     /**
@@ -40,13 +40,13 @@ trait Statements
      */
     public function where($column, $value)
     {
-        $vector = $this->container->filter(function ($item) use ($column, $value) {
+        $container = $this->container->filter(function ($item) use ($column, $value) {
             if (isset($item[$column])) {
                 return $item[$column] === $value;
             }
         });
 
-        return $this->make($vector);
+        return $this->make($container);
     }
 
     /**
@@ -59,13 +59,13 @@ trait Statements
      */
     public function whereNot($column, $value)
     {
-        $vector = $this->container->filter(function ($item) use ($column, $value) {
+        $container = $this->container->filter(function ($item) use ($column, $value) {
             if (isset($item[$column])) {
                 return $item[$column] !== $value;
             }
         });
 
-        return $this->make($vector);
+        return $this->make($container);
     }
 
     /**
@@ -78,13 +78,13 @@ trait Statements
      */
     public function whereIn($column, array $values = [])
     {
-        $vector = $this->container->filter(function ($item) use ($column, $values) {
+        $container = $this->container->filter(function ($item) use ($column, $values) {
             if (isset($item[$column])) {
                 return in_array($item[$column], $values);
             }
         });
 
-        return $this->make($vector);
+        return $this->make($container);
     }
 
     /**
@@ -95,15 +95,15 @@ trait Statements
      *
      * @return Collection A new collection.
      */
-    public function whereNotIn($column, array $value = [])
+    public function whereNotIn($column, array $values = [])
     {
-        $vector = $this->container->filter(function ($item) use ($column, $value) {
+        $container = $this->container->filter(function ($item) use ($column, $values) {
             if (isset($item[$column])) {
-                return !in_array($item[$column], $value);
+                return !in_array($item[$column], $values);
             }
         });
 
-        return new Collection($vector);
+        return new Collection($container);
     }
 
     /**
@@ -116,7 +116,7 @@ trait Statements
      */
     public function orderBy($column, $order = 'ASC')
     {
-        $vector = $this->container->sorted(function ($a, $b) use ($column, $order) {
+        $container = $this->container->sorted(function ($a, $b) use ($column, $order) {
             if (strtoupper($order) == 'ASC') {
                 return $a[$column] <=> $b[$column];
             } elseif (strtoupper($order) == 'DESC') {
@@ -124,11 +124,15 @@ trait Statements
             }
         });
 
-        return $this->make($vector);
+        return $this->make($container);
     }
 
     /**
+     * Returns a new Collection grouped by the specified column.
+     *
      * @todo Must be implemented.
+     *
+     * @param string $column The column to group by.
      *
      * @return Collection A new collection.
      */

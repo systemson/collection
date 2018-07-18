@@ -9,6 +9,8 @@ trait IteratorTrait
 {
     /**
      * Implements IteratorAggregate.
+     *
+     * @return \ArrayIterator
      */
     public function getIterator()
     {

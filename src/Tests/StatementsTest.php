@@ -9,46 +9,71 @@ class StatementsTest extends TestCase
 {
     public function testStatements()
     {
-        $qty = 2;
+        $qty = 3;
 
         for ($x = 1; $x <= $qty; $x++) {
-            $multiple[] = [
+            $array[] = [
                 'id'    => $x,
                 'name'  => 'Pruebas'.$x,
                 'pass'  => 'pass'.$x,
                 'email' => "email{$x}@email.com",
             ];
+
+            $ids_only[] = [
+                'id'    => $x,
+            ];
         }
 
-        $collection = new Collection($multiple);
+        $collection = new Collection($array);
 
         /* Test select() */
+        $this->assertEquals(
+            $ids_only,
+            $collection->select('id')->toArray()
+        );
 
         /* Test where() */
+        $this->assertEquals(
+            [0 => $array[0]],
+            $collection->where('id', 1)->toArray()
+        );
 
         /* Test whereNot() */
+            $whereNot = $array;
+            unset($whereNot[0]);
+
+        $this->assertEquals(
+            array_values($whereNot),
+            $collection->whereNot('id', 1)->toArray()
+        );
 
         /* Test whereIn() */
+        $this->assertEquals(
+            [0 => $array[0], 1 => $array[1]],
+            $collection->whereIn('id', [1, 2])->toArray()
+        );
 
         /* Test whereNotIn() */
+            $whereNotIn = $array;
+            unset($whereNotIn[0]);
+            unset($whereNotIn[1]);
+
+        $this->assertEquals(
+            array_values($whereNotIn),
+            $collection->whereNotIn('id', [1, 2])->toArray()
+        );
 
         /* Test orderBy() */
-        $reversed = $collection->orderBy('id', 'DESC');
+        $ordered = $collection->orderBy('id', 'DESC');
         $this->assertEquals(
-            array_reverse($multiple),
-            $reversed->toArray()
-        );
-        $this->assertEquals(
-            $multiple,
-            $reversed->orderBy('id')->toArray()
+            array_reverse($array),
+            $ordered->toArray()
         );
 
-        /*print_r($collection->select('id'));
-        print_r($collection->where('id', 1));
-        print_r($collection->whereNot('id', 2));
-        print_r($collection->whereIn('id', [1,3]));
-        print_r($collection->whereNotIn('id', [2,4]));*/
-        //print_r($collection->orderBy('name', 'DESC'));
+        $this->assertEquals(
+           $array,
+            $ordered->orderBy('id')->toArray()
+        );
 
         return $collection;
     }

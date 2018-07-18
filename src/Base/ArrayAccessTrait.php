@@ -2,8 +2,6 @@
 
 namespace Amber\Collection\Base;
 
-use Ds\Vector;
-
 /**
  * Implements ArrayAccess.
  */
@@ -12,21 +10,12 @@ trait ArrayAccessTrait
     public $container;
 
     /**
-     * @todo Should be moved to it's own trait.
-     */
-    protected function new($items)
-    {
-        $array = [];
-
-        foreach ($items as $item) {
-            $array[] = $item;
-        }
-
-        $this->container = new Vector($array);
-    }
-
-    /**
      * Sets the value at the specified index to newval.
+     *
+     * @param string|int $offset
+     * @param mixed $value
+     *
+     * @return void
      */
     public function offsetSet($offset, $value)
     {
@@ -39,17 +28,35 @@ trait ArrayAccessTrait
 
     /**
      * Returns whether the requested index exists.
+     *
+     * @param string|int $offset
+     *
+     * @return void
      */
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
 
+    /**
+     * Removes the requested index.
+     *
+     * @param string|int $offset
+     *
+     * @return void
+     */
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }
 
+    /**
+     * Returns the value for the requested index exists.
+     *
+     * @param string|int $offset
+     *
+     * @return void
+     */
     public function offsetGet($offset)
     {
         return $this->container[$offset] ?? null;
