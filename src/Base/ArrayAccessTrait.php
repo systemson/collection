@@ -13,7 +13,7 @@ trait ArrayAccessTrait
      * Sets the value at the specified index to newval.
      *
      * @param string|int $offset
-     * @param mixed $value
+     * @param mixed      $value
      *
      * @return void
      */
