@@ -2,8 +2,6 @@
 
 namespace Amber\Collection\Base;
 
-use  Amber\Collection\Collection;
-
 trait Statements
 {
     /**
@@ -88,7 +86,8 @@ trait Statements
     }
 
     /**
-     * Returns a new Collection containing the items in the specified column that are not equal to the especified value(s).
+     * Returns a new Collection containing the items in the specified column that are not equal
+     * to the especified value(s).
      *
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
@@ -103,7 +102,7 @@ trait Statements
             }
         });
 
-        return new Collection($container);
+        return $this->make($container);
     }
 
     /**

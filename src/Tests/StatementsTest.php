@@ -14,8 +14,8 @@ class StatementsTest extends TestCase
         for ($x = 1; $x <= $qty; $x++) {
             $array[] = [
                 'id'    => $x,
-                'name'  => 'Pruebas'.$x,
-                'pass'  => 'pass'.$x,
+                'name'  => 'Pruebas' . $x,
+                'pass'  => 'pass' . $x,
                 'email' => "email{$x}@email.com",
             ];
 
@@ -71,7 +71,7 @@ class StatementsTest extends TestCase
         );
 
         $this->assertEquals(
-           $array,
+            $array,
             $ordered->orderBy('id')->toArray()
         );
 
