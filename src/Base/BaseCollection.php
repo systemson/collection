@@ -16,9 +16,9 @@ use Ds\Vector;
  *
  * @todo Implement JsonSerializable interface.
  */
-abstract class BaseCollection implements \JsonSerializable, \IteratorAggregate, \ArrayAccess, ConfigAwareInterface
+abstract class BaseCollection extends Essential
 {
-    use Validator, GenericCollection, ArrayAccessTrait, IteratorTrait, Statements, ConfigAware;
+    use Statements;
 
     /**
      * Init the collection.
@@ -90,65 +90,5 @@ abstract class BaseCollection implements \JsonSerializable, \IteratorAggregate, 
     public static function make($array)
     {
         return new static($array);
-    }
-
-    /**
-     * Returns an array of the collection.
-     *
-     * @return array The items in the collection.
-     */
-    public function toArray(): array
-    {
-        return $this->container->toArray();
-    }
-
-    /**
-     * Creates a shallow copy of the collection.
-     *
-     * @return Collection a shallow copy of the collection.
-     */
-    public function copy(): CollectionInterface
-    {
-        return $this->make($this->container);
-    }
-
-    /**
-     * Alias for copy.
-     *
-     * @return Collection a shallow copy of the collection.
-     */
-    public function clone(): CollectionInterface
-    {
-        return $this->copy();
-    }
-
-    /**
-     * Returns whether the collection is empty.
-     *
-     * @return bool whether the collection is empty.
-     */
-    public function isEmpty(): bool
-    {
-        return $this->container->isEmpty() === 0;
-    }
-
-    /**
-     * Removes all values from the collection.
-     *
-     * @return void
-     */
-    public function clear()
-    {
-        $this->container->clear();
-    }
-
-    /**
-     * Returns the size of the collection.
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        return $this->container->count();
     }
 }

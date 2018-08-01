@@ -9,7 +9,7 @@ use Ds\Collection as CollectionInterface;
  * @todo Set default configs and settable configs.
  * @todo Add validations.
  */
-class Collection extends BaseCollection implements CollectionInterface
+class Collection extends BaseCollection
 {
     /**
      * Instantiates the collection.
