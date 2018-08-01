@@ -13,6 +13,8 @@ use Ds\Vector;
 
 /**
  * Implements the basis for the Collection.
+ *
+ * @todo Implement JsonSerializable interface.
  */
 abstract class BaseCollection implements \JsonSerializable, \IteratorAggregate, \ArrayAccess, ConfigAwareInterface
 {

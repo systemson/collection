@@ -6,7 +6,7 @@ use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
 
 /**
- * @todo Set default configs and setteable configs.
+ * @todo Set default configs and settable configs.
  * @todo Add validations.
  */
 class Collection extends BaseCollection implements CollectionInterface
