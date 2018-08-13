@@ -2,8 +2,8 @@
 
 namespace Amber\Collection\Base;
 
-use Amber\Config\ConfigAware;
 use Amber\Config\ConfigAwareInterface;
+use Amber\Config\ConfigAwareTrait;
 use Amber\Validator\Validator;
 use Ds\Collection as CollectionInterface;
 use Ds\Traits\GenericCollection;
@@ -22,7 +22,7 @@ abstract class Essential implements
         ArrayAccessTrait,
         IteratorTrait,
         GenericCollection,
-        ConfigAware;
+        ConfigAwareTrait;
 
     /**
      * Returns an array of the collection.
