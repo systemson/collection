@@ -1,14 +1,11 @@
 <?php
 
-namespace Amber\Collection\Tests;
+namespace Tests;
 
 use Amber\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
-/*
- * @todo should be better tested
- */
-class AssociativeCollectionTest extends TestCase
+class CollectionTest extends TestCase
 {
     public function testCollection()
     {
@@ -23,7 +20,7 @@ class AssociativeCollectionTest extends TestCase
             ];
         }
 
-        $collection = new Collection($multiple, false);
+        $collection = new Collection($multiple);
 
         /* Test that the collection can be used as array */
         $this->assertEquals($multiple, $collection->toArray());
@@ -33,7 +30,7 @@ class AssociativeCollectionTest extends TestCase
         $this->assertEquals($qty, $collection->count());
 
         /* Test iterator */
-        foreach ($collection as $key => $item) {
+        foreach ($collection as $item) {
         }
 
         $collection[] = 'lol';

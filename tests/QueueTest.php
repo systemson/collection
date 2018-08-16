@@ -1,6 +1,6 @@
 <?php
 
-namespace Amber\Collection\Tests;
+namespace Tests;
 
 use Amber\Collection\Queue;
 use PHPUnit\Framework\TestCase;

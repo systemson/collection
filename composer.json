@@ -16,6 +16,11 @@
             "Amber\\Collection\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": ">=7.0.0",
         "php-ds/php-ds": "^1.2",
@@ -30,6 +35,6 @@
         "test": "phpunit --verbose --coverage-html ./tmp/coverage/",
         "docs": "phpdoc -d ./src -i Tests/ -t ./tmp/docs/api",
         "sniff": "phpcs --standard=PSR12 ./src",
-        "fix": "phpcbf --standard=PSR12 ./src"
+        "fix-cs": "phpcbf --standard=PSR12 ./src"
     }
 }
