@@ -15,14 +15,14 @@ $benchmark->add('array', function () use ($n) {
     $array = [];
 
     for ($x=0; $x < $n; $x++) {
-    	$array[] = $x;
+        $array[] = $x;
     }
 
     foreach ($array as $value) {
     }
 
     for ($x=0; $x < $n; $x++) {
-    	unset($array[$x]);
+        unset($array[$x]);
     }
 
     return $array;
@@ -32,14 +32,14 @@ $benchmark->add('collection', function () use ($n) {
     $collection = new Collection();
 
     for ($x=0; $x < $n; $x++) {
-    	$collection[$x] = $x;
+        $collection[$x] = $x;
     }
 
     foreach ($collection as $value) {
     }
 
     for ($x=0; $x < $n; $x++) {
-    	unset($collection[$x]);
+        unset($collection[$x]);
     }
 
     return $collection;

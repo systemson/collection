@@ -5,7 +5,7 @@ namespace Amber\Collection\CollectionAware;
 use Amber\Collection\Collection;
 use Amber\Config\ConfigAwareTrait;
 
-trait CollectionAwareTrait 
+trait CollectionAwareTrait
 {
     use ConfigAwareTrait;
 

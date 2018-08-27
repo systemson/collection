@@ -12,7 +12,6 @@ use Ds\Traits\GenericCollection;
  */
 trait Essential
 {
-
     public function make($array = [])
     {
         return new static($array);
