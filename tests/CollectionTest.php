@@ -38,7 +38,7 @@ class CollectionTest extends TestCase
 
         isset($collection[$qty]);
         unset($collection[$qty]);
-        $collection[$qty];
+        $collection[$qty - 1];
 
         /* Test clear */
         $collection->clear();

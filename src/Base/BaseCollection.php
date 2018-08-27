@@ -2,93 +2,26 @@
 
 namespace Amber\Collection\Base;
 
-use Amber\Collection\Collection;
-use Amber\Config\ConfigAware;
-use Amber\Config\ConfigAwareInterface;
-use Amber\Validator\Validator;
 use Ds\Collection as CollectionInterface;
-use Ds\Map;
-use Ds\Traits\GenericCollection;
-use Ds\Vector;
 
 /**
  * Implements the basis for the Collection.
  *
  * @todo Implement JsonSerializable interface.
  */
-abstract class BaseCollection extends Essential
+abstract class BaseCollection extends \ArrayObject //Implements CollectionInterface
 {
-    use Statements;
+    use Essential;
 
     /**
-     * Init the collection.
-     *
-     * @todo Should be moved to it's own trait.
-     *
-     * @param array The items for the collecction.
-     *
-     * @return void
+     * @todo Should reimplement the array functions on independend methods.
      */
-    protected function init($array = [], $sequence = true)
+    public function __call($method, $args = [])
     {
-        if ($sequence) {
-            $this->container = $this->newSequence($array);
-        } else {
-            $this->container = $this->newAssociative($array);
+        if (method_exists($this, $method)) {
+            return call_user_func_array([$this, $method], $args);
+        } elseif (function_exists('array_' . $method)) {
+            return call_user_func_array('array_' . $method, $args);
         }
-
-        $this->is_sequence = $sequence;
-    }
-
-    /**
-     * Init the collection.
-     *
-     * @todo Should be moved to it's own trait.
-     *
-     * @param array The items for the collecction.
-     *
-     * @return Collection A new collection
-     */
-    protected function newSequence($array = [])
-    {
-        $result = [];
-
-        foreach ($array as $value) {
-            $result[] = $value;
-        }
-
-        return new Vector($result);
-    }
-
-    /**
-     * Init the collection.
-     *
-     * @todo Should be moved to it's own trait.
-     *
-     * @param array The items for the collecction.
-     *
-     * @return Collection A new collection
-     */
-    protected function newAssociative($array = [])
-    {
-        $result = [];
-
-        foreach ($array as $key => $value) {
-            $result[$key] = $value;
-        }
-
-        return new Map($result);
-    }
-
-    /**
-     * Returns a new instanace of the collection.
-     *
-     * @param array The items for the collecction.
-     *
-     * @return Collection A new collection
-     */
-    public static function make($array)
-    {
-        return new static($array);
     }
 }

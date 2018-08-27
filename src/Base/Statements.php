@@ -13,7 +13,7 @@ trait Statements
      */
     public function select(...$columns)
     {
-        $container = $this->container->map(function ($item) use ($columns) {
+        $container = $this->map(function ($item) use ($columns) {
             $result = [];
 
             foreach ($columns as $column) {
@@ -23,7 +23,7 @@ trait Statements
             }
 
             return $result;
-        });
+        }, $this->getArrayCopy());
 
         return $this->make($container);
     }
@@ -38,11 +38,14 @@ trait Statements
      */
     public function where($column, $value)
     {
-        $container = $this->container->filter(function ($item) use ($column, $value) {
-            if (isset($item[$column])) {
-                return $item[$column] === $value;
+        $container = $this->filter(
+            $this->getArrayCopy(),
+            function ($item) use ($column, $value) {
+                if (isset($item[$column])) {
+                    return $item[$column] === $value;
+                }
             }
-        });
+        );
 
         return $this->make($container);
     }
@@ -57,11 +60,14 @@ trait Statements
      */
     public function whereNot($column, $value)
     {
-        $container = $this->container->filter(function ($item) use ($column, $value) {
-            if (isset($item[$column])) {
-                return $item[$column] !== $value;
+        $container = $this->filter(
+            $this->getArrayCopy(),
+            function ($item) use ($column, $value) {
+                if (isset($item[$column])) {
+                    return $item[$column] !== $value;
+                }
             }
-        });
+        );
 
         return $this->make($container);
     }
@@ -76,11 +82,14 @@ trait Statements
      */
     public function whereIn($column, array $values = [])
     {
-        $container = $this->container->filter(function ($item) use ($column, $values) {
-            if (isset($item[$column])) {
-                return in_array($item[$column], $values);
+        $container = $this->filter(
+            $this->getArrayCopy(),
+            function ($item) use ($column, $values) {
+                if (isset($item[$column])) {
+                    return in_array($item[$column], $values);
+                }
             }
-        });
+        );
 
         return $this->make($container);
     }
@@ -96,11 +105,14 @@ trait Statements
      */
     public function whereNotIn($column, array $values = [])
     {
-        $container = $this->container->filter(function ($item) use ($column, $values) {
-            if (isset($item[$column])) {
-                return !in_array($item[$column], $values);
+        $container = $this->filter(
+            $this->getArrayCopy(),
+            function ($item) use ($column, $values) {
+                if (isset($item[$column])) {
+                    return !in_array($item[$column], $values);
+                }
             }
-        });
+        );
 
         return $this->make($container);
     }
@@ -115,13 +127,13 @@ trait Statements
      */
     public function orderBy($column, $order = 'ASC')
     {
-        $container = $this->container->sorted(function ($a, $b) use ($column, $order) {
+        $container = $this->sorted(function ($a, $b) use ($column, $order) {
             if (strtoupper($order) == 'ASC') {
                 return $a[$column] <=> $b[$column];
             } elseif (strtoupper($order) == 'DESC') {
                 return $b[$column] <=> $a[$column];
             }
-        });
+        }, $this->getArrayCopy());
 
         return $this->make($container);
     }

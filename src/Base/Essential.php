@@ -5,24 +5,18 @@ namespace Amber\Collection\Base;
 use Amber\Config\ConfigAwareInterface;
 use Amber\Config\ConfigAwareTrait;
 use Amber\Validator\Validator;
-use Ds\Collection as CollectionInterface;
 use Ds\Traits\GenericCollection;
 
 /**
  * Implements the basis for the Collection.
  */
-abstract class Essential implements
-    \ArrayAccess,
-    \IteratorAggregate,
-    \JsonSerializable,
-    CollectionInterface,
-    ConfigAwareInterface
+trait Essential
 {
-    use Validator,
-        ArrayAccessTrait,
-        IteratorTrait,
-        GenericCollection,
-        ConfigAwareTrait;
+
+    public function make($array = [])
+    {
+        return new static($array);
+    }
 
     /**
      * Returns an array of the collection.
@@ -31,7 +25,7 @@ abstract class Essential implements
      */
     public function toArray(): array
     {
-        return $this->container->toArray();
+        return $this->getArrayCopy();
     }
 
     /**
@@ -39,9 +33,9 @@ abstract class Essential implements
      *
      * @return Collection a shallow copy of the collection.
      */
-    public function copy(): CollectionInterface
+    public function copy()//: CollectionInterface
     {
-        return $this->make($this->container);
+        return $this->make($this->getArrayCopy());
     }
 
     /**
@@ -49,7 +43,7 @@ abstract class Essential implements
      *
      * @return Collection A shallow copy of the collection.
      */
-    public function clone(): CollectionInterface
+    public function clone()//: CollectionInterface
     {
         return $this->copy();
     }
@@ -61,7 +55,7 @@ abstract class Essential implements
      */
     public function isEmpty(): bool
     {
-        return $this->container->isEmpty() === 0;
+        return $this->count() === 0;
     }
 
     /**
@@ -71,7 +65,7 @@ abstract class Essential implements
      */
     public function clear()
     {
-        $this->container->clear();
+        $this->exchangeArray([]);
     }
 
     /**
@@ -81,6 +75,6 @@ abstract class Essential implements
      */
     public function count(): int
     {
-        return $this->container->count();
+        return count($this->getArrayCopy());
     }
 }
