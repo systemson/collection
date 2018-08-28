@@ -2,7 +2,9 @@
 
 namespace Tests;
 
+use Amber\Config\ConfigAwareTrait;
 use Amber\Collection\Collection;
+use Amber\Collection\CollectionAware\CollectionAwareClass;
 use PHPUnit\Framework\TestCase;
 
 class CollectionTest extends TestCase

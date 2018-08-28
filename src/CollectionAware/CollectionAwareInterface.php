@@ -7,7 +7,24 @@ use Amber\Config\ConfigAwareInterface;
 
 interface CollectionAwareInterface extends ConfigAwareInterface
 {
-    public function setCollection(Collection $collection): void;
 
-    public function getCollection(): Collection;
+    /**
+     * Sets the Collection instance.
+     *
+     * @todo Should return type void.
+     *
+     * @param CacheDriver $collection An instance of the Collection.
+     *
+     * @return void
+     */
+    public function setCollection(Collection $collection);
+
+    /**
+     * Gets the Collection instance.
+     *
+     * @param array $array An instance of the Collection instance.
+     *
+     * @return array The instance of the Collection.
+     */
+    public function getCollection(array $array = []): Collection;
 }

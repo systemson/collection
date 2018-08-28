@@ -2,16 +2,18 @@
 
 namespace Amber\Collection\Base;
 
+use Amber\Config\ConfigAwareTrait;
+use Amber\Config\ConfigAwareInterface;
 use Ds\Collection as CollectionInterface;
 
 /**
  * Implements the basis for the Collection.
  *
- * @todo Implement JsonSerializable interface.
+ * @todo MUST implement Ds/Collection interface.
  */
-abstract class BaseCollection extends \ArrayObject //Implements CollectionInterface
+abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface
 {
-    use Essential;
+    use ConfigAwareTrait, Essential;
 
     /**
      * @todo Should reimplement the array functions on independend methods.
