@@ -9,6 +9,10 @@ class StatementsTest extends TestCase
 {
     public function testStatements()
     {
+        $this->markTestSkipped(
+          'This test has not been implemented yet.'
+        );
+
         $qty = 3;
 
         for ($x = 1; $x <= $qty; $x++) {

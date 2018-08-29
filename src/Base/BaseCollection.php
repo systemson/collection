@@ -15,15 +15,35 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
 {
     use ConfigAwareTrait, Essential;
 
-    /**
-     * @todo Should reimplement the array functions on independend methods.
-     */
-    public function __call($method, $args = [])
+    public function __construct($array = [])
     {
-        if (method_exists($this, $method)) {
-            return call_user_func_array([$this, $method], $args);
-        } elseif (function_exists('array_' . $method)) {
-            return call_user_func_array('array_' . $method, $args);
-        }
+        parent::__construct($array);
+
+        $this->setFlags(static::ARRAY_AS_PROPS);
+    }
+
+    public function put($key, $value)
+    {
+        $this[$key] = $value;
+    }
+
+    public function push($value)
+    {
+        $this[] = $value;
+    }
+
+    public function get($key)
+    {
+        return $this[$key];
+    }
+
+    public function has($key)
+    {
+        return isset($this[$key]);
+    }
+
+    public function remove($key)
+    {
+        unset($this[$key]);
     }
 }
