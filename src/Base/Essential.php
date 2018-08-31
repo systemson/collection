@@ -28,6 +28,16 @@ trait Essential
     }
 
     /**
+     * Alias for toArray().
+     *
+     * @return array The items in the collection.
+     */
+    public function all(): array
+    {
+        return $this->toArray();
+    }
+
+    /**
      * Creates a shallow copy of the collection.
      *
      * @return Collection a shallow copy of the collection.
