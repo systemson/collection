@@ -48,6 +48,17 @@ class CollectionTest extends TestCase
 
         $this->assertEquals($collection->clone(), $collection->copy());
 
-        return $collection;
+        return $multiple;
+    }
+
+    /**
+     * @depends testCollection
+     */
+    public function testJson($multiple)
+    {
+
+        $collection = new Collection($multiple);
+
+        $this->assertEquals(json_encode($multiple), json_encode($collection));
     }
 }

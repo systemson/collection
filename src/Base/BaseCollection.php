@@ -4,6 +4,7 @@ namespace Amber\Collection\Base;
 
 use Amber\Config\ConfigAwareTrait;
 use Amber\Config\ConfigAwareInterface;
+use Amber\Validator\Validator;
 use Ds\Collection as CollectionInterface;
 
 /**
@@ -11,15 +12,24 @@ use Ds\Collection as CollectionInterface;
  *
  * @todo MUST implement Ds/Collection interface.
  */
-abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface
+abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface, CollectionInterface
 {
-    use ConfigAwareTrait, Essential;
+    use Validator, ConfigAwareTrait, Essential;
 
     public function __construct($array = [])
     {
         parent::__construct($array);
 
         $this->setFlags(static::ARRAY_AS_PROPS);
+    }
+
+    public function add($key, $value)
+    {
+        if (isset($this[$key])) {
+            $this[$key] = $value;
+        } else {
+            return false;
+        }
     }
 
     public function put($key, $value)
@@ -33,6 +43,11 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     public function get($key)
+    {
+        return $this[$key];
+    }
+
+    public function find($key)
     {
         return $this[$key];
     }

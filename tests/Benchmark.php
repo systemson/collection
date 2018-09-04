@@ -7,7 +7,7 @@ use Lavoiesl\PhpBenchmark\Benchmark;
 
 $benchmark = new Benchmark();
 
-$n = 10000;
+$n = 10;
 
 declare(ticks=1);
 
@@ -19,6 +19,7 @@ $benchmark->add('array', function () use ($n) {
     }
 
     foreach ($array as $value) {
+        $value;
     }
 
     for ($x=0; $x < $n; $x++) {
@@ -28,14 +29,15 @@ $benchmark->add('array', function () use ($n) {
     return $array;
 });
 
-$benchmark->add('collection', function () use ($n) {
+$benchmark->add('collection-as-array', function () use ($n) {
     $collection = new Collection();
 
     for ($x=0; $x < $n; $x++) {
         $collection[$x] = $x;
     }
 
-    foreach ($collection as $value) {
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x];
     }
 
     for ($x=0; $x < $n; $x++) {
@@ -45,6 +47,24 @@ $benchmark->add('collection', function () use ($n) {
     return $collection;
 });
 
-$benchmark->guessCount(10);
+$benchmark->add('collection-as-object', function () use ($n) {
+    $collection = new Collection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->put($x, $x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->remove($x);
+    }
+
+    return $collection;
+});
+
+//$benchmark->guessCount(10);
 
 $benchmark->run();

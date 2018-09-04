@@ -2,10 +2,7 @@
 
 namespace Amber\Collection\Base;
 
-use Amber\Config\ConfigAwareInterface;
-use Amber\Config\ConfigAwareTrait;
-use Amber\Validator\Validator;
-use Ds\Traits\GenericCollection;
+use Ds\Collection as CollectionInterface;
 
 /**
  * Implements the basis for the Collection.
@@ -28,6 +25,16 @@ trait Essential
     }
 
     /**
+     * Returns an json representation of the collection.
+     *
+     * @return string The json representation of the collection.
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->getArrayCopy());
+    }
+
+    /**
      * Alias for toArray().
      *
      * @return array The items in the collection.
@@ -42,7 +49,7 @@ trait Essential
      *
      * @return Collection a shallow copy of the collection.
      */
-    public function copy()//: CollectionInterface
+    public function copy(): CollectionInterface
     {
         return $this->make($this->getArrayCopy());
     }
@@ -52,7 +59,7 @@ trait Essential
      *
      * @return Collection A shallow copy of the collection.
      */
-    public function clone()//: CollectionInterface
+    public function clone(): CollectionInterface
     {
         return $this->copy();
     }
@@ -85,5 +92,15 @@ trait Essential
     public function count(): int
     {
         return count($this->getArrayCopy());
+    }
+
+    /**
+     * Returns an array of the collection.
+     *
+     * @return array The items in the collection.
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getArrayCopy();
     }
 }
