@@ -23,6 +23,7 @@
     },
     "require": {
         "php": ">=7.0.0",
+        "php-ds/php-ds": "1.2",
         "amber/common": "dev-master"
     },
     "require-dev": {
