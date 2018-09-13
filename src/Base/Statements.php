@@ -2,6 +2,9 @@
 
 namespace Amber\Collection\Base;
 
+/**
+ * @todo MUST be implemented soon.
+ */
 trait Statements
 {
     /**

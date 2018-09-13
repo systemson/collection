@@ -56,9 +56,33 @@ class CollectionTest extends TestCase
      */
     public function testJson($multiple)
     {
-
         $collection = new Collection($multiple);
 
         $this->assertEquals(json_encode($multiple), json_encode($collection));
+        $this->assertEquals(json_encode($multiple), $collection->toJson());
+
+        return $collection;
+    }
+
+    /**
+     * @depends testJson
+     */
+    public function testCollectionAware($collection)
+    {
+        $container = $this->getMockForAbstractClass(CollectionAwareClass::class);
+
+        $config = [
+            'collection' => [
+                'key' => 'value',
+            ],
+        ];
+
+        $this->assertEquals([], $container->getCollection()->all());
+
+        $this->assertNull($container->setCollection($collection));
+
+        $this->assertInstanceOf(Collection::class, $container->getCollection());
+
+        $this->assertNull($container->setConfig($config));
     }
 }

@@ -9,6 +9,13 @@ use Ds\Collection as CollectionInterface;
  */
 trait Essential
 {
+    /**
+     * Returns a new collection.
+     *
+     * @param array $array The items for the new collection.
+     *
+     * @return static a new Instance of the collection.
+     */
     public function make($array = [])
     {
         return new static($array);

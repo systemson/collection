@@ -14,10 +14,12 @@ class BaseCollectionTest extends TestCase
         $collection = new Collection();
 
         $collection->put('key', 'value');
+        $collection->add('key1', 'value');
 
         $this->assertTrue($collection->has('key'));
 
         $this->assertEquals('value', $collection->get('key'));
+        $this->assertEquals('value', $collection->find('key1'));
 
         $collection->remove('key');
 
