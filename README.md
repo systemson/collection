@@ -7,3 +7,48 @@
 
 # Collection
 Wrapper class for working with arrays.
+
+## Usage
+
+With composer
+```
+composer require amber/collection
+```
+
+In your code:
+``` php
+Use Amber\Collection\Collection;
+
+$collection = new Collection();
+```
+
+## Available methods
+* add
+* all
+* clear
+* clone
+* copy
+* count
+* find
+* first
+* firstOrNew
+* get
+* groupBy
+* has
+* isEmpty
+* last
+* make
+* new
+* orderBy
+* push
+* put
+* remove
+* select
+* toArray
+* toJson
+* update
+* updateOrNew
+* where
+* whereIn
+* whereNot
+* whereNotIn
