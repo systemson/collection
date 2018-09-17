@@ -13,17 +13,39 @@ class BaseCollectionTest extends TestCase
     {
         $collection = new Collection();
 
+        /* Tests keys that don't exists */
+        $this->assertTrue($collection->hasNot('key'));
+        $this->assertTrue($collection->hasNot('key1'));
+
+        /* Tests updating a key that doesn't exists */
+        $this->assertFalse($collection->update('key1', 'value'));
+
+        /* Tests adding items */
         $collection->put('key', 'value');
-        $collection->add('key1', 'value');
+        $this->assertTrue($collection->insert('key1', 'value'));
 
+        /* Tests adding an item that already exists */
+        $this->assertFalse($collection->insert('key1', 'value'));
+
+        /* Tests updating an item */
+        $this->assertTrue($collection->update('key1', 'value1'));
+
+        /* Tests that items exist */
         $this->assertTrue($collection->has('key'));
+        $this->assertTrue($collection->has('key1'));
 
+        /* Tests getting items */
         $this->assertEquals('value', $collection->get('key'));
-        $this->assertEquals('value', $collection->find('key1'));
+        $this->assertEquals('value1', $collection->find('key1'));
 
-        $collection->remove('key');
+        /* Tests removing an item */
+        $this->assertTrue($collection->remove('key'));
 
+        /* Tests that the item doesn't exists */
         $this->assertFalse($collection->has('key'));
+        
+        /* Tests removing an item that doesn't exists */
+        $this->assertFalse($collection->remove('key'));
 
         return $collection;
     }

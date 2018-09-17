@@ -154,4 +154,58 @@ trait Statements
     {
         //return $this;
     }
+
+    /**
+     * Returns a new Collection for the first element of the collection.
+     *
+     * @todo Must be implemented.
+     *
+     * @return Collection A new collection.
+     */
+    public function first()
+    {
+        //
+    }
+
+    /**
+     * Returns a new Collection for the last element of the collection.
+     *
+     * @todo Must be implemented.
+     *
+     * @return Collection A new collection.
+     */
+    public function last()
+    {
+        //
+    }
+
+    /**
+     * Gets the first item of the Collection or adds and returns a new one.
+     *
+     * @todo Must be implemented.
+     *
+     * @param string $key The key of the item.
+     * @param mixed  $key The value of the item.
+     *
+     * @return Collection A new collection.
+     */
+    public function firstOrNew($key, $value)
+    {
+        //
+    }
+
+    /**
+     * Updates an item from the Collection or adds a new one.
+     *
+     * @todo Must be implemented.
+     *
+     * @param string $key The key of the item.
+     * @param mixed  $key The value of the item.
+     *
+     * @return Collection A new collection.
+     */
+    public function updateOrNew($key, $value)
+    {
+        //
+    }
 }

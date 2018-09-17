@@ -10,7 +10,6 @@ use Ds\Collection as CollectionInterface;
 /**
  * Implements the basis for the Collection.
  *
- * @todo MUST implement Ds/Collection interface.
  */
 abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface, CollectionInterface
 {
@@ -29,20 +28,50 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     /**
-     * Alias for put.
+     * Whether an item is present it the collection
+     *
+     * @param string $key The item's key
+     *
+     * @return bool
+     */
+    public function has($key)
+    {
+        return isset($this[$key]);
+    }
+
+    /**
+     * Whether an item is present it the collection
+     *
+     * @param string $key The item's key
+     *
+     * @return bool
+     */
+    public function hasNot($key)
+    {
+        return !isset($this[$key]);
+    }
+
+    /**
+     * Updates an existent item in the collection.
      *
      * @param string $key The item's key
      * @param mixed  $value The item's value
      *
-     * @return void
+     * @return bool true on success, false if the item does not exists.
      */
-    public function add($key, $value)
+    public function update($key, $value)
     {
+        if ($this->hasNot($key)) {
+            return false;
+        }
+
         $this[$key] = $value;
+
+        return true;
     }
 
     /**
-     * Sets a new item in the collection.
+     * Sets or updates an item in the collection.
      *
      * @param string $key The item's key
      * @param mixed  $value The item's value
@@ -52,6 +81,42 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     public function put($key, $value)
     {
         $this[$key] = $value;
+    }
+
+    /**
+     * Adds a new item to the collection.
+     *
+     * @todo MUST validate that the item does not exist.
+     *
+     * @param string $key The item's key
+     * @param mixed  $value The item's value
+     *
+     * @return bool true on success, false if the item already exists.
+     */
+    public function add($key, $value)
+    {
+        if ($this->has($key)) {
+            return false;
+        }
+
+        $this[$key] = $value;
+
+        return true;
+    }
+
+    /**
+     * Alias for add().
+     *
+     * @todo MUST validate that the item does not exist.
+     *
+     * @param string $key The item's key
+     * @param mixed  $value The item's value
+     *
+     * @return bool true on success, false if the item already exists.
+     */
+    public function insert($key, $value)
+    {
+        return $this->add($key, $value);
     }
 
     /**
@@ -73,33 +138,21 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return mixed The item's value.
      */
-    public function get($key)
+    public function find($key)
     {
-        return $this[$key];
+        return $this[$key] ?? null;
     }
 
     /**
-     * Alias for get.
+     * Alias for find.
      *
      * @param string $key The item's key
      *
      * @return mixed The item's value.
      */
-    public function find($key)
+    public function get($key)
     {
-        return $this[$key];
-    }
-
-    /**
-     * Whether an item is present it the collection
-     *
-     * @param string $key The item's key
-     *
-     * @return bool
-     */
-    public function has($key)
-    {
-        return isset($this[$key]);
+        return $this->find($key);
     }
 
     /**
@@ -107,10 +160,16 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @param string $key The item's key
      *
-     * @return void
+     * @return bool. True on success, false is the item does not exists.
      */
     public function remove($key)
     {
+        if ($this->hasNot($key)) {
+            return false;
+        }
+
         unset($this[$key]);
+
+        return true;
     }
 }
