@@ -37,6 +37,8 @@ class BaseCollectionTest extends TestCase
         /* Tests getting items */
         $this->assertEquals('value', $collection->get('key'));
         $this->assertEquals('value1', $collection->find('key1'));
+        $this->assertEquals('value', $collection->first());
+        $this->assertEquals('value1', $collection->last());
 
         /* Tests removing an item */
         $this->assertTrue($collection->remove('key'));
@@ -47,13 +49,17 @@ class BaseCollectionTest extends TestCase
         /* Tests removing an item that doesn't exists */
         $this->assertFalse($collection->remove('key'));
 
+        /* Cleares the collection */
+        $collection->clear();
+
         return $collection;
     }
 
-    public function testNumericCollection()
+    /**
+     * @depends testAssociativeCollection
+     */
+    public function testNumericCollection($collection)
     {
-        $collection = new Collection();
-
         $collection->push('value');
 
         $this->assertTrue($collection->has(0));

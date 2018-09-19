@@ -9,9 +9,9 @@ class StatementsTest extends TestCase
 {
     public function testStatements()
     {
-        $this->markTestSkipped(
+        /*$this->markTestSkipped(
           'This test has not been implemented yet.'
-        );
+        );*/
 
         $qty = 3;
 
@@ -26,6 +26,8 @@ class StatementsTest extends TestCase
             $ids_only[] = [
                 'id'    => $x,
             ];
+
+            $grouped[$array[$x - 1]['name']] = $array[$x - 1];
         }
 
         $collection = new Collection($array);
@@ -38,33 +40,33 @@ class StatementsTest extends TestCase
 
         /* Test where() */
         $this->assertEquals(
-            [0 => $array[0]],
-            $collection->where('id', 1)->toArray()
+            [0 => $array[1]],
+            $collection->where('id', 2)->toArray()
         );
 
         /* Test whereNot() */
         $whereNot = $array;
-        unset($whereNot[0]);
+        unset($whereNot[1]);
 
         $this->assertEquals(
             array_values($whereNot),
-            $collection->whereNot('id', 1)->toArray()
+            $collection->whereNot('id', 2)->toArray()
         );
 
         /* Test whereIn() */
         $this->assertEquals(
-            [0 => $array[0], 1 => $array[1]],
-            $collection->whereIn('id', [1, 2])->toArray()
+            [0 => $array[0], 1 => $array[2]],
+            $collection->whereIn('id', [1, 3])->toArray()
         );
 
         /* Test whereNotIn() */
         $whereNotIn = $array;
         unset($whereNotIn[0]);
-        unset($whereNotIn[1]);
+        unset($whereNotIn[2]);
 
         $this->assertEquals(
             array_values($whereNotIn),
-            $collection->whereNotIn('id', [1, 2])->toArray()
+            $collection->whereNotIn('id', [1, 3])->toArray()
         );
 
         /* Test orderBy() */
@@ -77,6 +79,16 @@ class StatementsTest extends TestCase
         $this->assertEquals(
             $array,
             $ordered->orderBy('id')->toArray()
+        );
+
+        $this->assertEquals(
+            $array,
+            $ordered->orderBy('id')->toArray()
+        );
+
+        $this->assertEquals(
+            $grouped,
+            $collection->groupBy('name')->toArray()
         );
 
         return $collection;

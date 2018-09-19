@@ -3,7 +3,7 @@
 namespace Amber\Collection\Base;
 
 /**
- * @todo MUST be implemented soon.
+ * Adds sql like methods to the collection.
  */
 trait Statements
 {
@@ -41,16 +41,13 @@ trait Statements
      */
     public function where($column, $value)
     {
-        $container = $this->filter(
-            $this->getArrayCopy(),
+        return $this->filter(
             function ($item) use ($column, $value) {
                 if (isset($item[$column])) {
                     return $item[$column] === $value;
                 }
             }
         );
-
-        return $this->make($container);
     }
 
     /**
@@ -63,16 +60,13 @@ trait Statements
      */
     public function whereNot($column, $value)
     {
-        $container = $this->filter(
-            $this->getArrayCopy(),
+        return $this->filter(
             function ($item) use ($column, $value) {
                 if (isset($item[$column])) {
                     return $item[$column] !== $value;
                 }
             }
         );
-
-        return $this->make($container);
     }
 
     /**
@@ -85,16 +79,13 @@ trait Statements
      */
     public function whereIn($column, array $values = [])
     {
-        $container = $this->filter(
-            $this->getArrayCopy(),
+        return $this->filter(
             function ($item) use ($column, $values) {
                 if (isset($item[$column])) {
                     return in_array($item[$column], $values);
                 }
             }
         );
-
-        return $this->make($container);
     }
 
     /**
@@ -108,16 +99,13 @@ trait Statements
      */
     public function whereNotIn($column, array $values = [])
     {
-        $container = $this->filter(
-            $this->getArrayCopy(),
+        return $this->filter(
             function ($item) use ($column, $values) {
                 if (isset($item[$column])) {
                     return !in_array($item[$column], $values);
                 }
             }
         );
-
-        return $this->make($container);
     }
 
     /**
@@ -130,21 +118,17 @@ trait Statements
      */
     public function orderBy($column, $order = 'ASC')
     {
-        $container = $this->sorted(function ($a, $b) use ($column, $order) {
+        return $this->sorted(function ($a, $b) use ($column, $order) {
             if (strtoupper($order) == 'ASC') {
                 return $a[$column] <=> $b[$column];
             } elseif (strtoupper($order) == 'DESC') {
                 return $b[$column] <=> $a[$column];
             }
-        }, $this->getArrayCopy());
-
-        return $this->make($container);
+        });
     }
 
     /**
      * Returns a new Collection grouped by the specified column.
-     *
-     * @todo Must be implemented.
      *
      * @param string $column The column to group by.
      *
@@ -152,31 +136,18 @@ trait Statements
      */
     public function groupBy($column)
     {
-        //return $this;
-    }
+        $return = [];
 
-    /**
-     * Returns a new Collection for the first element of the collection.
-     *
-     * @todo Must be implemented.
-     *
-     * @return Collection A new collection.
-     */
-    public function first()
-    {
-        //
-    }
+        foreach ($this->getArrayCopy() as $item) {
+            if (isset($item[$column])) {
+                $key = $item[$column];
+                $return[$key] = $item;
+            } else {
+                $return[] = $item;
+            }
+        }
 
-    /**
-     * Returns a new Collection for the last element of the collection.
-     *
-     * @todo Must be implemented.
-     *
-     * @return Collection A new collection.
-     */
-    public function last()
-    {
-        //
+        return $this->make($return);
     }
 
     /**
@@ -184,8 +155,8 @@ trait Statements
      *
      * @todo Must be implemented.
      *
-     * @param string $key The key of the item.
-     * @param mixed  $key The value of the item.
+     * @param string $key   The key of the item.
+     * @param mixed  $value The value of the item.
      *
      * @return Collection A new collection.
      */
@@ -199,8 +170,8 @@ trait Statements
      *
      * @todo Must be implemented.
      *
-     * @param string $key The key of the item.
-     * @param mixed  $key The value of the item.
+     * @param string $key   The key of the item.
+     * @param mixed  $value The value of the item.
      *
      * @return Collection A new collection.
      */

@@ -9,11 +9,10 @@ use Ds\Collection as CollectionInterface;
 
 /**
  * Implements the basis for the Collection.
- *
  */
 abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface, CollectionInterface
 {
-    use Validator, ConfigAwareTrait, Essential;
+    use Validator, ConfigAwareTrait, Essential, Statements;
 
     /**
      * Collection constructor
@@ -40,7 +39,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     /**
-     * Whether an item is present it the collection
+     * Whether an item is not present it the collection
      *
      * @param string $key The item's key
      *
@@ -86,8 +85,6 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     /**
      * Adds a new item to the collection.
      *
-     * @todo MUST validate that the item does not exist.
-     *
      * @param string $key The item's key
      * @param mixed  $value The item's value
      *
@@ -107,8 +104,6 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     /**
      * Alias for add().
      *
-     * @todo MUST validate that the item does not exist.
-     *
      * @param string $key The item's key
      * @param mixed  $value The item's value
      *
@@ -121,6 +116,8 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
 
     /**
      * Sets a new item at the end of the collection.
+     *
+     * This should be used for none associative collections.
      *
      * @param mixed  $value The item's value
      *
@@ -136,11 +133,21 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @param string $key The item's key
      *
-     * @return mixed The item's value.
+     * @return mixed|void The item's value or void if the key doesn't exists.
      */
     public function find($key)
     {
-        return $this[$key] ?? null;
+        $collection = $this;
+
+        foreach (explode('.', $key) as $search) {
+            if (isset($collection[$search])) {
+                $collection = $collection[$search];
+            } else {
+                return;
+            }
+        }
+
+        return $collection;
     }
 
     /**
@@ -171,5 +178,25 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
         unset($this[$key]);
 
         return true;
+    }
+
+    /**
+     * Returns the first element of the collection.
+     *
+     * @return mixed The item's value.
+     */
+    public function first()
+    {
+        return $this->find($this->keys()[0]);
+    }
+
+    /**
+     * Returns the last element of the collection.
+     *
+     * @return mixed The item's value.
+     */
+    public function last()
+    {
+        return $this->find($this->keys()[$this->count() - 1]);
     }
 }
