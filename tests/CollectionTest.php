@@ -11,7 +11,7 @@ class CollectionTest extends TestCase
 {
     public function testCollection()
     {
-        $qty = 2;
+        $qty = 3;
 
         for ($x = 1; $x <= $qty; $x++) {
             $multiple[] = [
@@ -46,9 +46,40 @@ class CollectionTest extends TestCase
         $collection->clear();
         $this->assertEmpty($collection);
 
-        $this->assertEquals($collection->clone(), $collection->copy());
+        $this->assertEquals(
+            $collection->clone(),
+            $collection->copy()
+        );
 
         return $multiple;
+    }
+
+    /**
+     * @depends testCollection
+     */
+    public function testOthers($multiple)
+    {
+        $collection = new Collection($multiple);
+
+        $collection->sort(function ($a, $b) {
+            return $b <=> $a;
+        });
+
+        $this->assertEquals(
+            array_reverse($multiple),
+            $collection->toArray()
+        );
+
+        $collection->reverse();
+        $this->assertEquals(
+            $multiple,
+            $collection->toArray()
+        );
+
+        $this->assertEquals(
+            array_reverse($multiple),
+            $collection->reversed()->toArray()
+        );
     }
 
     /**

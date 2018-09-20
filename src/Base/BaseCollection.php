@@ -51,25 +51,6 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     /**
-     * Updates an existent item in the collection.
-     *
-     * @param string $key The item's key
-     * @param mixed  $value The item's value
-     *
-     * @return bool true on success, false if the item does not exists.
-     */
-    public function update($key, $value)
-    {
-        if ($this->hasNot($key)) {
-            return false;
-        }
-
-        $this[$key] = $value;
-
-        return true;
-    }
-
-    /**
      * Sets or updates an item in the collection.
      *
      * @param string $key The item's key
@@ -83,7 +64,22 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     /**
-     * Adds a new item to the collection.
+     * Sets or updates an item in the collection, and returns true on success.
+     *
+     * @param string $key The item's key
+     * @param mixed  $value The item's value
+     *
+     * @return bool true
+     */
+    public function set($key, $value)
+    {
+        $this->put($key, $value);
+
+        return true;
+    }
+
+    /**
+     * Sets a new item to the collection.
      *
      * @param string $key The item's key
      * @param mixed  $value The item's value
@@ -112,6 +108,25 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     public function insert($key, $value)
     {
         return $this->add($key, $value);
+    }
+
+    /**
+     * Updates an existent item in the collection.
+     *
+     * @param string $key The item's key
+     * @param mixed  $value The item's value
+     *
+     * @return bool true on success, false if the item does not exists.
+     */
+    public function update($key, $value)
+    {
+        if ($this->hasNot($key)) {
+            return false;
+        }
+
+        $this[$key] = $value;
+
+        return true;
     }
 
     /**
@@ -163,13 +178,33 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     /**
-     * Removes an item from collection.
+     * Removes and retrives an item from collection.
      *
      * @param string $key The item's key
      *
-     * @return bool. True on success, false is the item does not exists.
+     * @return mixed The removed item's value, or void if the item don't exists.
      */
     public function remove($key)
+    {
+        if ($this->hasNot($key)) {
+            return;
+        }
+
+        $item = $this[$key];
+
+        unset($this[$key]);
+
+        return $item;
+    }
+
+    /**
+     * Deletes an item from collection.
+     *
+     * @param string $key The item's key
+     *
+     * @return bool true on success false on failure.
+     */
+    public function delete($key)
     {
         if ($this->hasNot($key)) {
             return false;

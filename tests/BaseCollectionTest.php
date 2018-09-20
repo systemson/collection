@@ -21,7 +21,7 @@ class BaseCollectionTest extends TestCase
         $this->assertFalse($collection->update('key1', 'value'));
 
         /* Tests adding items */
-        $collection->put('key', 'value');
+        $this->assertTrue($collection->set('key', 'value'));
         $this->assertTrue($collection->insert('key1', 'value'));
 
         /* Tests adding an item that already exists */
@@ -41,13 +41,15 @@ class BaseCollectionTest extends TestCase
         $this->assertEquals('value1', $collection->last());
 
         /* Tests removing an item */
-        $this->assertTrue($collection->remove('key'));
+        $this->assertTrue($collection->delete('key'));
+        $this->assertEquals('value1', $collection->remove('key1'));
+        $this->assertNull($collection->remove('key1'));
 
         /* Tests that the item doesn't exists */
         $this->assertFalse($collection->has('key'));
         
         /* Tests removing an item that doesn't exists */
-        $this->assertFalse($collection->remove('key'));
+        $this->assertFalse($collection->delete('key'));
 
         /* Cleares the collection */
         $collection->clear();
@@ -69,6 +71,9 @@ class BaseCollectionTest extends TestCase
         $collection->remove(0);
 
         $this->assertFalse($collection->has(0));
+
+        /* Cleares the collection */
+        $collection->clear();
 
         return $collection;
     }

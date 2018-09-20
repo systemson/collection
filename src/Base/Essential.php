@@ -154,17 +154,62 @@ trait Essential
     /**
      * Sorts the elements of the collection using a user-defined comparison function.
      *
+     * @param callable $callback The user-defined comparison function.
+     *
+     * @return void
+     */
+    public function sort($callback)
+    {
+        $array = $this->getArrayCopy();
+
+        usort(
+            $array,
+            $callback
+        );
+
+        $this->exchangeArray($array);
+    }
+
+    /**
+     * Returns a new sorted collection using a user-defined comparison function.
+     *
+     * @param callable $callback The user-defined comparison function.
+     *
      * @return Collection A new collection instance.
      */
     public function sorted($callback): CollectionInterface
     {
-        $sorteable = $this->getArrayCopy();
+        $array = $this->getArrayCopy();
 
         usort(
-            $sorteable,
+            $array,
             $callback
         );
 
-        return $this->make($sorteable);
+        return $this->make($array);
+    }
+
+    /**
+     * Reverses the order of the collection.
+     *
+     * @return void
+     */
+    public function reverse()
+    {
+        $array = array_reverse($this->getArrayCopy());
+
+        $this->exchangeArray($array);
+    }
+
+    /**
+     * Returns a new reversed collection.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function reversed(): CollectionInterface
+    {
+        $array = array_reverse($this->getArrayCopy());
+
+        return $this->make($array);
     }
 }
