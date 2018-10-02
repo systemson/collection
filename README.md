@@ -23,32 +23,3 @@ $collection = new Collection();
 ```
 
 ## Available methods
-* add
-* all
-* clear
-* clone
-* copy
-* count
-* find
-* first
-* firstOrNew
-* get
-* groupBy
-* has
-* isEmpty
-* last
-* make
-* new
-* orderBy
-* push
-* put
-* remove
-* select
-* toArray
-* toJson
-* update
-* updateOrNew
-* where
-* whereIn
-* whereNot
-* whereNotIn
