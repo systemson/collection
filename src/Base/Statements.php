@@ -12,7 +12,7 @@ trait Statements
      *
      * @param array|string $columns The collumns to filter by.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function select(...$columns)
     {
@@ -37,7 +37,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param mixed  $value  The value to compare each item.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function where($column, $value)
     {
@@ -56,7 +56,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param mixed  $value  The value to compare each item.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function whereNot($column, $value)
     {
@@ -75,7 +75,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function whereIn($column, array $values = [])
     {
@@ -95,7 +95,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function whereNotIn($column, array $values = [])
     {
@@ -114,7 +114,7 @@ trait Statements
      * @param string $column The column to order by.
      * @param string $order  The order to sort the items.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function orderBy($column, $order = 'ASC')
     {
@@ -132,7 +132,7 @@ trait Statements
      *
      * @param string $column The column to group by.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function groupBy($column)
     {
@@ -151,6 +151,13 @@ trait Statements
     }
 
     /**
+     *
+     */
+    public function join()
+    {
+    }
+
+    /**
      * Gets the first item of the Collection or adds and returns a new one.
      *
      * @todo Must be implemented.
@@ -158,7 +165,7 @@ trait Statements
      * @param string $key   The key of the item.
      * @param mixed  $value The value of the item.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function firstOrNew($key, $value)
     {
@@ -173,7 +180,7 @@ trait Statements
      * @param string $key   The key of the item.
      * @param mixed  $value The value of the item.
      *
-     * @return Collection A new collection.
+     * @return Collection A new collection instance.
      */
     public function updateOrNew($key, $value)
     {

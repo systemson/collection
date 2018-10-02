@@ -155,7 +155,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
         $collection = $this;
 
         foreach (explode('.', $key) as $search) {
-            if (isset($collection[$search])) {
+            if ($collection->has($search)) {
                 $collection = $collection[$search];
             } else {
                 return;
@@ -233,5 +233,21 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     public function last()
     {
         return $this->find($this->keys()[$this->count() - 1]);
+    }
+
+    /**
+     * Merges the collection with one or more arrays.
+     *
+     * @param array $array The array(s) to merge with the collection.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function merge(...$array)
+    {
+        $content = array_unshift($array, $this->getArrayCopy());
+
+        $return = call_user_func_array('array_merge', $content);
+
+        return $this->make($return);
     }
 }
