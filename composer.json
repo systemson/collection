@@ -24,7 +24,7 @@
     "require": {
         "php": ">=7.0.0",
         "php-ds/php-ds": "1.2",
-        "amber/common": "^0.1.0@beta"
+        "amber/common": "dev-master"
     },
     "require-dev": {
         "phpdocumentor/phpdocumentor": "^2.0",
