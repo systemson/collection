@@ -143,5 +143,15 @@ class BaseCollectionTest extends TestCase
         ];
 
         $this->assertTrue($collection->set(key($items), $items['key1']));
+
+        $this->assertTrue($collection->has('key1.key2.key3'));
+
+        $this->assertEquals('value', $collection->get('key1.key2.key3'));
+        $this->assertEquals('value', $collection->find('key1.key2.key3'));
+
+        /* Cleares the collection */
+        $collection->clear();
+
+        $this->assertTrue($collection->hasNot('key1.key2.key3'));
     }
 }

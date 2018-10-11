@@ -35,10 +35,14 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      */
     public function has(string $key)
     {
+        $collection = $this->all();
+
         foreach (explode('.', $key) as $search) {
-            if (!isset($this[$search])) {
+            if (!isset($collection[$search])) {
                 return false;
             }
+
+            $collection = $collection[$search];
         }
 
         return true;
@@ -53,13 +57,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      */
     public function hasNot(string $key)
     {
-        foreach (explode('.', $key) as $search) {
-            if (isset($this[$search])) {
-                return false;
-            }
-        }
-
-        return true;
+        return !$this->has($key);
     }
 
     /**
@@ -86,22 +84,6 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     public function set(string $key, $value)
     {
         $this->put($key, $value);
-
-        return true;
-    }
-
-    /**
-     * Sets or updates an array of items in the collection, and returns true on success.
-     *
-     * @param array $key The item's key
-     *
-     * @return bool true
-     */
-    public function setMultiple(array $array)
-    {
-        foreach ($array as $key => $value) {
-            $this->put($key, $value);
-        }
 
         return true;
     }
@@ -178,12 +160,12 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
-    public function find(string $key)
+    public function get(string $key)
     {
-        $collection = $this;
+        $collection = $this->getArrayCopy();
 
         foreach (explode('.', $key) as $search) {
-            if ($collection->has($search)) {
+            if (isset($collection[$search])) {
                 $collection = $collection[$search];
             } else {
                 return;
@@ -194,15 +176,15 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
     }
 
     /**
-     * Alias for find.
+     * Alias for get.
      *
      * @param string $key The item's key
      *
      * @return mixed The item's value.
      */
-    public function get(string $key)
+    public function find(string $key)
     {
-        return $this->find($key);
+        return $this->get($key);
     }
 
     /**
