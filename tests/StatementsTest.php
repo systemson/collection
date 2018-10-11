@@ -91,6 +91,34 @@ class StatementsTest extends TestCase
             $collection->groupBy('name')->toArray()
         );
 
+        $collection->clear();
+
+        /* Retuns the new added key's value */
+        $this->assertEquals(
+            'value',
+            $collection->firstOrNew('key', 'value')
+        );
+
+        /* Returns the initial value */
+        $this->assertEquals(
+            'value',
+            $collection->firstOrNew('key', 'new_value')
+        );
+
+        /* Updates the key and returns the new value */
+        $this->assertEquals(
+            'new_value',
+            $collection->updateOrNew('key', 'new_value')
+        );
+
+        /* Retuns the new added key's value */
+        $this->assertEquals(
+            'another_value',
+            $collection->updateOrNew('key1', 'another_value')
+        );
+
+        $collection->clear();
+
         return $collection;
     }
 }
