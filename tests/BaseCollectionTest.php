@@ -56,9 +56,61 @@ class BaseCollectionTest extends TestCase
 
         return $collection;
     }
-
+        
     /**
      * @depends testAssociativeCollection
+     */
+    public function testToString($collection)
+    {
+        $key = 'key';
+        $value = 'value';
+        $json = json_encode([$key => $value]);
+
+        $this->assertTrue($collection->set($key, $value));
+
+        $this->assertInternalType('string', (string) $collection);
+
+        $this->assertEquals($json, (string) $collection);
+
+        $collection->clear();
+
+        return $collection;
+    }
+        
+    /**
+     * @depends testToString
+     */
+    public function testMultiple($collection)
+    {
+
+        $qty = 3;
+
+        for ($x = 1; $x <= $qty; $x++) {
+            $multiple['key_'.$x] = [
+                'id'    => $x,
+                'name'  => 'Pruebas' . $x,
+                'pass'  => 'pass' . $x,
+                'email' => "email{$x}@email.com",
+            ];
+        }
+
+        $this->assertTrue($collection->setMultiple($multiple));
+        $this->assertTrue($collection->setMultiple($multiple));
+        $this->assertTrue($collection->setMultiple($multiple));
+
+        $this->assertTrue($collection->hasMultiple(array_keys($multiple)));
+
+        $this->assertEquals(array_values($multiple), $collection->getMultiple(array_keys($multiple)));
+
+        $collection->clear();
+
+        $this->assertFalse($collection->hasMultiple(array_keys($multiple)));
+
+        return $collection;
+    }
+        
+    /**
+     * @depends testMultiple
      */
     public function testNumericCollection($collection)
     {
@@ -76,5 +128,22 @@ class BaseCollectionTest extends TestCase
         $collection->clear();
 
         return $collection;
+    }
+
+    /**
+     * @depends testNumericCollection
+     */
+    public function testMultiLevelCollection($collection)
+    {
+        $items = [
+            'key1' => [
+                'key2' => [
+                    'key3' => 'value'
+                ]
+            ]
+        ];
+
+        $this->assertTrue($collection->set(key($items), $items['key1']));
+
     }
 }

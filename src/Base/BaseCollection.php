@@ -12,7 +12,7 @@ use Ds\Collection as CollectionInterface;
  */
 abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface, CollectionInterface
 {
-    use Validator, ConfigAwareTrait, Essential, Statements;
+    use Validator, ConfigAwareTrait, Essential, MultipleTrait, Statements;
 
     /**
      * Collection constructor
@@ -33,9 +33,15 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool
      */
-    public function has($key)
+    public function has(string $key)
     {
-        return isset($this[$key]);
+        foreach (explode('.', $key) as $search) {
+            if (!isset($this[$search])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -45,9 +51,15 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool
      */
-    public function hasNot($key)
+    public function hasNot(string $key)
     {
-        return !isset($this[$key]);
+        foreach (explode('.', $key) as $search) {
+            if (isset($this[$search])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -58,7 +70,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return void
      */
-    public function put($key, $value)
+    public function put(string $key, $value)
     {
         $this[$key] = $value;
     }
@@ -71,9 +83,25 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool true
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
         $this->put($key, $value);
+
+        return true;
+    }
+
+    /**
+     * Sets or updates an array of items in the collection, and returns true on success.
+     *
+     * @param array $key The item's key
+     *
+     * @return bool true
+     */
+    public function setMultiple(array $array)
+    {
+        foreach ($array as $key => $value) {
+            $this->put($key, $value);
+        }
 
         return true;
     }
@@ -86,7 +114,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool true on success, false if the item already exists.
      */
-    public function add($key, $value)
+    public function add(string $key, $value)
     {
         if ($this->has($key)) {
             return false;
@@ -105,7 +133,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool true on success, false if the item already exists.
      */
-    public function insert($key, $value)
+    public function insert(string $key, $value)
     {
         return $this->add($key, $value);
     }
@@ -118,7 +146,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool true on success, false if the item does not exists.
      */
-    public function update($key, $value)
+    public function update(string $key, $value)
     {
         if ($this->hasNot($key)) {
             return false;
@@ -150,7 +178,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
-    public function find($key)
+    public function find(string $key)
     {
         $collection = $this;
 
@@ -172,7 +200,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return mixed The item's value.
      */
-    public function get($key)
+    public function get(string $key)
     {
         return $this->find($key);
     }
@@ -184,7 +212,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return mixed The removed item's value, or void if the item don't exists.
      */
-    public function remove($key)
+    public function remove(string $key)
     {
         if ($this->hasNot($key)) {
             return;
@@ -204,7 +232,7 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
      *
      * @return bool true on success false on failure.
      */
-    public function delete($key)
+    public function delete(string $key)
     {
         if ($this->hasNot($key)) {
             return false;
@@ -249,5 +277,15 @@ abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterfa
         $return = call_user_func_array('array_merge', $content);
 
         return $this->make($return);
+    }
+
+    /**
+     * Returns a json representation to the Collection.
+     *
+     * @return string Json representation to the Collection.
+     */
+    public function __toString()
+    {
+        return json_encode($this->getArrayCopy());
     }
 }
