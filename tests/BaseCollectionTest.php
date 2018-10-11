@@ -82,7 +82,6 @@ class BaseCollectionTest extends TestCase
      */
     public function testMultiple($collection)
     {
-
         $qty = 3;
 
         for ($x = 1; $x <= $qty; $x++) {
@@ -144,6 +143,5 @@ class BaseCollectionTest extends TestCase
         ];
 
         $this->assertTrue($collection->set(key($items), $items['key1']));
-
     }
 }
