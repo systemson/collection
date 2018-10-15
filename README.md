@@ -23,3 +23,4 @@ $collection = new Collection();
 ```
 
 ## Available methods
+Coming soon...
