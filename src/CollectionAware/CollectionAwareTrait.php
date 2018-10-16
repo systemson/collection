@@ -37,22 +37,8 @@ trait CollectionAwareTrait
         /* Checks if the CacheInterface is already instantiated. */
         if (!$this->collection instanceof Collection) {
             $this->collection = new Collection($array);
-
-            $this->collection->setConfig($this->getCollectionConfig());
         }
 
         return $this->collection;
-    }
-
-    /**
-     * Gets the collection config vars
-     *
-     * @todo Should return type iterable. For PHP7.1
-     *
-     * @return array The collection config vars.
-     */
-    protected function getCollectionConfig()
-    {
-        return $this->getConfig('collection') ?? [];
     }
 }

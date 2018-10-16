@@ -4,15 +4,14 @@ namespace Amber\Collection\Base;
 
 use Amber\Config\ConfigAwareTrait;
 use Amber\Config\ConfigAwareInterface;
-use Amber\Validator\Validator;
 use Ds\Collection as CollectionInterface;
 
 /**
  * Implements the basis for the Collection.
  */
-abstract class BaseCollection extends \ArrayObject implements ConfigAwareInterface, CollectionInterface
+abstract class BaseCollection extends \ArrayObject implements CollectionInterface
 {
-    use Validator, ConfigAwareTrait, Essential, MultipleTrait, Statements;
+    use Essential, MultipleTrait, Statements;
 
     /**
      * Collection constructor

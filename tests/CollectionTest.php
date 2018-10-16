@@ -102,18 +102,10 @@ class CollectionTest extends TestCase
     {
         $container = $this->getMockForAbstractClass(CollectionAwareClass::class);
 
-        $config = [
-            'collection' => [
-                'key' => 'value',
-            ],
-        ];
-
         $this->assertEquals([], $container->getCollection()->all());
 
         $this->assertNull($container->setCollection($collection));
 
         $this->assertInstanceOf(Collection::class, $container->getCollection());
-
-        $this->assertNull($container->setConfig($config));
     }
 }

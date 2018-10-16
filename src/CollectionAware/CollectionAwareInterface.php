@@ -3,9 +3,8 @@
 namespace Amber\Collection\CollectionAware;
 
 use Amber\Collection\Collection;
-use Amber\Config\ConfigAwareInterface;
 
-interface CollectionAwareInterface extends ConfigAwareInterface
+interface CollectionAwareInterface
 {
 
     /**
