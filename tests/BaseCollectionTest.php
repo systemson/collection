@@ -51,6 +51,12 @@ class BaseCollectionTest extends TestCase
         /* Tests removing an item that doesn't exists */
         $this->assertFalse($collection->delete('key'));
 
+        /* Test pushing to a key */
+        // After adding multilevel keys should be moved to another test.
+        $this->assertTrue($collection->pushTo('key2', 'value1'));
+        $this->assertTrue($collection->pushTo('key2', 'value2'));
+        $this->assertEquals(['value1', 'value2'], $collection->get('key2'));
+
         /* Cleares the collection */
         $collection->clear();
 

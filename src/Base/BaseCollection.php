@@ -162,12 +162,14 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      * @param string $key The item's key
      * @param mixed  $value The item's value
      *
-     * @return void
+     * @return bool
      */
     public function pushTo(string $key, $value)
     {
 
         $this[$key][] = $value;
+
+        return true;
     }
 
     /**
