@@ -153,6 +153,24 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
     }
 
     /**
+     * Push a new item at the end of a item in the collection.
+     *
+     * This should be used for none associative collections.
+     *
+     * @todo MUST accept multilevel keys.
+     *
+     * @param string $key The item's key
+     * @param mixed  $value The item's value
+     *
+     * @return void
+     */
+    public function pushTo(string $key, $value)
+    {
+
+        $this[$key][] = $value;
+    }
+
+    /**
      * Gets an item from collection.
      *
      * @param string $key The item's key
