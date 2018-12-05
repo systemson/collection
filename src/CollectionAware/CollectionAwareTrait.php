@@ -14,13 +14,11 @@ trait CollectionAwareTrait
     /**
      * Sets the Collection instance.
      *
-     * @todo Should return type void.
-     *
      * @param CacheDriver $collection An instance of the Collection.
      *
      * @return void
      */
-    public function setCollection(Collection $collection)
+    public function setCollection(Collection $collection): void
     {
         $this->collection = $collection;
     }
@@ -28,17 +26,20 @@ trait CollectionAwareTrait
     /**
      * Gets the Collection instance.
      *
-     * @param array $array An instance of the Collection instance.
-     *
-     * @return array The instance of the Collection.
+     * @return Collection The instance of the Collection.
      */
-    public function getCollection(array $array = []): Collection
+    public function getCollection(): Collection
     {
-        /* Checks if the CacheInterface is already instantiated. */
-        if (!$this->collection instanceof Collection) {
-            $this->collection = new Collection($array);
-        }
-
         return $this->collection;
+    }
+
+    /**
+     * Creates a Collection instance.
+     *
+     * @return void
+     */
+    protected function initCollection(array $array = []): void
+    {
+        $this->collection = new Collection($array);
     }
 }

@@ -8,4 +8,9 @@ namespace Amber\Collection\CollectionAware;
 abstract class CollectionAwareClass implements CollectionAwareInterface
 {
     use CollectionAwareTrait;
+
+    public function __construct()
+    {
+        $this->initCollection();
+    }
 }

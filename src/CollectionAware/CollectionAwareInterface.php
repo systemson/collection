@@ -6,17 +6,14 @@ use Amber\Collection\Collection;
 
 interface CollectionAwareInterface
 {
-
     /**
      * Sets the Collection instance.
-     *
-     * @todo Should return type void.
      *
      * @param CacheDriver $collection An instance of the Collection.
      *
      * @return void
      */
-    public function setCollection(Collection $collection);
+    public function setCollection(Collection $collection): void;
 
     /**
      * Gets the Collection instance.
@@ -25,5 +22,5 @@ interface CollectionAwareInterface
      *
      * @return array The instance of the Collection.
      */
-    public function getCollection(array $array = []): Collection;
+    public function getCollection(): Collection;
 }
