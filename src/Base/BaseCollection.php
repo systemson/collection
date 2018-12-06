@@ -166,7 +166,6 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      */
     public function pushTo(string $key, $value)
     {
-
         $this[$key][] = $value;
 
         return true;
