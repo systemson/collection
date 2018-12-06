@@ -49,7 +49,6 @@ class MultilevelCollectionTest extends TestCase
 
         $this->assertEquals([$second => null], $collection->remove("{$first}"));
         $this->assertFalse($collection->has("$first"));
-        var_dump($collection->get($first));
 
         $this->assertTrue($collection->set("$first", $value));
         $this->assertEquals($value, $collection->get("$first", $value));

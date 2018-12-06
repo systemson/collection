@@ -99,7 +99,7 @@ trait Essential
      */
     public function count(): int
     {
-        return count($this->getArrayCopy());
+        return count(array_filter($this->getArrayCopy()));
     }
 
     /**
