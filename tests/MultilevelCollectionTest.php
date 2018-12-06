@@ -6,7 +6,7 @@ use Amber\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
 class MultilevelCollectionTest extends TestCase
-{        
+{
     public function testMultiLevelCollection()
     {
         $first = 'first';
@@ -53,6 +53,5 @@ class MultilevelCollectionTest extends TestCase
 
         $this->assertTrue($collection->set("$first", $value));
         $this->assertEquals($value, $collection->get("$first", $value));
-
     }
 }
