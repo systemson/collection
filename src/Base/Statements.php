@@ -41,7 +41,7 @@ trait Statements
      */
     public function where($column, $value)
     {
-        return $this->filter(
+        return $this->filtered(
             function ($item) use ($column, $value) {
                 if (isset($item[$column])) {
                     return $item[$column] === $value;
@@ -60,7 +60,7 @@ trait Statements
      */
     public function whereNot($column, $value)
     {
-        return $this->filter(
+        return $this->filtered(
             function ($item) use ($column, $value) {
                 if (isset($item[$column])) {
                     return $item[$column] !== $value;
@@ -79,7 +79,7 @@ trait Statements
      */
     public function whereIn($column, array $values = [])
     {
-        return $this->filter(
+        return $this->filtered(
             function ($item) use ($column, $values) {
                 if (isset($item[$column])) {
                     return in_array($item[$column], $values);
@@ -99,7 +99,7 @@ trait Statements
      */
     public function whereNotIn($column, array $values = [])
     {
-        return $this->filter(
+        return $this->filtered(
             function ($item) use ($column, $values) {
                 if (isset($item[$column])) {
                     return !in_array($item[$column], $values);

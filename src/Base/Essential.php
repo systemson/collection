@@ -2,6 +2,7 @@
 
 namespace Amber\Collection\Base;
 
+use Amber\Collection\Collection;
 use Ds\Collection as CollectionInterface;
 
 /**
@@ -137,11 +138,28 @@ trait Essential
     }
 
     /**
-     * Filters the values of the collection using a callback function.
+     * Filters the elements of the collection using a user-defined function.
+     *
+     * @return static.
+     */
+    public function filter($callback): self
+    {
+        $array = array_filter(
+            $this->getArrayCopy(),
+            $callback
+        );
+
+        $this->exchangeArray($array);
+
+        return $this;
+    }
+
+    /**
+     * Returns a new filtered collection using a user-defined function.
      *
      * @return Collection A new collection instance.
      */
-    public function filter($callback): CollectionInterface
+    public function filtered($callback): Collection
     {
         $array = array_filter(
             $this->getArrayCopy(),
@@ -156,9 +174,9 @@ trait Essential
      *
      * @param callable $callback The user-defined comparison function.
      *
-     * @return void
+     * @return static
      */
-    public function sort($callback)
+    public function sort($callback): self
     {
         $array = $this->getArrayCopy();
 
@@ -168,6 +186,8 @@ trait Essential
         );
 
         $this->exchangeArray($array);
+
+        return $this;
     }
 
     /**
@@ -192,13 +212,15 @@ trait Essential
     /**
      * Reverses the order of the collection.
      *
-     * @return void
+     * @return static
      */
-    public function reverse()
+    public function reverse(): self
     {
         $array = array_reverse($this->getArrayCopy());
 
         $this->exchangeArray($array);
+
+        return $this;
     }
 
     /**
@@ -211,5 +233,39 @@ trait Essential
         $array = array_reverse($this->getArrayCopy());
 
         return $this->make($array);
+    }
+
+    /**
+     * Merges the collection with one or more arrays.
+     *
+     * @param array $array The array(s) to merge with the collection.
+     *
+     * @return static
+     */
+    public function merge(...$array): self
+    {
+        $content = array_unshift($array, $this->getArrayCopy());
+
+        $return = call_user_func_array('array_merge', $content);
+
+        $this->exchangeArray($return);
+
+        return $this;
+    }
+
+    /**
+     * Returns a new collection merged with one or more arrays.
+     *
+     * @param array $array The array(s) to merge with the collection.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function merged(...$array): Collection
+    {
+        $content = array_unshift($array, $this->getArrayCopy());
+
+        $return = call_user_func_array('array_merge', $content);
+
+        return $this->make($return);
     }
 }

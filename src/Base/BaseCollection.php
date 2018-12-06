@@ -69,7 +69,22 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      */
     public function put(string $key, $value)
     {
-        $this[$key] = $value;
+        $storage = $value;
+
+        $slug_array = array_reverse(explode('.', $key));
+
+        foreach ($slug_array as $id => $key) {
+            if ($id === count($slug_array) - 1) {
+                break;
+            }
+
+            $aux[$key] = $storage;
+
+            $storage = $aux;
+            unset($aux);
+        }
+
+        $this[$key] = $storage;
     }
 
     /**
@@ -101,7 +116,7 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
             return false;
         }
 
-        $this[$key] = $value;
+        $this->put($key, $value);
 
         return true;
     }
@@ -133,7 +148,7 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
             return false;
         }
 
-        $this[$key] = $value;
+        $this->put($key, $value);
 
         return true;
     }
@@ -206,44 +221,6 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
     }
 
     /**
-     * Removes and retrives an item from collection.
-     *
-     * @param string $key The item's key
-     *
-     * @return mixed The removed item's value, or void if the item don't exists.
-     */
-    public function remove(string $key)
-    {
-        if ($this->hasNot($key)) {
-            return;
-        }
-
-        $item = $this[$key];
-
-        unset($this[$key]);
-
-        return $item;
-    }
-
-    /**
-     * Deletes an item from collection.
-     *
-     * @param string $key The item's key
-     *
-     * @return bool true on success false on failure.
-     */
-    public function delete(string $key)
-    {
-        if ($this->hasNot($key)) {
-            return false;
-        }
-
-        unset($this[$key]);
-
-        return true;
-    }
-
-    /**
      * Returns the first element of the collection.
      *
      * @return mixed The item's value.
@@ -264,19 +241,41 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
     }
 
     /**
-     * Merges the collection with one or more arrays.
+     * Deletes and retrives an item from collection.
      *
-     * @param array $array The array(s) to merge with the collection.
+     * @param string $key The item's key
      *
-     * @return Collection A new collection instance.
+     * @return mixed The removed item's value, or void if the item don't exists.
      */
-    public function merge(...$array)
+    public function remove(string $key)
     {
-        $content = array_unshift($array, $this->getArrayCopy());
+        if ($this->hasNot($key)) {
+            return;
+        }
 
-        $return = call_user_func_array('array_merge', $content);
+        $item = $this->get($key);
 
-        return $this->make($return);
+        $this->delete($key);
+
+        return $item;
+    }
+
+    /**
+     * Deletes an item from collection.
+     *
+     * @param string $key The item's key
+     *
+     * @return bool true on success false on failure.
+     */
+    public function delete(string $key)
+    {
+        if ($this->hasNot($key)) {
+            return false;
+        }
+
+        $this->set($key, null);
+
+        return true;
     }
 
     /**
