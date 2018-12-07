@@ -124,6 +124,8 @@ class BaseCollectionTest extends TestCase
         $this->assertTrue($collection->has(0));
 
         $this->assertEquals('value', $collection->get(0));
+        
+        $this->assertEquals(['value'], $collection->values());
 
         $collection->remove(0);
 

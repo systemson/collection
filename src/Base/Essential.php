@@ -63,6 +63,16 @@ trait Essential
     }
 
     /**
+     * Retuns an array of the collection values.
+     *
+     * @return array The items in the collection.
+     */
+    public function values(): array
+    {
+        return array_values($this->getArrayCopy());
+    }
+
+    /**
      * Creates a shallow copy of the collection.
      *
      * @return Collection a shallow copy of the collection.
