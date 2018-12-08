@@ -16,7 +16,7 @@ trait Statements
      */
     public function select(...$columns)
     {
-        $container = $this->map(function ($item) use ($columns) {
+        return $this->map(function ($item) use ($columns) {
             $result = [];
 
             foreach ($columns as $column) {
@@ -26,7 +26,7 @@ trait Statements
             }
 
             return $result;
-        }, $this->getArrayCopy());
+        });
 
         return $this->make($container);
     }

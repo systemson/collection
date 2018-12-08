@@ -26,10 +26,11 @@
         "php-ds/php-ds": "1.2"
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "^2.0",
+        "phpdocumentor/phpdocumentor": "dev-master",
         "phpunit/phpunit": "^6.5|^7.0",
         "squizlabs/php_codesniffer": "^3.3",
-        "lavoiesl/php-benchmark": "^1.4"
+        "lavoiesl/php-benchmark": "^1.4",
+        "tightenco/collect": "^5.7"
     },
     "scripts": {
         "test": "phpunit --verbose --coverage-html ./tmp/coverage/",

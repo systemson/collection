@@ -4,25 +4,35 @@ namespace Amber\Collection\Base;
 
 use Amber\Config\ConfigAwareTrait;
 use Amber\Config\ConfigAwareInterface;
-use Ds\Collection as CollectionInterface;
 
 /**
  * Implements the basis for the Collection.
  */
-abstract class BaseCollection extends \ArrayObject implements CollectionInterface
+abstract class BaseCollection extends \ArrayObject
 {
     use Essential, MultipleTrait, Statements;
 
     /**
-     * Collection constructor
-     *
-     * @param array $array The items for the collection.
+     * @var string The separator for multilevel keys.
      */
-    public function __construct($array = [])
-    {
-        parent::__construct($array);
+    protected $separator = '.';
 
-        $this->setFlags(static::ARRAY_AS_PROPS);
+    /**
+     * Splits a multilevel key or returns the single level key.
+     *
+     * @param string $key The key to split.
+     *
+     * @return array|string An array of keys or a single key string. 
+     */
+    protected function splitKey(string $key)
+    {
+        $slug_array = explode($this->separator, $key);
+
+        if (count($slug_array) == 1) {
+            return $key;
+        }
+
+        return $slug_array;
     }
 
     /**
@@ -34,9 +44,15 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      */
     public function has(string $key)
     {
+        $slug = $this->splitKey($key);
+
+        if (is_string($slug)) {
+            return isset($this[$slug]);
+        }
+
         $collection = $this->all();
 
-        foreach (explode('.', $key) as $search) {
+        foreach ($this->splitKey($key) as $search) {
             if (!isset($collection[$search])) {
                 return false;
             }
@@ -69,12 +85,17 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      */
     public function put(string $key, $value)
     {
+        $slug = $this->splitKey($key);
+
+        if (is_string($slug)) {
+            $this[$slug] = $value;
+            return;
+        }
+
         $storage = $value;
 
-        $slug_array = array_reverse(explode('.', $key));
-
-        foreach ($slug_array as $id => $key) {
-            if ($id === count($slug_array) - 1) {
+        foreach (array_reverse($slug) as $id => $key) {
+            if ($id === count($slug) - 1) {
                 break;
             }
 
@@ -195,9 +216,15 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      */
     public function get(string $key)
     {
+        $slug = $this->splitKey($key);
+
+        if (is_string($slug)) {
+            return $this[$slug];
+        }
+
         $collection = $this->getArrayCopy();
 
-        foreach (explode('.', $key) as $search) {
+        foreach ($slug as $search) {
             if (isset($collection[$search])) {
                 $collection = $collection[$search];
             } else {
@@ -269,6 +296,16 @@ abstract class BaseCollection extends \ArrayObject implements CollectionInterfac
      */
     public function delete(string $key)
     {
+        $slug = $this->splitKey($key);
+
+        if (is_string($slug)) {
+            if (isset($this[$slug])) {
+                unset($this[$slug]);
+                return true;
+            }
+            return false;
+        }
+
         if ($this->hasNot($key)) {
             return false;
         }
