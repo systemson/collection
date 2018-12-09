@@ -17,7 +17,7 @@ trait Essential
      *
      * @return static a new Instance of the collection.
      */
-    protected function make($array = [])
+    public static function make($array = [])
     {
         return new static($array);
     }
@@ -79,7 +79,7 @@ trait Essential
      */
     public function copy(): CollectionInterface
     {
-        return $this->make($this->getArrayCopy());
+        return static::make($this->getArrayCopy());
     }
 
     /**
@@ -100,6 +100,16 @@ trait Essential
     public function isEmpty(): bool
     {
         return $this->count() === 0;
+    }
+
+    /**
+     * Returns whether the collection is not empty.
+     *
+     * @return bool Whether the collection is empty.
+     */
+    public function isNotEmpty(): bool
+    {
+        return !$this->isEmpty();
     }
 
     /**
@@ -130,152 +140,5 @@ trait Essential
     public function jsonSerialize(): array
     {
         return $this->getArrayCopy();
-    }
-
-    /**
-     * Iterates through the collection and passes each value to the given callback.
-     *
-     * @return Collection A new collection instance.
-     */
-    public function map($callback): CollectionInterface
-    {
-        $array = array_map(
-            $callback,
-            $this->getArrayCopy()
-        );
-
-        return $this->make($array);
-    }
-
-    /**
-     * Filters the elements of the collection using a user-defined function.
-     *
-     * @return static.
-     */
-    public function filter($callback): self
-    {
-        $array = array_filter(
-            $this->getArrayCopy(),
-            $callback
-        );
-
-        $this->exchangeArray($array);
-
-        return $this;
-    }
-
-    /**
-     * Returns a new filtered collection using a user-defined function.
-     *
-     * @return Collection A new collection instance.
-     */
-    public function filtered($callback): Collection
-    {
-        $array = array_filter(
-            $this->getArrayCopy(),
-            $callback
-        );
-
-        return $this->make(array_values($array));
-    }
-
-    /**
-     * Sorts the elements of the collection using a user-defined comparison function.
-     *
-     * @param callable $callback The user-defined comparison function.
-     *
-     * @return static
-     */
-    public function sort($callback): self
-    {
-        $array = $this->getArrayCopy();
-
-        usort(
-            $array,
-            $callback
-        );
-
-        $this->exchangeArray($array);
-
-        return $this;
-    }
-
-    /**
-     * Returns a new sorted collection using a user-defined comparison function.
-     *
-     * @param callable $callback The user-defined comparison function.
-     *
-     * @return Collection A new collection instance.
-     */
-    public function sorted($callback): CollectionInterface
-    {
-        $array = $this->getArrayCopy();
-
-        usort(
-            $array,
-            $callback
-        );
-
-        return $this->make($array);
-    }
-
-    /**
-     * Reverses the order of the collection.
-     *
-     * @return static
-     */
-    public function reverse(): self
-    {
-        $array = array_reverse($this->getArrayCopy());
-
-        $this->exchangeArray($array);
-
-        return $this;
-    }
-
-    /**
-     * Returns a new reversed collection.
-     *
-     * @return Collection A new collection instance.
-     */
-    public function reversed(): CollectionInterface
-    {
-        $array = array_reverse($this->getArrayCopy());
-
-        return $this->make($array);
-    }
-
-    /**
-     * Merges the collection with one or more arrays.
-     *
-     * @param array $array The array(s) to merge with the collection.
-     *
-     * @return static
-     */
-    public function merge(...$array): self
-    {
-        $content = array_unshift($array, $this->getArrayCopy());
-
-        $return = call_user_func_array('array_merge', $content);
-
-        $this->exchangeArray($return);
-
-        return $this;
-    }
-
-    /**
-     * Returns a new collection merged with one or more arrays.
-     *
-     * @param array $array The array(s) to merge with the collection.
-     *
-     * @return Collection A new collection instance.
-     */
-    public function merged(...$array): Collection
-    {
-        $content = array_unshift($array, $this->getArrayCopy());
-
-        $return = call_user_func_array('array_merge', $content);
-
-        return $this->make($return);
     }
 }

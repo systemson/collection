@@ -10,7 +10,7 @@ use Amber\Config\ConfigAwareInterface;
  */
 abstract class BaseCollection extends \ArrayObject
 {
-    use Essential, MultipleTrait, Statements;
+    use Essential, ArrayFunctionsTrait, MultipleTrait, Statements;
 
     /**
      * @var string The separator for multilevel keys.
@@ -22,7 +22,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @param string $key The key to split.
      *
-     * @return array|string An array of keys or a single key string. 
+     * @return array|string An array of keys or a single key string.
      */
     protected function splitKey(string $key)
     {

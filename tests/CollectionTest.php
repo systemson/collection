@@ -29,6 +29,7 @@ class CollectionTest extends TestCase
         $this->assertInternalType('array', $collection->toArray());
         $this->assertInstanceOf(\Traversable::class, $collection);
         $this->assertFalse($collection->isEmpty());
+        $this->assertTrue($collection->isNotEmpty());
         $this->assertEquals($qty, $collection->count());
 
         /* Test iterator */
@@ -61,24 +62,29 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection($multiple);
 
-        $collection->sort(function ($a, $b) {
+        $sorted = $collection->sort(function ($a, $b) {
             return $b <=> $a;
         });
 
         $this->assertEquals(
             array_reverse($multiple),
-            $collection->toArray()
+            $sorted->toArray()
         );
 
-        $collection->reverse();
+        $reversed = $sorted->reverse();
         $this->assertEquals(
             $multiple,
-            $collection->toArray()
+            $reversed->toArray()
         );
 
         $this->assertEquals(
-            array_reverse($multiple),
-            $collection->reversed()->toArray()
+            array_merge($multiple, $multiple, $multiple),
+            $collection->merge($multiple, $multiple)->toArray()
+        );
+
+        $this->assertEquals(
+            array_chunk($multiple, 2),
+            $collection->chunk(2)->toArray()
         );
     }
 

@@ -29,12 +29,15 @@ class MultilevelCollectionTest extends TestCase
         $this->assertEquals([$second => [$third => $value]], $collection->get("{$first}"));
 
         $this->assertTrue($collection->delete("{$first}.{$second}.{$third}"));
+        $this->assertFalse($collection->delete("{$first}.{$second}.{$third}"));
         $this->assertFalse($collection->has("{$first}.{$second}.{$third}"));
 
         $this->assertTrue($collection->delete("{$first}.{$second}"));
+        $this->assertFalse($collection->delete("{$first}.{$second}"));
         $this->assertFalse($collection->has("{$first}.{$second}"));
 
         $this->assertTrue($collection->delete("{$first}"));
+        $this->assertFalse($collection->delete("{$first}"));
         $this->assertFalse($collection->has("{$first}"));
 
         //$collection->clear();

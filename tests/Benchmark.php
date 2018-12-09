@@ -10,9 +10,9 @@ use Ds\Vector;
 
 $benchmark = new Benchmark();
 
-$n = 10000;
+$n = 10;
 
-$benchmark->add('array', function () use ($n) {
+/*$benchmark->add('array', function () use ($n) {
     $array = [];
 
     for ($x=0; $x < $n; $x++) {
@@ -51,28 +51,6 @@ $benchmark->add('collection-as-array', function () use ($n) {
 
     for ($x=0; $x < $n; $x++) {
         unset($collection[$x]);
-    }
-
-    return $collection;
-});
-
-$benchmark->add('collection-as-object', function () use ($n) {
-    $collection = new Collection();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->put($x, $x);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->get($x);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->has($x);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->delete($x);
     }
 
     return $collection;
@@ -120,6 +98,28 @@ $benchmark->add('vector', function () use ($n) {
     }
 
     return $collection;
+});*/
+
+$benchmark->add('collection-as-object', function () use ($n) {
+    $collection = new Collection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->put($x, $x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->get($x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->has($x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->delete($x);
+    }
+
+    return $collection;
 });
 
 $benchmark->add('laravel-collection', function () use ($n) {
@@ -144,7 +144,7 @@ $benchmark->add('laravel-collection', function () use ($n) {
     return $collection;
 });
 
-$benchmark->add('array-multi', function () use ($n) {
+/*$benchmark->add('array-multi', function () use ($n) {
     $array = [];
 
     for ($x=0; $x < $n; $x++) {
@@ -230,9 +230,9 @@ $benchmark->add('arrobject-multi', function () use ($n) {
     }
 
     return $collection;
-});
+});*/
 
-$benchmark->guessCount(10);
+$benchmark->guessCount(30);
 //$benchmark->setCount(10000);
 
 $benchmark->run();
