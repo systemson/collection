@@ -37,6 +37,16 @@
         "docs": "phpdoc -d ./src -i Tests/ -t ./tmp/docs/api",
         "sniff": "phpcs --standard=PSR12 ./src",
         "fix-cs": "phpcbf --standard=PSR12 ./src",
-        "speed": "php ./tests/Benchmark.php"
+        "speed": "php ./tests/Benchmark.php",
+        "pull": [
+            "git pull",
+            "composer update"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "process-timeout": 0
     }
 }

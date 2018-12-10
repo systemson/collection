@@ -10,7 +10,7 @@ use Amber\Config\ConfigAwareInterface;
  */
 abstract class BaseCollection extends \ArrayObject
 {
-    use Essential, ArrayFunctionsTrait, MultipleTrait, Statements;
+    use Essential, MultipleTrait, Statements;
 
     /**
      * @var string The separator for multilevel keys.
@@ -219,7 +219,10 @@ abstract class BaseCollection extends \ArrayObject
         $slug = $this->splitKey($key);
 
         if (is_string($slug)) {
-            return $this[$slug];
+            if (isset($this[$slug])) {
+                return $this[$slug];
+            }
+            return null;
         }
 
         $collection = $this->getArrayCopy();
