@@ -10,7 +10,7 @@ use Amber\Config\ConfigAwareInterface;
  */
 abstract class BaseCollection extends \ArrayObject
 {
-    use Essential, MultipleTrait, Statements;
+    use Essential, ArrayFunctionsTrait, MultipleTrait, Statements;
 
     /**
      * @var string The separator for multilevel keys.
