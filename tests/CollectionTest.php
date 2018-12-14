@@ -108,9 +108,11 @@ class CollectionTest extends TestCase
     {
         $container = $this->getMockForAbstractClass(CollectionAwareClass::class);
 
-        $this->assertEquals([], $container->getCollection()->all());
+        $collection->clear();
 
         $this->assertNull($container->setCollection($collection));
+
+        $this->assertEquals([], $container->getCollection()->all());
 
         $this->assertInstanceOf(Collection::class, $container->getCollection());
     }

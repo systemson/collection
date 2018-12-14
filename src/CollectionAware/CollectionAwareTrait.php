@@ -1,9 +1,20 @@
 <?php
+/**
+ * This file is part of the Amber/Collection package.
+ *
+ * @package Amber/Collection
+ * @author Deivi Peña <systemson@gmail.com>
+ * @license GPL-3.0-or-later
+ * @license https://opensource.org/licenses/gpl-license GNU Public License
+ */
 
 namespace Amber\Collection\CollectionAware;
 
 use Amber\Collection\Collection;
 
+/**
+ * Collection setter and getter.
+ */
 trait CollectionAwareTrait
 {
     /**
@@ -35,6 +46,8 @@ trait CollectionAwareTrait
 
     /**
      * Creates a Collection instance.
+     *
+     * @param array $array The items for the collection.
      *
      * @return void
      */

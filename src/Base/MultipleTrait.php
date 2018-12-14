@@ -1,7 +1,18 @@
 <?php
+/**
+ * This file is part of the Amber/Collection package.
+ *
+ * @package Amber/Collection
+ * @author Deivi Peña <systemson@gmail.com>
+ * @license GPL-3.0-or-later
+ * @license https://opensource.org/licenses/gpl-license GNU Public License
+ */
 
 namespace Amber\Collection\Base;
 
+/**
+ * Implements the multiple functions.
+ */
 trait MultipleTrait
 {
 
@@ -24,7 +35,7 @@ trait MultipleTrait
     /**
      * Gets multiple items from the collection.
      *
-     * @param array $key The item's keys
+     * @param array $array The item's keys
      *
      * @return mixed
      */
@@ -42,7 +53,7 @@ trait MultipleTrait
     /**
      * Whether multiple items are present in the collection.
      *
-     * @param array $key The item's keys
+     * @param array $array The item's keys
      *
      * @return bool
      */

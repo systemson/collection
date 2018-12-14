@@ -4,15 +4,16 @@ require_once 'vendor/autoload.php';
 
 use Amber\Collection\Collection;
 use Lavoiesl\PhpBenchmark\Benchmark;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ds\Vector;
 
 //declare(ticks=1);
 
 $benchmark = new Benchmark();
 
-$n = 10;
+$n = 100;
 
-/*$benchmark->add('array', function () use ($n) {
+$benchmark->add('array', function () use ($n) {
     $array = [];
 
     for ($x=0; $x < $n; $x++) {
@@ -36,6 +37,28 @@ $n = 10;
 
 $benchmark->add('collection-as-array', function () use ($n) {
     $collection = new Collection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x] = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x];
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection[$x]);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection[$x]);
+    }
+
+    return $collection;
+});
+
+$benchmark->add('laravel-as-array', function () use ($n) {
+    $collection = collect();
 
     for ($x=0; $x < $n; $x++) {
         $collection[$x] = $x;
@@ -98,7 +121,7 @@ $benchmark->add('vector', function () use ($n) {
     }
 
     return $collection;
-});*/
+});
 
 $benchmark->add('collection-as-object', function () use ($n) {
     $collection = new Collection();
@@ -122,7 +145,29 @@ $benchmark->add('collection-as-object', function () use ($n) {
     return $collection;
 });
 
-$benchmark->add('laravel-collection', function () use ($n) {
+$benchmark->add('collection-as-property', function () use ($n) {
+    $collection = new Collection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x} = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection->{$x});
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection->{$x});
+    }
+
+    return $collection;
+});
+
+$benchmark->add('laravel-as-object', function () use ($n) {
     $collection = collect();
 
     for ($x=0; $x < $n; $x++) {
@@ -138,13 +183,102 @@ $benchmark->add('laravel-collection', function () use ($n) {
     }
 
     for ($x=0; $x < $n; $x++) {
-        $collection->pull($x);
+        $collection->forget($x);
     }
 
     return $collection;
 });
 
-/*$benchmark->add('array-multi', function () use ($n) {
+$benchmark->add('laravel-as-property', function () use ($n) {
+    $collection = collect();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x} = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection->{$x});
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection->{$x});
+    }
+
+    return $collection;
+});
+
+$benchmark->add('doctrine-as-object', function () use ($n) {
+    $collection = new ArrayCollection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->set($x, $x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->get($x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->contains($x);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->remove($x);
+    }
+
+    return $collection;
+});
+
+$benchmark->add('doctrine-as-array', function () use ($n) {
+    $collection = new ArrayCollection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x] = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x];
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection[$x]);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection[$x]);
+    }
+
+    return $collection;
+});
+
+$benchmark->add('doctrine-as-property', function () use ($n) {
+    $collection = new ArrayCollection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x} = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection->{$x});
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection->{$x});
+    }
+
+    return $collection;
+});
+
+
+$benchmark->add('array-multi', function () use ($n) {
     $array = [];
 
     for ($x=0; $x < $n; $x++) {
@@ -230,9 +364,9 @@ $benchmark->add('arrobject-multi', function () use ($n) {
     }
 
     return $collection;
-});*/
+});
 
-$benchmark->guessCount(30);
+//$benchmark->guessCount(10);
 //$benchmark->setCount(10000);
 
 $benchmark->run();

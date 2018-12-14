@@ -1,14 +1,27 @@
 <?php
+/**
+ * This file is part of the Amber/Collection package.
+ *
+ * @package Amber/Collection
+ * @author Deivi Peña <systemson@gmail.com>
+ * @license GPL-3.0-or-later
+ * @license https://opensource.org/licenses/gpl-license GNU Public License
+ */
 
 namespace Amber\Collection\Base;
 
 use Amber\Collection\Collection;
 use Ds\Collection as CollectionInterface;
 
+/**
+ * Implementations of the PHP array functions.
+ */
 trait ArrayFunctionsTrait
 {
     /**
      * Iterates through the collection and passes each value to the given callback.
+     *
+     * @param Closure $callback
      *
      * @return Collection A new collection instance.
      */
@@ -25,6 +38,8 @@ trait ArrayFunctionsTrait
     /**
      * Returns a new filtered collection using a user-defined function.
      *
+     * @param Closure $callback
+     *
      * @return Collection A new collection instance.
      */
     public function filter($callback): CollectionInterface
@@ -40,7 +55,7 @@ trait ArrayFunctionsTrait
     /**
      * Returns a new sorted collection using a user-defined comparison function.
      *
-     * @param callable $callback The user-defined comparison function.
+     * @param Closure $callback The user-defined comparison function.
      *
      * @return Collection A new collection instance.
      */
