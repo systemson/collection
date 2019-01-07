@@ -41,7 +41,7 @@
         "speed": "php ./tests/Benchmark.php",
         "pull": [
             "git pull",
-            "composer update"
+            "composer update -vvv"
         ],
         "full-check": [
             "phpunit",

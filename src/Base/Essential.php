@@ -10,7 +10,6 @@
 
 namespace Amber\Collection\Base;
 
-use Amber\Collection\Collection;
 use Ds\Collection as CollectionInterface;
 
 /**
@@ -23,9 +22,9 @@ trait Essential
      *
      * @param array $array The items for the new collection.
      *
-     * @return static a new Instance of the collection.
+     * @return CollectionInterface a new Instance of the collection.
      */
-    public static function make($array = [])
+    public static function make($array = []): CollectionInterface
     {
         return new static($array);
     }

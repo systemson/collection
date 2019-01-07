@@ -10,8 +10,8 @@
 
 namespace Amber\Collection\Base;
 
-use Amber\Collection\Collection;
 use Ds\Collection as CollectionInterface;
+use Closure;
 
 /**
  * Implementations of the PHP array functions.
@@ -25,7 +25,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function map($callback): CollectionInterface
+    public function map(Closure $callback): CollectionInterface
     {
         $array = array_map(
             $callback,
@@ -42,7 +42,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function filter($callback): CollectionInterface
+    public function filter(Closure $callback): CollectionInterface
     {
         $array = array_filter(
             $this->getArrayCopy(),
@@ -59,7 +59,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function sort($callback): CollectionInterface
+    public function sort(Closure $callback): CollectionInterface
     {
         $array = $this->getArrayCopy();
 
@@ -90,7 +90,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function merge(...$array): Collection
+    public function merge(...$array): CollectionInterface
     {
         array_unshift($array, $this->getArrayCopy());
 
@@ -107,7 +107,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function chunk(int $size, bool $preserve_keys = false): Collection
+    public function chunk(int $size, bool $preserve_keys = false): CollectionInterface
     {
         $return = array_chunk($this->getArrayCopy(), $size, $preserve_keys);
 

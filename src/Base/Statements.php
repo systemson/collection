@@ -10,6 +10,8 @@
 
 namespace Amber\Collection\Base;
 
+use Ds\Collection as CollectionInterface;
+
 /**
  * Adds sql like methods to the collection.
  */
@@ -22,7 +24,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function select(...$columns)
+    public function select(...$columns): CollectionInterface
     {
         return $this->map(function ($item) use ($columns) {
             $result = [];
@@ -47,7 +49,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function where($column, $value)
+    public function where($column, $value): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $value) {
@@ -66,7 +68,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function whereNot($column, $value)
+    public function whereNot($column, $value): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $value) {
@@ -85,7 +87,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function whereIn($column, array $values = [])
+    public function whereIn($column, array $values = []): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $values) {
@@ -105,7 +107,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function whereNotIn($column, array $values = [])
+    public function whereNotIn($column, array $values = []): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $values) {
@@ -124,7 +126,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function orderBy($column, $order = 'ASC')
+    public function orderBy($column, $order = 'ASC'): CollectionInterface
     {
         return $this->sort(function ($a, $b) use ($column, $order) {
             if (strtoupper($order) == 'ASC') {
@@ -142,7 +144,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function groupBy($column)
+    public function groupBy($column): CollectionInterface
     {
         $return = [];
 
@@ -161,7 +163,7 @@ trait Statements
     /**
      * Not implemented.
      */
-    public function join()
+    public function join(): CollectionInterface
     {
     }
 
