@@ -1,0 +1,3 @@
+# for php-coveralls
+coverage_clover: ./tmp/clover/coverage.xml
+json_path: ./coveralls-upload.json
