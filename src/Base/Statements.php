@@ -161,10 +161,23 @@ trait Statements
     }
 
     /**
-     * Not implemented.
+     * Returns a new Collection joined by the specified column.
+     *
+     * @param array  $array The array to merge
+     * @param string $pkey  The key to compare on the current collection.
+     * @param string $fkey  The key to compare on the provided array.
+     *
+     * @return Collection A new collection instance.
      */
-    public function join(): CollectionInterface
+    public function join(array $array, string $pkey, string $fkey): CollectionInterface
     {
+        return $this->map(function ($item) use ($array, $pkey, $fkey) {
+            foreach ($array as $value) {
+                if ($item[$pkey] == $value[$fkey]) {
+                    return array_merge($item, $value);
+                }
+            }
+        });
     }
 
     /**

@@ -27,6 +27,12 @@ class StatementsTest extends TestCase
                 'id'    => $x,
             ];
 
+
+            $roles[] = [
+                'role_name' => 'Role' . $x,
+                'user_id' => $x,
+            ];
+
             $grouped[$array[$x - 1]['name']] = $array[$x - 1];
         }
 
@@ -118,6 +124,17 @@ class StatementsTest extends TestCase
         );
 
         $collection->clear();
+
+        $collection = new Collection($array);
+
+        for ($x = 1; $x <= $qty; $x++) {
+            $user_roles[] = array_merge($array[$x-1], $roles[$x-1]);
+        }
+
+        $this->assertEquals(
+            $user_roles,
+            $collection->join($roles, 'id', 'user_id')->toArray()
+        );
 
         return $collection;
     }
