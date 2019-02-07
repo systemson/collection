@@ -21,29 +21,6 @@ abstract class BaseCollection extends \ArrayObject
     use Essential, ArrayFunctionsTrait, MultipleTrait, Statements;
 
     /**
-     * @var string The separator for multilevel keys.
-     */
-    protected $separator = '.';
-
-    /**
-     * Splits a multilevel key or returns the single level key.
-     *
-     * @param string $key The key to split.
-     *
-     * @return array|string An array of keys or a single key string.
-     */
-    protected function splitKey(string $key)
-    {
-        $slug_array = explode($this->separator, $key);
-
-        if (count($slug_array) == 1) {
-            return $key;
-        }
-
-        return $slug_array;
-    }
-
-    /**
      * Whether an item is present it the collection
      *
      * @param string $key The item's key

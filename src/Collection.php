@@ -25,6 +25,11 @@ use Ds\Collection as CollectionInterface;
 class Collection extends BaseCollection implements CollectionInterface
 {
     /**
+     * @var string The separator for multilevel keys.
+     */
+    protected $separator = '.';
+
+    /**
      * Collection constructor
      *
      * @param array $array The items for the collection.
@@ -34,5 +39,23 @@ class Collection extends BaseCollection implements CollectionInterface
         parent::__construct($array);
 
         $this->setFlags(static::ARRAY_AS_PROPS);
+    }
+
+    /**
+     * Splits a multilevel key or returns the single level key(s).
+     *
+     * @param string $key The key to split.
+     *
+     * @return array|string An array of keys or a single key string.
+     */
+    protected function splitKey(string $key)
+    {
+        $slug_array = explode($this->separator, $key);
+
+        if (count($slug_array) == 1) {
+            return $key;
+        }
+
+        return $slug_array;
     }
 }
