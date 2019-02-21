@@ -46,7 +46,12 @@ class BaseCollectionTest extends TestCase
         $this->assertNull($collection->remove('key1'));
 
         /* Tests that the item doesn't exists */
+        $this->assertNull($collection->get('key'));
+        $this->assertNull($collection->get('key1'));
         $this->assertFalse($collection->has('key'));
+        $this->assertFalse($collection->has('key1'));
+        $this->assertNull($collection->remove('key'));
+        $this->assertNull($collection->remove('key1'));
         
         /* Tests removing an item that doesn't exists */
         $this->assertFalse($collection->delete('key'));
