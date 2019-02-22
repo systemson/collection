@@ -9,10 +9,6 @@ class StatementsTest extends TestCase
 {
     public function testStatements()
     {
-        /*$this->markTestSkipped(
-          'This test has not been implemented yet.'
-        );*/
-
         $qty = 3;
 
         for ($x = 1; $x <= $qty; $x++) {
@@ -136,6 +132,23 @@ class StatementsTest extends TestCase
             $collection->join($roles, 'id', 'user_id')->toArray()
         );
 
+        $collection->exchangeArray($array);
+        $this->assertEquals(array_sum(array_column($array, 'id')), $collection->sum('id'));
+
+        $collection->exchangeArray($grouped);
+        $this->assertEquals(array_sum(array_column($grouped, 'id')), $collection->sum('id'));
+
+        $collection->clear();
+
         return $collection;
+    }
+
+    public function testArrayFuncs()
+    {
+        $sumable = [1, 2, 3, 4];
+
+        $collection = Collection::make($sumable);
+
+        $this->assertEquals(array_sum($sumable), $collection->sum());
     }
 }

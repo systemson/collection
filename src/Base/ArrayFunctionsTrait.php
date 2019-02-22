@@ -100,7 +100,7 @@ trait ArrayFunctionsTrait
     }
 
     /**
-     * Split an array into chunks.
+     * Splits an array into chunks.
      *
      * @param int  $size          The size of each chunk.
      * @param bool $preserve_keys Whether the keys should be preserved.
@@ -110,6 +110,32 @@ trait ArrayFunctionsTrait
     public function chunk(int $size, bool $preserve_keys = false): CollectionInterface
     {
         $return = array_chunk($this->getArrayCopy(), $size, $preserve_keys);
+
+        return static::make($return);
+    }
+
+    /**
+     * Returns the values from a single column.
+     *
+     * @param string  $column The column.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function column(string $column): CollectionInterface
+    {
+        $return = array_column($this->getArrayCopy(), $column);
+
+        return static::make($return);
+    }
+
+    /**
+     * Exchanges all keys with their associated values.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function flip(): CollectionInterface
+    {
+        $return = array_flip($this->getArrayCopy());
 
         return static::make($return);
     }

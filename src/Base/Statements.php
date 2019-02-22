@@ -181,6 +181,24 @@ trait Statements
     }
 
     /**
+     * Calculates the sum of values in the collection.
+     *
+     * @param string  $column The column.
+     *
+     * @return int The collection sum.
+     */
+    public function sum($column = null): int
+    {
+        if (!is_null($column)) {
+            $column = $this->column($column);
+
+            return $column->sum();
+        }
+
+        return array_sum($this->getArrayCopy());
+    }
+
+    /**
      * Gets the first item of the Collection or adds and returns a new one.
      *
      * @param string $key   The key of the item.

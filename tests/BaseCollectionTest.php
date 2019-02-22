@@ -93,16 +93,7 @@ class BaseCollectionTest extends TestCase
      */
     public function testMultiple($collection)
     {
-        $qty = 3;
-
-        for ($x = 1; $x <= $qty; $x++) {
-            $multiple['key_'.$x] = [
-                'id'    => $x,
-                'name'  => 'Pruebas' . $x,
-                'pass'  => 'pass' . $x,
-                'email' => "email{$x}@email.com",
-            ];
-        }
+        $multiple = $this->exampleArray(5);
 
         $this->assertTrue($collection->setMultiple($multiple));
         $this->assertTrue($collection->setMultiple($multiple));
@@ -166,5 +157,38 @@ class BaseCollectionTest extends TestCase
         $collection->clear();
 
         $this->assertTrue($collection->hasNot('key1.key2.key3'));
+
+        return $collection;
+    }
+
+    public function testArrayFuncs()
+    {
+        $sumable = [1, 2, 3, 4];
+
+        $collection = Collection::make($sumable);
+
+        $this->assertEquals(array_sum($sumable), $collection->sum());
+
+        $array = $this->exampleArray(5);
+
+        $collection->exchangeArray($array);
+
+        $this->assertEquals(array_column($array, 'name'), $collection->column('name')->toArray());
+
+        $this->assertEquals(array_flip(array_column($array, 'name')), $collection->column('name')->flip()->toArray());
+    }
+
+    protected function exampleArray(int $qty): array
+    {
+		for ($x = 1; $x <= $qty; $x++) {
+            $array['key_'.$x] = [
+                'id'    => $x,
+                'name'  => 'Pruebas' . $x,
+                'pass'  => 'pass' . $x,
+                'email' => "email{$x}@email.com",
+            ];
+        }
+
+        return $array;
     }
 }

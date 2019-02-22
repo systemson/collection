@@ -115,5 +115,14 @@ class CollectionTest extends TestCase
         $this->assertEquals([], $container->getCollection()->all());
 
         $this->assertInstanceOf(Collection::class, $container->getCollection());
+
+        $class = new \ReflectionClass(CollectionAwareClass::class);
+        $method = $class->getMethod('initCollection');
+		$method->setAccessible(true);
+
+		$array = [1, 2, 3, 4];
+		$output = $method->invoke($container, $array);
+
+		$this->assertEquals($array, $container->getCollection()->toArray());
     }
 }
