@@ -11,7 +11,7 @@ use Ds\Vector;
 
 $benchmark = new Benchmark();
 
-$n = 100;
+$n = 10;
 
 $benchmark->add('array', function () use ($n) {
     $array = [];
@@ -33,6 +33,28 @@ $benchmark->add('array', function () use ($n) {
     }
 
     return $array;
+});
+
+$benchmark->add('vector', function () use ($n) {
+    $collection = new Vector();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[] = $x;
+    }
+
+    foreach ($collection as $value) {
+        $collection;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection[$x]);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection[$x]);
+    }
+
+    return $collection;
 });
 
 $benchmark->add('collection-as-array', function () use ($n) {
@@ -79,6 +101,28 @@ $benchmark->add('laravel-as-array', function () use ($n) {
     return $collection;
 });
 
+$benchmark->add('doctrine-as-array', function () use ($n) {
+    $collection = new ArrayCollection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x] = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection[$x];
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection[$x]);
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection[$x]);
+    }
+
+    return $collection;
+});
+
 $benchmark->add('arrobject', function () use ($n) {
     $collection = new \ArrayObject();
 
@@ -100,6 +144,80 @@ $benchmark->add('arrobject', function () use ($n) {
 
     return $collection;
 });
+
+echo PHP_EOL . 'Test as array' . PHP_EOL;
+$benchmark->run();
+$benchmark = new Benchmark();
+
+$benchmark->add('collection-as-property', function () use ($n) {
+    $collection = new Collection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x} = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection->{$x});
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection->{$x});
+    }
+
+    return $collection;
+});
+
+$benchmark->add('laravel-as-property', function () use ($n) {
+    $collection = collect();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x} = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection->{$x});
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection->{$x});
+    }
+
+    return $collection;
+});
+
+$benchmark->add('doctrine-as-property', function () use ($n) {
+    $collection = new ArrayCollection();
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x} = $x;
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        $collection->{$x};
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        isset($collection->{$x});
+    }
+
+    for ($x=0; $x < $n; $x++) {
+        unset($collection->{$x});
+    }
+
+    return $collection;
+});
+
+echo PHP_EOL . 'Test as property' . PHP_EOL;
+$benchmark->run();
+$benchmark = new Benchmark();
 
 $benchmark->add('vector', function () use ($n) {
     $collection = new Vector();
@@ -145,28 +263,6 @@ $benchmark->add('collection-as-object', function () use ($n) {
     return $collection;
 });
 
-$benchmark->add('collection-as-property', function () use ($n) {
-    $collection = new Collection();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->{$x} = $x;
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->{$x};
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        isset($collection->{$x});
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        unset($collection->{$x});
-    }
-
-    return $collection;
-});
-
 $benchmark->add('laravel-as-object', function () use ($n) {
     $collection = collect();
 
@@ -184,28 +280,6 @@ $benchmark->add('laravel-as-object', function () use ($n) {
 
     for ($x=0; $x < $n; $x++) {
         $collection->forget($x);
-    }
-
-    return $collection;
-});
-
-$benchmark->add('laravel-as-property', function () use ($n) {
-    $collection = collect();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->{$x} = $x;
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->{$x};
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        isset($collection->{$x});
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        unset($collection->{$x});
     }
 
     return $collection;
@@ -233,50 +307,9 @@ $benchmark->add('doctrine-as-object', function () use ($n) {
     return $collection;
 });
 
-$benchmark->add('doctrine-as-array', function () use ($n) {
-    $collection = new ArrayCollection();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection[$x] = $x;
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection[$x];
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        isset($collection[$x]);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        unset($collection[$x]);
-    }
-
-    return $collection;
-});
-
-$benchmark->add('doctrine-as-property', function () use ($n) {
-    $collection = new ArrayCollection();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->{$x} = $x;
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->{$x};
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        isset($collection->{$x});
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        unset($collection->{$x});
-    }
-
-    return $collection;
-});
-
+echo PHP_EOL . 'Test as object' . PHP_EOL;
+$benchmark->run();
+$benchmark = new Benchmark();
 
 $benchmark->add('array-multi', function () use ($n) {
     $array = [];
@@ -369,4 +402,5 @@ $benchmark->add('arrobject-multi', function () use ($n) {
 //$benchmark->guessCount(10);
 //$benchmark->setCount(10000);
 
+echo PHP_EOL . 'Test as multilevel' . PHP_EOL;
 $benchmark->run();

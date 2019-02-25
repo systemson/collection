@@ -16,10 +16,8 @@ use Ds\Collection as CollectionInterface;
 /**
  * Wrapper class for working with arrays.
  *
- * @todo MUST throw exceptions on argument validations.
  * @todo MUST add support for searching wildcars. Like: $collection->get('base.{*}.other');
  *       SHOULD return an array if many items are found, else the matching item.
- * @todo SHOULD consider adding caching support.
  * @todo NEEDS refactoring to optimize speed.
  */
 class Collection extends BaseCollection implements CollectionInterface
