@@ -27,26 +27,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool
      */
-    public function has(string $key)
-    {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            return isset($this[$slug]);
-        }
-
-        $collection = $this->all();
-
-        foreach ($this->splitKey($key) as $search) {
-            if (!isset($collection[$search])) {
-                return false;
-            }
-
-            $collection = $collection[$search];
-        }
-
-        return true;
-    }
+    abstract public function has(string $key): bool;
 
     /**
      * Whether an item is not present it the collection
@@ -55,7 +36,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool
      */
-    public function hasNot(string $key)
+    public function hasNot(string $key): bool
     {
         return !$this->has($key);
     }
@@ -63,49 +44,24 @@ abstract class BaseCollection extends \ArrayObject
     /**
      * Sets or updates an item in the collection.
      *
+     * @param string $key   The item's key
+     * @param mixed  $value The item's value
+     *
+     * @return void
+     */
+    abstract public function set(string $key, $value): void;
+
+    /**
+     * Alias for put().
+     *
      * @param string $key The item's key
      * @param mixed  $value The item's value
      *
      * @return void
      */
-    public function put(string $key, $value)
+    public function put(string $key, $value): void
     {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            $this[$slug] = $value;
-            return;
-        }
-
-        $storage = $value;
-
-        foreach (array_reverse($slug) as $id => $key) {
-            if ($id === count($slug) - 1) {
-                break;
-            }
-
-            $aux[$key] = $storage;
-
-            $storage = $aux;
-            unset($aux);
-        }
-
-        $this[$key] = $storage;
-    }
-
-    /**
-     * Sets or updates an item in the collection, and returns true on success.
-     *
-     * @param string $key The item's key
-     * @param mixed  $value The item's value
-     *
-     * @return bool true
-     */
-    public function set(string $key, $value)
-    {
-        $this->put($key, $value);
-
-        return true;
+        $this->set($key, $value);
     }
 
     /**
@@ -116,13 +72,13 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool true on success, false if the item already exists.
      */
-    public function add(string $key, $value)
+    public function add(string $key, $value): bool
     {
         if ($this->has($key)) {
             return false;
         }
 
-        $this->put($key, $value);
+        $this->set($key, $value);
 
         return true;
     }
@@ -135,7 +91,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool true on success, false if the item already exists.
      */
-    public function insert(string $key, $value)
+    public function insert(string $key, $value): bool
     {
         return $this->add($key, $value);
     }
@@ -148,13 +104,13 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool true on success, false if the item does not exists.
      */
-    public function update(string $key, $value)
+    public function update(string $key, $value): bool
     {
         if ($this->hasNot($key)) {
             return false;
         }
 
-        $this->put($key, $value);
+        $this->set($key, $value);
 
         return true;
     }
@@ -168,15 +124,13 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return void
      */
-    public function push($value)
+    public function push($value): void
     {
         $this[] = $value;
     }
 
     /**
      * Push a new item at the end of a item in the collection.
-     *
-     * This should be used for none associative collections.
      *
      * @todo MUST accept multilevel keys.
      *
@@ -185,7 +139,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool
      */
-    public function pushTo(string $key, $value)
+    public function pushTo(string $key, $value): bool
     {
         $this[$key][] = $value;
 
@@ -199,29 +153,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
-    public function get(string $key)
-    {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            if (isset($this[$slug])) {
-                return $this[$slug];
-            }
-            return null;
-        }
-
-        $collection = $this->getArrayCopy();
-
-        foreach ($slug as $search) {
-            if (isset($collection[$search])) {
-                $collection = $collection[$search];
-            } else {
-                return;
-            }
-        }
-
-        return $collection;
-    }
+    abstract public function get(string $key);
 
     /**
      * Alias for get.
@@ -282,34 +214,5 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @return bool true on success false on failure.
      */
-    public function delete(string $key)
-    {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            if (isset($this[$slug])) {
-                unset($this[$slug]);
-                return true;
-            }
-            return false;
-        }
-
-        if ($this->hasNot($key)) {
-            return false;
-        }
-
-        $this->set($key, null);
-
-        return true;
-    }
-
-    /**
-     * Returns a json representation to the Collection.
-     *
-     * @return string Json representation to the Collection.
-     */
-    public function __toString()
-    {
-        return json_encode($this->getArrayCopy());
-    }
+    abstract public function delete(string $key): bool;
 }

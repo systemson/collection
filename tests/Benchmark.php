@@ -356,7 +356,7 @@ $benchmark->add('collection-as-array-multi', function () use ($n) {
 });
 
 $benchmark->add('collection-as-object-multi', function () use ($n) {
-    $collection = new Collection();
+    $collection = new Collection([], true);
 
     for ($x=0; $x < $n; $x++) {
         $collection->put("first.second.third.{$x}", $x);
@@ -367,7 +367,7 @@ $benchmark->add('collection-as-object-multi', function () use ($n) {
     }
 
     for ($x=0; $x < $n; $x++) {
-        $collection->has("first.second.third.{$x}");
+        //$collection->has("first.second.third.{$x}");
     }
 
     for ($x=0; $x < $n; $x++) {

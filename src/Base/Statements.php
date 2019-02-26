@@ -204,7 +204,7 @@ trait Statements
      * @param string $key   The key of the item.
      * @param mixed  $value The value of the item.
      *
-     * @return Collection A new collection instance.
+     * @return mixed
      */
     public function firstOrNew($key, $value)
     {
@@ -221,7 +221,7 @@ trait Statements
      * @param string $key   The key of the item.
      * @param mixed  $value The value of the item.
      *
-     * @return Collection A new collection instance.
+     * @return mixed
      */
     public function updateOrNew($key, $value)
     {

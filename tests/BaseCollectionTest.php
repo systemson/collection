@@ -21,7 +21,7 @@ class BaseCollectionTest extends TestCase
         $this->assertFalse($collection->update('key1', 'value'));
 
         /* Tests adding items */
-        $this->assertTrue($collection->set('key', 'value'));
+        $this->assertNull($collection->put('key', 'value'));
         $this->assertTrue($collection->insert('key1', 'value'));
 
         /* Tests adding an item that already exists */
@@ -77,7 +77,7 @@ class BaseCollectionTest extends TestCase
         $value = 'value';
         $json = json_encode([$key => $value]);
 
-        $this->assertTrue($collection->set($key, $value));
+        $this->assertNull($collection->put($key, $value));
 
         $this->assertInternalType('string', (string) $collection);
 
@@ -129,34 +129,6 @@ class BaseCollectionTest extends TestCase
 
         /* Cleares the collection */
         $collection->clear();
-
-        return $collection;
-    }
-
-    /**
-     * @depends testNumericCollection
-     */
-    public function testMultiLevelCollection($collection)
-    {
-        $items = [
-            'key1' => [
-                'key2' => [
-                    'key3' => 'value'
-                ]
-            ]
-        ];
-
-        $this->assertTrue($collection->set(key($items), $items['key1']));
-
-        $this->assertTrue($collection->has('key1.key2.key3'));
-
-        $this->assertEquals('value', $collection->get('key1.key2.key3'));
-        $this->assertEquals('value', $collection->find('key1.key2.key3'));
-
-        /* Cleares the collection */
-        $collection->clear();
-
-        $this->assertTrue($collection->hasNot('key1.key2.key3'));
 
         return $collection;
     }

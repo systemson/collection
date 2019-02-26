@@ -24,7 +24,7 @@ trait Essential
      *
      * @return CollectionInterface a new Instance of the collection.
      */
-    public static function make($array = []): CollectionInterface
+    public static function make(array $array = []): CollectionInterface
     {
         return new static($array);
     }
@@ -134,7 +134,7 @@ trait Essential
      *
      * @return void
      */
-    public function clear()
+    public function clear(): void
     {
         $this->exchangeArray([]);
     }
@@ -147,5 +147,15 @@ trait Essential
     public function jsonSerialize(): array
     {
         return $this->getArrayCopy();
+    }
+
+    /**
+     * Returns a json representation to the Collection.
+     *
+     * @return string Json representation to the Collection.
+     */
+    public function __toString()
+    {
+        return json_encode($this->getArrayCopy());
     }
 }
