@@ -34,9 +34,10 @@ $array = ['key' => 'value'];
 $collection = new Collection($array);
 ```
 
-
 ## Available methods
-### has() - *Whether an item is present it the collection.*
+- [has](#has)
+### has()
+*Whether an item is present it the collection.*
 has(string  $key) : boolean
 ``` php
 $array = ['key' => 'value'];
@@ -48,10 +49,12 @@ $collection->has('key'); // returns true.
 $collection->has('anotherKey'); // returns false.
 ```
 
-### contains() - *Alias for has().*
+### contains()
+*Alias for has().*
 contains(string  $key) : boolean
 
-### hasNot() - *Whether an item is not present it the collection.*
+### hasNot()
+*Whether an item is not present it the collection.*
 hasNot(string  $key) : boolean
 ``` php
 $array = ['key' => 'value'];
