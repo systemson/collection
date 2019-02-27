@@ -19,9 +19,21 @@ composer require amber/collection
 In your code:
 ``` php
 Use Amber\Collection\Collection;
+```
 
+Instantiate an empty collection:
+
+``` php
 $collection = new Collection();
 ```
+
+Or instantiate a collection for an array:
+``` php
+$array = ['key' => 'value'];
+
+$collection = new Collection($array);
+```
+
 
 ## Available methods
 ### has() - *Whether an item is present it the collection.*
