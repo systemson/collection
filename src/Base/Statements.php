@@ -37,8 +37,6 @@ trait Statements
 
             return $result;
         });
-
-        return $this->make($container);
     }
 
     /**
@@ -190,9 +188,7 @@ trait Statements
     public function sum($column = null): int
     {
         if (!is_null($column)) {
-            $column = $this->column($column);
-
-            return $column->sum();
+            return $this->column($column)->sum();
         }
 
         return array_sum($this->getArrayCopy());

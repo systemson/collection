@@ -30,6 +30,18 @@ abstract class BaseCollection extends \ArrayObject
     abstract public function has(string $key): bool;
 
     /**
+     * Alias for has()
+     *
+     * @param string $key The item's key
+     *
+     * @return bool
+     */
+    public function contains(string $key): bool
+    {
+        return $this->has($key);
+    }
+
+    /**
      * Whether an item is not present it the collection
      *
      * @param string $key The item's key

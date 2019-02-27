@@ -142,13 +142,4 @@ class StatementsTest extends TestCase
 
         return $collection;
     }
-
-    public function testArrayFuncs()
-    {
-        $sumable = [1, 2, 3, 4];
-
-        $collection = Collection::make($sumable);
-
-        $this->assertEquals(array_sum($sumable), $collection->sum());
-    }
 }

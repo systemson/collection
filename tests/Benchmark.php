@@ -3,9 +3,9 @@
 require_once 'vendor/autoload.php';
 
 use Amber\Collection\Collection;
+use Amber\Collection\SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
-use Ds\Vector;
 
 //declare(ticks=1);
 
@@ -35,30 +35,8 @@ $benchmark->add('array', function () use ($n) {
     return $array;
 });
 
-$benchmark->add('vector', function () use ($n) {
-    $collection = new Vector();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection[] = $x;
-    }
-
-    foreach ($collection as $value) {
-        $collection;
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        isset($collection[$x]);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        unset($collection[$x]);
-    }
-
-    return $collection;
-});
-
 $benchmark->add('collection-as-array', function () use ($n) {
-    $collection = new Collection();
+    $collection = new SimpleCollection();
 
     for ($x=0; $x < $n; $x++) {
         $collection[$x] = $x;
@@ -150,7 +128,7 @@ $benchmark->run();
 $benchmark = new Benchmark();
 
 $benchmark->add('collection-as-property', function () use ($n) {
-    $collection = new Collection();
+    $collection = new SimpleCollection();
 
     for ($x=0; $x < $n; $x++) {
         $collection->{$x} = $x;
@@ -219,33 +197,11 @@ echo PHP_EOL . 'Test as property' . PHP_EOL;
 $benchmark->run();
 $benchmark = new Benchmark();
 
-$benchmark->add('vector', function () use ($n) {
-    $collection = new Vector();
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->insert($x, $x);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        $collection->get($x);
-    }
-
-    for ($x=0; $x < $n; $x++) {
-        isset($collection[$x]);
-    }
-
-    for ($x=$n-1; $x > 0; $x--) {
-        $collection->remove($x);
-    }
-
-    return $collection;
-});
-
 $benchmark->add('collection-as-object', function () use ($n) {
-    $collection = new Collection();
+    $collection = new SimpleCollection();
 
     for ($x=0; $x < $n; $x++) {
-        $collection->put($x, $x);
+        $collection->set($x, $x);
     }
 
     for ($x=0; $x < $n; $x++) {
@@ -334,7 +290,7 @@ $benchmark->add('array-multi', function () use ($n) {
 });
 
 $benchmark->add('collection-as-array-multi', function () use ($n) {
-    $collection = new Collection();
+    $collection = new SimpleCollection();
 
     for ($x=0; $x < $n; $x++) {
         $collection['first']['second']['third'][$x] = $x;

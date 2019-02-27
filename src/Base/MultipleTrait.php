@@ -21,15 +21,13 @@ trait MultipleTrait
      *
      * @param array $array The item's key => value pairs
      *
-     * @return bool true
+     * @return void
      */
-    public function setMultiple(array $array)
+    public function setMultiple(array $array): void
     {
         foreach ($array as $key => $value) {
             $this->put($key, $value);
         }
-
-        return true;
     }
 
     /**
@@ -44,7 +42,7 @@ trait MultipleTrait
         $return = [];
 
         foreach ($array as $key) {
-            $return[] = $this->get($key);
+            $return[$key] = $this->get($key);
         }
 
         return $return;

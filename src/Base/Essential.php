@@ -40,16 +40,6 @@ trait Essential
     }
 
     /**
-     * Returns an json representation of the collection.
-     *
-     * @return string The json representation of the collection.
-     */
-    public function toJson(): string
-    {
-        return json_encode($this->getArrayCopy());
-    }
-
-    /**
      * Alias for toArray().
      *
      * @return array The items in the collection.
@@ -100,6 +90,16 @@ trait Essential
     }
 
     /**
+     * Returns the size of the collection.
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return count(array_filter($this->getArrayCopy()));
+    }
+
+    /**
      * Returns whether the collection is empty.
      *
      * @return bool Whether the collection is empty.
@@ -120,23 +120,13 @@ trait Essential
     }
 
     /**
-     * Returns the size of the collection.
+     * Returns an json representation of the collection.
      *
-     * @return int
+     * @return string The json representation of the collection.
      */
-    public function count(): int
+    public function toJson(): string
     {
-        return count(array_filter($this->getArrayCopy()));
-    }
-
-    /**
-     * Removes all values from the collection.
-     *
-     * @return void
-     */
-    public function clear(): void
-    {
-        $this->exchangeArray([]);
+        return json_encode($this->getArrayCopy());
     }
 
     /**
@@ -157,5 +147,15 @@ trait Essential
     public function __toString()
     {
         return json_encode($this->getArrayCopy());
+    }
+
+    /**
+     * Removes all values from the collection.
+     *
+     * @return void
+     */
+    public function clear(): void
+    {
+        $this->exchangeArray([]);
     }
 }
