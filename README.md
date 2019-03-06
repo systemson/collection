@@ -78,17 +78,15 @@ $collection = new Collection($array);
 
 has(string  $key) : boolean
 ``` php
-$array = ['key' => 'value'];
+$collection->set('name', 'Amber');
 
-$collection = new Collection($array);
+$collection->has('name'); // returns true.
 
-$collection->has('key'); // returns true.
-
-$collection->has('anotherKey'); // returns false.
+$collection->has('other'); // returns false.
 ```
 
 ### contains()
-*Alias for has().*
+*Alias for [has](#has).*
 
 contains(string  $key) : boolean
 
@@ -97,13 +95,11 @@ contains(string  $key) : boolean
 
 hasNot(string  $key) : boolean
 ``` php
-$array = ['key' => 'value'];
+$collection->set('name', 'Amber');
 
-$collection = new Collection($array);
+$collection->hasNot('name'); // returns false.
 
-$collection->hasNot('key'); // returns false.
-
-$collection->hasNot('anotherKey'); // returns true.
+$collection->hasNot('other'); // returns true.
 ```
 
 ### set()
@@ -111,15 +107,13 @@ $collection->hasNot('anotherKey'); // returns true.
 
 set(string  $key, mixed  $value) : void
 ``` php
-$collection = new Collection();
+$collection->set('name', 'Amber');
 
-$collection->set('key', 'value');
-
-$collection->has('key'); // returns true.
+$collection->has('name'); // returns true.
 ```
 
 ### put()
-*Alias for put().*
+*Alias for [set](#set).*
 
 put(string  $key, mixed  $value) : void
 
@@ -128,15 +122,13 @@ put(string  $key, mixed  $value) : void
 
 add(string  $key, mixed  $value) : boolean
 ``` php
-$collection = new Collection();
+$collection->add('name', 'Amber'); // returns true.
 
-$collection->add('key', 'value'); // returns true.
-
-$collection->add('key', 'value'); // returns false, since the item already is in the collection.
+$collection->add('name', 'Amber'); // returns false, since the item already exists.
 ```
 
 ### insert()
-*Alias for add().*
+*Alias for [add](#add).*
 
 insert(string  $key, mixed  $value) : boolean
 
@@ -145,13 +137,11 @@ insert(string  $key, mixed  $value) : boolean
 
 update(string  $key, mixed  $value) : boolean
 ``` php
-$collection = new Collection();
+$collection->update('name', 'Amber'); // returns false, since the item doesn't exists in the collecction
 
-$collection->update('key', 'value'); // returns false, since the item doesn't exists in the collecction
+$collection->set('name', 'Amber');
 
-$collection->set('key', 'value');
-
-$collection->update('key', 'value'); // returns true.
+$collection->update('name', 'Collection'); // returns true.
 ```
 
 ### push()
@@ -159,27 +149,38 @@ $collection->update('key', 'value'); // returns true.
 
 push(mixed  $value) : void
 ``` php
-$collection = new Collection();
+$collection->push('apple');
+$collection->push('orange');
+$collection->push('grapes');
 
-$collection->push('value1');
-$collection->push('value2');
-$collection->push('value3');
-
-$collection->all(); // returns ['value1', 'value2', 'value3']
+$collection->all(); // returns ['apple', 'orange', 'grapes']
 ```
 
 ### pushTo()
 *Push a new item at the end of a item in the collection.*
 
 pushTo(string  $key, mixed  $value) : boolean
+``` php
+$collection->set('colors', []); // Sets an empty array
+$collection->pushTo('colors', 'red');
+$collection->pushTo('colors', 'blue');
+$collection->pushTo('colors', 'green');
+
+$collection->get('colors'); // returns ['red', 'blue', 'green']
+```
 
 ### get()
 *Gets an item from collection.*
 
 get(string  $key) : mixed|void
+``` php
+$collection->set('name', 'Amber');
+
+$collection->get('name'); // returns 'Amber'
+```
 
 ### find()
-*Alias for get.*
+*Alias for [get](#get).*
 
 find(string  $key) : mixed
 
@@ -187,46 +188,131 @@ find(string  $key) : mixed
 *Returns the first element of the collection.*
 
 first() : mixed
+``` php
+$collection->push('apple');
+$collection->push('orange');
+$collection->push('grapes');
+
+$collection->first(); // returns 'apple'
+```
 
 ### last()
 *Returns the last element of the collection.*
 
 last() : mixed
+``` php
+$collection->push('apple');
+$collection->push('orange');
+$collection->push('grapes');
+
+$collection->last(); // returns 'grapes'
+```
 
 ### remove()
 *Deletes and retrives an item from collection.*
 
 remove(string  $key) : mixed
+``` php
+$collection->set('name', 'Amber');
+
+$name = $collection->remove('name');
+
+$collection->has('name'); // returns false
+
+echo $name; // prints 'Amber'
+```
 
 ### delete()
 *Deletes an item from collection.*
 
 delete(string  $key) : boolean
+``` php
+$collection->set('name', 'Amber');
+
+$collection->delete('name'); // returns true
+
+$collection->delete('name'); // returns false, since the items was aleady deleted
+```
 
 ### map()
 *Iterates through the collection and passes each value to the given callback.*
 
 map(\Closure  $callback) : \Amber\Collection\Base\Collection
+``` php
+$collection->push('apple');
+$collection->push('orange');
+$collection->push('grapes');
+
+$maped = $collection->map(function ($value) {
+    return ucfirst($value);
+});
+
+$maped->all(); // returns ['Apple', 'Orange', 'Grapes']
+```
 
 ### filter()
 *Returns a new filtered collection using a user-defined function.*
 
 filter(\Closure  $callback) : \Amber\Collection\Base\Collection
+``` php
+$collection->push('apple');
+$collection->push('orange');
+$collection->push('grapes');
+
+$filtered = $collection->filter(function ($value) {
+    return $value == 'apple';
+});
+
+$filtered->all(); // returns ['apple']
+```
 
 ### sort()
 *Returns a new sorted collection using a user-defined comparison function.*
 
 sort(\Closure  $callback) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(3);
+$collection->push(5);
+$collection->push(2);
+
+$sorted = $collection->filter(function ($a, $b) {
+    return $a <=> $b;
+});
+
+$sorted->all(); // returns [2, 3, 5]
+```
 
 ### reverse()
 *Returns a new reversed collection.*
 
 reverse() : \Amber\Collection\Base\Collection
+``` php
+$collection->push(1);
+$collection->push(2);
+$collection->push(3);
+
+$reversed = $collection->reverse();
+
+$reversed->all() // returns [3, 2, 1]
+```
 
 ### merge()
 *Returns a new collection merged with one or more arrays.*
 
 merge(array  $array) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(1);
+$collection->push(2);
+$collection->push(3);
+
+$collection->all(); // returns [1, 2, 3]
+
+$array = [4, 5, 6];
+
+$merged = $collection->merge($array);
+
+$merged->all() // returns [1, 2, 3, 4, 5, 6]
+```
 
 ### chunk()
 *Splits an array into chunks.*
@@ -237,11 +323,27 @@ chunk(integer  $size, boolean  $preserve_keys = false) : \Amber\Collection\Base\
 *Returns the values from a single column.*
 
 column(string  $column) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$colors = $collection->column('color');
+
+$colors->all(); // returns ['red', 'blue', 'green']
+```
 
 ### flip()
 *Exchanges all keys with their associated values.*
 
 flip() : \Amber\Collection\Base\Collection
+``` php
+$collection->set('color' => 'red');
+
+$fliped = $collection->flip();
+
+$fliped->all(); // returns ['red' => 'color']
+```
 
 ### setMultiple()
 *Sets or updates an array of items in the collection, and returns true on success.*
@@ -262,36 +364,126 @@ hasMultiple(array  $array) : boolean
 *Returns a new Collection containing the items in the specified column(s).*
 
 select(array|string  $columns) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$items = $collection->select('id', 'color');
+
+$items->all(); // returns [[1, 'red'], [2, 'blue'], [3, 'green']]
+```
 
 ### where()
 *Returns a new Collection containing the items in the specified column that are equal to the especified value.*
 
 where(string  $column, mixed  $value) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$filtered = $collection->where('color', 'red');
+
+$filtered->all(); // returns ['id' => '1', 'color' => 'red', 'name' => 'Fire']
+```
 
 ### whereNot()
 *Returns a new Collection containing the items in the specified column that are not equal to the especified value.*
 
 whereNot(string  $column, mixed  $value) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$filtered = $collection->whereNot('color', 'red');
+
+$filtered->all();
+// returns [
+    ['id' => '2', 'color' => 'blue', 'name' => 'Sea'],
+    ['id' => '3', 'color' => 'green', 'name' => 'Forest']
+]
+```
 
 ### whereIn()
 *Returns a new Collection containing the items in the specified column that are equal to the especified value(s).*
 
 whereIn(string  $column, array  $values = array()) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$filtered = $collection->whereIn('color', ['blue', 'green']);
+
+$filtered->all();
+// returns [
+    ['id' => '2', 'color' => 'blue', 'name' => 'Sea'],
+    ['id' => '3', 'color' => 'green', 'name' => 'Forest']
+]
+```
 
 ### whereNotIn()
 *Returns a new Collection containing the items in the specified column that are not equal to the especified value(s).*
 
 whereNotIn(string  $column, array  $values = array()) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$filtered = $collection->whereNotIn('color', ['blue', 'green']);
+
+$filtered->all(); // returns ['id' => '1', 'color' => 'red', 'name' => 'Fire']
+```
 
 ### orderBy()
 *Returns a new Collection containing the items ordered by the especified column.*
 
 orderBy(string  $column, string  $order = 'ASC') : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$asc = $collection->orderBy('color');
+
+$asc->all();
+// returns [
+    ['id' => '2', 'color' => 'blue', 'name' => 'Sea'],
+    ['id' => '3', 'color' => 'green', 'name' => 'Forest'],
+    ['id' => '1', 'color' => 'red', 'name' => 'Fire']
+]
+
+$desc = $collection->orderBy('color', 'desc'); // The $order param is not case sensitive.
+
+$desc->all();
+// returns [
+    ['id' => '1', 'color' => 'red', 'name' => 'Fire'],
+    ['id' => '3', 'color' => 'green', 'name' => 'Forest'],
+    ['id' => '2', 'color' => 'blue', 'name' => 'Sea']   
+]
+```
 
 ### groupBy()
 *Returns a new Collection grouped by the specified column.*
 
 groupBy(string  $column) : \Amber\Collection\Base\Collection
+``` php
+$collection->push(['id' => '1', 'color' => 'red', 'name' => 'Fire']);
+$collection->push(['id' => '2', 'color' => 'blue', 'name' => 'Sea']);
+$collection->push(['id' => '3', 'color' => 'green', 'name' => 'Forest']);
+
+$grouped = $collection->groupBy('color');
+
+$grouped->all();
+// returns [
+    'red' => ['id' => '1', 'color' => 'red', 'name' => 'Fire'],
+    'blue' => ['id' => '2', 'color' => 'blue', 'name' => 'Sea'],
+    'green' => ['id' => '3', 'color' => 'green', 'name' => 'Forest']
+]
+```
 
 ### join()
 *Returns a new Collection joined by the specified column.*
@@ -302,6 +494,21 @@ join(array  $array, string  $pkey, string  $fkey) : \Amber\Collection\Base\Colle
 *Calculates the sum of values in the collection.*
 
 sum(string  $column = null) : integer
+``` php
+$collection->push(2);
+$collection->push(5);
+$collection->push(3);
+
+$collection->sum(); // returns 10
+```
+Or you can sum a specific colum
+```
+$collection->push(['id' => 1, 'name' => 'red', 'quantity' => 2]);
+$collection->push(['id' => 2, 'name' => 'blue', 'quantity' => 5]);
+$collection->push(['id' => 3, 'name' => 'green', 'quantity' => 3]);
+
+$collection->sum('quantity'); // returns 10
+```
 
 ### firstOrNew()
 *Gets the first item of the Collection or adds and returns a new one.*
