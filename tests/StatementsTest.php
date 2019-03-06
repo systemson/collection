@@ -124,7 +124,7 @@ class StatementsTest extends TestCase
         $collection = new Collection($array);
 
         for ($x = 1; $x <= $qty; $x++) {
-            $user_roles[] = array_merge($array[$x-1], $roles[$x-1]);
+            $user_roles[] = array_merge($array[$x - 1], $roles[$x - 1]);
         }
 
         $this->assertEquals(

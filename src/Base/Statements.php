@@ -3,7 +3,7 @@
  * This file is part of the Amber/Collection package.
  *
  * @package Amber/Collection
- * @author Deivi Peña <systemson@gmail.com>
+ * @author  Deivi Peña <systemson@gmail.com>
  * @license GPL-3.0-or-later
  * @license https://opensource.org/licenses/gpl-license GNU Public License
  */
@@ -20,23 +20,25 @@ trait Statements
     /**
      * Returns a new Collection containing the items in the specified column(s).
      *
-     * @param array|string $columns The collumns to filter by.
+     * @param array|string $columns The columns to filter by.
      *
      * @return Collection A new collection instance.
      */
     public function select(...$columns): CollectionInterface
     {
-        return $this->map(function ($item) use ($columns) {
-            $result = [];
+        return $this->map(
+            function ($item) use ($columns) {
+                $result = [];
 
-            foreach ($columns as $column) {
-                if (isset($item[$column])) {
-                    $result[$column] = $item[$column];
+                foreach ($columns as $column) {
+                    if (isset($item[$column])) {
+                        $result[$column] = $item[$column];
+                    }
                 }
-            }
 
-            return $result;
-        });
+                return $result;
+            }
+        );
     }
 
     /**
@@ -126,13 +128,15 @@ trait Statements
      */
     public function orderBy($column, $order = 'ASC'): CollectionInterface
     {
-        return $this->sort(function ($a, $b) use ($column, $order) {
-            if (strtoupper($order) == 'ASC') {
-                return $a[$column] <=> $b[$column];
-            } elseif (strtoupper($order) == 'DESC') {
-                return $b[$column] <=> $a[$column];
+        return $this->sort(
+            function ($a, $b) use ($column, $order) {
+                if (strtoupper($order) == 'ASC') {
+                    return $a[$column] <=> $b[$column];
+                } elseif (strtoupper($order) == 'DESC') {
+                    return $b[$column] <=> $a[$column];
+                }
             }
-        });
+        );
     }
 
     /**
@@ -169,19 +173,21 @@ trait Statements
      */
     public function join(array $array, string $pkey, string $fkey): CollectionInterface
     {
-        return $this->map(function ($item) use ($array, $pkey, $fkey) {
-            foreach ($array as $value) {
-                if ($item[$pkey] == $value[$fkey]) {
-                    return array_merge($item, $value);
+        return $this->map(
+            function ($item) use ($array, $pkey, $fkey) {
+                foreach ($array as $value) {
+                    if ($item[$pkey] == $value[$fkey]) {
+                        return array_merge($item, $value);
+                    }
                 }
             }
-        });
+        );
     }
 
     /**
      * Calculates the sum of values in the collection.
      *
-     * @param string  $column The column.
+     * @param string $column The column.
      *
      * @return int The collection sum.
      */

@@ -3,7 +3,7 @@
  * This file is part of the Amber/Collection package.
  *
  * @package Amber/Collection
- * @author Deivi Peña <systemson@gmail.com>
+ * @author  Deivi Peña <systemson@gmail.com>
  * @license GPL-3.0-or-later
  * @license https://opensource.org/licenses/gpl-license GNU Public License
  */
@@ -18,8 +18,6 @@ use Ds\Collection as CollectionInterface;
  *
  * @todo MUST add support for searching wildcars. Like: $collection->get('base.{*}.other');
  *       SHOULD return an array if many items are found, else the matching item.
- * @todo NEEDS refactoring to optimize speed.
- * @todo SHOULD consider spliting multilevel and normal collection into two different clases.
  */
 class Collection extends BaseCollection implements CollectionInterface
 {
@@ -42,8 +40,6 @@ class Collection extends BaseCollection implements CollectionInterface
     public function __construct(array $array = [], bool $multilevel = false)
     {
         parent::__construct($array);
-
-        $this->setFlags(static::ARRAY_AS_PROPS);
 
         $this->multilevel = $multilevel;
     }

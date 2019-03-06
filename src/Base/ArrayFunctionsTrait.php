@@ -3,7 +3,7 @@
  * This file is part of the Amber/Collection package.
  *
  * @package Amber/Collection
- * @author Deivi Peña <systemson@gmail.com>
+ * @author  Deivi Peña <systemson@gmail.com>
  * @license GPL-3.0-or-later
  * @license https://opensource.org/licenses/gpl-license GNU Public License
  */
@@ -117,7 +117,7 @@ trait ArrayFunctionsTrait
     /**
      * Returns the values from a single column.
      *
-     * @param string  $column The column.
+     * @param string $column The column.
      *
      * @return Collection A new collection instance.
      */

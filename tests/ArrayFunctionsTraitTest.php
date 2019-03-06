@@ -25,95 +25,95 @@ class ArrayFunctionsTraitTest extends TestCase
 
     public function testMap()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$callback = function ($value) {
-    		return $value + $value;
-    	};
+        $callback = function ($value) {
+            return $value + $value;
+        };
 
-    	$this->assertEquals(
-    		array_map($callback, $multiple),
-    		$collection->map($callback)->toArray()
-    	);
+        $this->assertEquals(
+            array_map($callback, $multiple),
+            $collection->map($callback)->toArray()
+        );
     }
 
     public function testFilter()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$callback = function ($value) {
-    		return $value === 1;
-    	};
+        $callback = function ($value) {
+            return $value === 1;
+        };
 
-    	$this->assertEquals(
-    		array_filter($multiple, $callback),
-    		$collection->filter($callback)->toArray()
-    	);
+        $this->assertEquals(
+            array_filter($multiple, $callback),
+            $collection->filter($callback)->toArray()
+        );
     }
 
     public function testSort()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$callback = function ($a, $b) {
-    		return $b['id'] <=> $a['id'] ;
-    	};
+        $callback = function ($a, $b) {
+            return $b['id'] <=> $a['id'] ;
+        };
 
-    	usort($multiple, $callback);
+        usort($multiple, $callback);
 
-    	$this->assertEquals(
-    		$multiple,
-    		$collection->sort($callback)->toArray()
-    	);
+        $this->assertEquals(
+            $multiple,
+            $collection->sort($callback)->toArray()
+        );
     }
 
     public function testReverse()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$this->assertEquals(
-    		array_reverse($multiple),
-    		$collection->reverse()->toArray()
-    	);
+        $this->assertEquals(
+            array_reverse($multiple),
+            $collection->reverse()->toArray()
+        );
     }
 
     public function testMerge()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$this->assertEquals(
-    		array_merge($multiple, $multiple),
-    		$collection->merge($multiple)->toArray()
-    	);
+        $this->assertEquals(
+            array_merge($multiple, $multiple),
+            $collection->merge($multiple)->toArray()
+        );
     }
 
     public function testChunk()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$this->assertEquals(
-    		array_chunk($multiple, 2),
-    		$collection->chunk(2)->toArray()
-    	);
+        $this->assertEquals(
+            array_chunk($multiple, 2),
+            $collection->chunk(2)->toArray()
+        );
     }
 
     public function testColumn()
     {
-    	$multiple = static::newArray();
+        $multiple = static::newArray();
         $collection = new Collection($multiple);
 
-    	$this->assertEquals(
-    		$ids = array_column($multiple, 'id'),
-    		$collection->column('id')->toArray()
-    	);
+        $this->assertEquals(
+            $ids = array_column($multiple, 'id'),
+            $collection->column('id')->toArray()
+        );
 
-    	return $ids;
+        return $ids;
     }
 
     /**
@@ -123,9 +123,9 @@ class ArrayFunctionsTraitTest extends TestCase
     {
         $collection = new Collection($ids);
 
-    	$this->assertEquals(
-    		array_flip($ids),
-    		$collection->flip()->toArray()
-    	);
+        $this->assertEquals(
+            array_flip($ids),
+            $collection->flip()->toArray()
+        );
     }
 }

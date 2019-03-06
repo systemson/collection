@@ -3,7 +3,7 @@
  * This file is part of the Amber/Collection package.
  *
  * @package Amber/Collection
- * @author Deivi Peña <systemson@gmail.com>
+ * @author  Deivi Peña <systemson@gmail.com>
  * @license GPL-3.0-or-later
  * @license https://opensource.org/licenses/gpl-license GNU Public License
  */
@@ -15,23 +15,9 @@ use Ds\Collection as CollectionInterface;
 
 /**
  * Wrapper class for working with arrays.
- *
  */
 class SimpleCollection extends BaseCollection implements CollectionInterface
 {
-    /**
-     * Collection constructor
-     *
-     * @param array $array      The items for the collection.
-     * @param bool  $multilevel Defines if the array should handle multilevel keys.
-     */
-    public function __construct(array $array = [])
-    {
-        parent::__construct($array);
-
-        $this->setFlags(static::ARRAY_AS_PROPS);
-    }
-
     /**
      * Sets or updates an item in the collection.
      *

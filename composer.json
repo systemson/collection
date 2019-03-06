@@ -45,11 +45,13 @@
             "composer update -vvv"
         ],
         "full-check": [
-            "phpunit",
-            "phpdoc",
-            "phpcs --standard=PSR12 ./src",
-            "phpcbf --standard=PSR12 ./src"
-        ]
+            "@test",
+            "@docs",
+            "@sniff"
+        ],
+        "post-update-cmd": [
+            "@test"
+        ],
     },
     "config": {
         "preferred-install": "dist",

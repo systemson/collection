@@ -3,7 +3,7 @@
  * This file is part of the Amber/Collection package.
  *
  * @package Amber/Collection
- * @author Deivi Peña <systemson@gmail.com>
+ * @author  Deivi Peña <systemson@gmail.com>
  * @license GPL-3.0-or-later
  * @license https://opensource.org/licenses/gpl-license GNU Public License
  */
@@ -66,7 +66,7 @@ abstract class BaseCollection extends \ArrayObject
     /**
      * Alias for put().
      *
-     * @param string $key The item's key
+     * @param string $key   The item's key
      * @param mixed  $value The item's value
      *
      * @return void
@@ -79,7 +79,7 @@ abstract class BaseCollection extends \ArrayObject
     /**
      * Sets a new item to the collection.
      *
-     * @param string $key The item's key
+     * @param string $key   The item's key
      * @param mixed  $value The item's value
      *
      * @return bool true on success, false if the item already exists.
@@ -98,7 +98,7 @@ abstract class BaseCollection extends \ArrayObject
     /**
      * Alias for add().
      *
-     * @param string $key The item's key
+     * @param string $key   The item's key
      * @param mixed  $value The item's value
      *
      * @return bool true on success, false if the item already exists.
@@ -111,7 +111,7 @@ abstract class BaseCollection extends \ArrayObject
     /**
      * Updates an existent item in the collection.
      *
-     * @param string $key The item's key
+     * @param string $key   The item's key
      * @param mixed  $value The item's value
      *
      * @return bool true on success, false if the item does not exists.
@@ -132,7 +132,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * This should be used for none associative collections.
      *
-     * @param mixed  $value The item's value
+     * @param mixed $value The item's value
      *
      * @return void
      */
@@ -146,7 +146,7 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @todo MUST accept multilevel keys.
      *
-     * @param string $key The item's key
+     * @param string $key   The item's key
      * @param mixed  $value The item's value
      *
      * @return bool

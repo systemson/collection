@@ -25,13 +25,13 @@ class MultipleTraitTest extends TestCase
 
     public function testMultiple()
     {
-    	$array = static::newArray();
-    	$collection = new Collection();
+        $array = static::newArray();
+        $collection = new Collection();
 
-    	$this->assertNull($collection->setMultiple($array));
+        $this->assertNull($collection->setMultiple($array));
 
-    	$this->assertEquals($array, $collection->getMultiple(array_keys($array)));
+        $this->assertEquals($array, $collection->getMultiple(array_keys($array)));
 
-    	$this->assertTrue($collection->hasMultiple(array_keys($array)));
+        $this->assertTrue($collection->hasMultiple(array_keys($array)));
     }
 }
