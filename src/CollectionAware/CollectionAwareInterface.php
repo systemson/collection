@@ -20,7 +20,7 @@ interface CollectionAwareInterface
     /**
      * Sets the Collection instance.
      *
-     * @param CacheDriver $collection An instance of the Collection.
+     * @param Collection $collection An instance of a Collection.
      *
      * @return void
      */
@@ -28,8 +28,6 @@ interface CollectionAwareInterface
 
     /**
      * Gets the Collection instance.
-     *
-     * @param array $array An instance of the Collection instance.
      *
      * @return array The instance of the Collection.
      */
