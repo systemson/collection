@@ -3,3 +3,5 @@ composer.phar
 /tmp/
 composer.lock
 .phpunit.result.cache
+samiConfig.php
+sami.phar

@@ -80,16 +80,6 @@ trait Essential
     }
 
     /**
-     * Alias for copy.
-     *
-     * @return Collection A shallow copy of the collection.
-     */
-    public function clone(): CollectionInterface
-    {
-        return $this->copy();
-    }
-
-    /**
      * Returns the size of the collection.
      *
      * @return int
@@ -157,5 +147,41 @@ trait Essential
     public function clear(): void
     {
         $this->exchangeArray([]);
+    }
+
+    /**
+     * Joins the collection items into a string.
+     *
+     * @param string $glue The glue string between each element.
+     *
+     * @return string
+     */
+    public function implode(string $glue = ', '): string
+    {
+        return implode($glue, $this->getArrayCopy());
+    }
+
+    /**
+     * Returns the max value of the collection.
+     *
+     * @param string $column The column to get the max value.
+     *
+     * @return string
+     */
+    public function max(string $column = null)
+    {
+        return max($this->getArrayCopy());
+    }
+
+    /**
+     * Returns the min value of the collection.
+     *
+     * @param string $column The column to get the min value.
+     *
+     * @return string
+     */
+    public function min(string $column = null)
+    {
+        return min($this->getArrayCopy());
     }
 }

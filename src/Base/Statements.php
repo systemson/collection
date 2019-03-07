@@ -49,7 +49,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function where($column, $value): CollectionInterface
+    public function where(string $column, $value): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $value) {
@@ -68,7 +68,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function whereNot($column, $value): CollectionInterface
+    public function whereNot(string $column, $value): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $value) {
@@ -87,7 +87,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function whereIn($column, array $values = []): CollectionInterface
+    public function whereIn(string $column, array $values = []): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $values) {
@@ -107,7 +107,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function whereNotIn($column, array $values = []): CollectionInterface
+    public function whereNotIn(string $column, array $values = []): CollectionInterface
     {
         return $this->filter(
             function ($item) use ($column, $values) {
@@ -126,7 +126,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function orderBy($column, $order = 'ASC'): CollectionInterface
+    public function orderBy(string $column, string $order = 'ASC'): CollectionInterface
     {
         return $this->sort(
             function ($a, $b) use ($column, $order) {
@@ -146,7 +146,7 @@ trait Statements
      *
      * @return Collection A new collection instance.
      */
-    public function groupBy($column): CollectionInterface
+    public function groupBy(string $column): CollectionInterface
     {
         $return = [];
 
@@ -191,7 +191,7 @@ trait Statements
      *
      * @return int The collection sum.
      */
-    public function sum($column = null): int
+    public function sum(string $column = null): int
     {
         if (!is_null($column)) {
             return $this->column($column)->sum();
@@ -208,7 +208,7 @@ trait Statements
      *
      * @return mixed
      */
-    public function firstOrNew($key, $value)
+    public function firstOrNew(string $key, $value)
     {
         if ($this->hasNot($key)) {
             $this->add($key, $value);
@@ -225,7 +225,7 @@ trait Statements
      *
      * @return mixed
      */
-    public function updateOrNew($key, $value)
+    public function updateOrNew(string $key, $value)
     {
         $this->put($key, $value);
 

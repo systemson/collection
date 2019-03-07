@@ -32,7 +32,7 @@ class Collection extends BaseCollection implements CollectionInterface
     protected $multilevel = false;
 
     /**
-     * Collection constructor
+     * Collection constructor.
      *
      * @param array $array      The items for the collection.
      * @param bool  $multilevel Defines if the array should handle multilevel keys.

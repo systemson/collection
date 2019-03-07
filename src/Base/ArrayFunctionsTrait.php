@@ -139,4 +139,60 @@ trait ArrayFunctionsTrait
 
         return static::make($return);
     }
+
+    /**
+     * Returns the items that are present in the collection and the array.
+     *
+     * @param array $array The array(s) to compare.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function intersect(...$array): CollectionInterface
+    {
+        $return = call_user_func_array('array_intersect', array_merge($array, $this->getArrayCopy()));
+
+        return static::make($return);
+    }
+
+    /**
+     * Returns the items that are not present in the collection and the array.
+     *
+     * @param array $array The array(s) to compare.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function diff(...$array): CollectionInterface
+    {
+        $return = call_user_func_array('array_diff', array_merge($array, $this->getArrayCopy()));
+
+        return static::make($return);
+    }
+
+    /**
+     * Pick one or more random items from the collection.
+     *
+     * @param int $num
+     *
+     * @return array
+     */
+    public function random(int $num = 1): CollectionInterface
+    {
+        $return = array_rand($this->getArrayCopy(), $num);
+
+        return static::make($return);
+    }
+
+    /**
+     * Returns all the unique elements of the collection.
+     *
+     * @param string $column The column to get the unique values.
+     *
+     * @return array
+     */
+    public function unique(string $column = null): CollectionInterface
+    {
+        $return = array_unique($this->getArrayCopy());
+
+        return static::make($return);
+    }
 }

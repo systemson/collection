@@ -18,7 +18,7 @@ use Amber\Config\ConfigAwareInterface;
  */
 abstract class BaseCollection extends \ArrayObject
 {
-    use Essential, ArrayFunctionsTrait, MultipleTrait, Statements;
+    use Essential, ArrayFunctionsTrait, MultipleTrait, Statements, AliasesTrait;
 
     /**
      * Whether an item is present it the collection
@@ -30,7 +30,7 @@ abstract class BaseCollection extends \ArrayObject
     abstract public function has(string $key): bool;
 
     /**
-     * Alias for has()
+     * Alias for has().
      *
      * @param string $key The item's key
      *
@@ -64,7 +64,7 @@ abstract class BaseCollection extends \ArrayObject
     abstract public function set(string $key, $value): void;
 
     /**
-     * Alias for put().
+     * Alias for set().
      *
      * @param string $key   The item's key
      * @param mixed  $value The item's value
@@ -93,19 +93,6 @@ abstract class BaseCollection extends \ArrayObject
         $this->set($key, $value);
 
         return true;
-    }
-
-    /**
-     * Alias for add().
-     *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
-     *
-     * @return bool true on success, false if the item already exists.
-     */
-    public function insert(string $key, $value): bool
-    {
-        return $this->add($key, $value);
     }
 
     /**
@@ -168,7 +155,7 @@ abstract class BaseCollection extends \ArrayObject
     abstract public function get(string $key);
 
     /**
-     * Alias for get.
+     * Alias for get().
      *
      * @param string $key The item's key
      *
@@ -227,4 +214,20 @@ abstract class BaseCollection extends \ArrayObject
      * @return bool true on success false on failure.
      */
     abstract public function delete(string $key): bool;
+
+    /**
+     * Sets a new item at the start of the collection.
+     *
+     * This should be used for none associative collections.
+     *
+     * @param mixed $value The item's value
+     *
+     * @return void
+     */
+    public function prepend($value): void
+    {
+        $new = array_merge($value, $this->getArrayCopy());
+
+        $this->exchangeArray($new);
+    }
 }
