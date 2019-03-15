@@ -149,7 +149,7 @@ trait ArrayFunctionsTrait
      */
     public function intersect(...$array): CollectionInterface
     {
-        $return = call_user_func_array('array_intersect', array_merge($array, $this->getArrayCopy()));
+        $return = call_user_func_array('array_intersect', array_merge([$this->getArrayCopy()], $array));
 
         return static::make($return);
     }
@@ -163,7 +163,7 @@ trait ArrayFunctionsTrait
      */
     public function diff(...$array): CollectionInterface
     {
-        $return = call_user_func_array('array_diff', array_merge($array, $this->getArrayCopy()));
+        $return = call_user_func_array('array_diff', array_merge([$this->getArrayCopy()], $array));
 
         return static::make($return);
     }
@@ -177,7 +177,13 @@ trait ArrayFunctionsTrait
      */
     public function random(int $num = 1): CollectionInterface
     {
-        $return = array_rand($this->getArrayCopy(), $num);
+        $keys = array_rand($this->getArrayCopy(), $num);
+
+        if (!is_array($keys)) {
+            $keys = [$keys];
+        }
+
+        $return = $this->getMultiple($keys);
 
         return static::make($return);
     }

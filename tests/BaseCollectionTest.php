@@ -22,10 +22,11 @@ class BaseCollectionTest extends TestCase
 
         /* Tests adding items */
         $this->assertNull($collection->put('key', 'value'));
-        $this->assertTrue($collection->insert('key1', 'value'));
+        $this->assertTrue($collection->add('key1', 'value1'));
 
         /* Tests adding an item that already exists */
-        $this->assertFalse($collection->insert('key1', 'value'));
+        /* Insert alias for put */
+        $this->assertFalse($collection->add('key1', 'value'));
 
         /* Tests updating an item */
         $this->assertTrue($collection->update('key1', 'value1'));
@@ -57,7 +58,6 @@ class BaseCollectionTest extends TestCase
         $this->assertFalse($collection->delete('key'));
 
         /* Test pushing to a key */
-        // After adding multilevel keys should be moved to another test.
         $this->assertTrue($collection->pushTo('key2', 'value1'));
         $this->assertTrue($collection->pushTo('key2', 'value2'));
         $this->assertEquals(['value1', 'value2'], $collection->get('key2'));
@@ -78,12 +78,25 @@ class BaseCollectionTest extends TestCase
         $this->assertTrue($collection->contains(0));
 
         $this->assertEquals('value', $collection->get(0));
+        $this->assertEquals('value', $collection->first(0));
         
         $this->assertEquals(['value'], $collection->values());
 
+        $collection->prepend('first');
+
+        $this->assertNotEquals('value', $collection->get(0));
+        $this->assertNotEquals('value', $collection->first(0));
+
+        $this->assertEquals('first', $collection->get(0));
+        $this->assertEquals('first', $collection->first(0));
+        
+        $this->assertEquals(['first', 'value'], $collection->values());
+
         $collection->remove(0);
+        $collection->remove(1);
 
         $this->assertFalse($collection->contains(0));
+        $this->assertFalse($collection->contains(1));
 
         /* Cleares the collection */
         $collection->clear();

@@ -31,7 +31,7 @@ trait AliasesTrait
     }
 
     /**
-     * Alias for copy.
+     * Alias for copy().
      *
      * @return Collection A shallow copy of the collection.
      */
@@ -43,5 +43,17 @@ trait AliasesTrait
     public function sortBy(string $column): CollectionInterface
     {
         return $this->orderBy($column);
+    }
+
+    /**
+     * Alias for push().
+     *
+     * @param mixed $value The item's value
+     *
+     * @return void
+     */
+    public function append($value): void
+    {
+        $this->push($value);
     }
 }

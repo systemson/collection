@@ -47,4 +47,24 @@ class EssentialTraitTest extends TestCase
         $this->assertTrue($collection->isEmpty());
         $this->assertFalse($collection->isNotEmpty());
     }
+
+    public function testImplode()
+    {
+        $string = 'Hello world';
+        $array = explode(' ', $string);
+
+        $collection = Collection::make($array);
+
+        $this->assertEquals($string, $collection->implode(' '));
+    }
+
+    public function testMaxMin()
+    {
+        $array = [0, 1, 2, 3, 5, 8, 13, 21];
+
+        $collection = Collection::make($array);
+
+        $this->assertEquals(max($array), $collection->max());
+        $this->assertEquals(min($array), $collection->min());
+    }
 }

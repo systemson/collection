@@ -9,10 +9,10 @@ use PHPUnit\Framework\TestCase;
 
 class ArrayFunctionsTraitTest extends TestCase
 {
-    private static function newArray(int $n = 5)
+    private static function newArray(int $n = 5, string $key = '')
     {
         for ($x = 1; $x <= $n; $x++) {
-            $multiple[] = [
+            $multiple["{$key}{$x}"] = [
                 'id'    => $x,
                 'name'  => 'Pruebas' . $x,
                 'pass'  => 'pass' . $x,
@@ -126,6 +126,59 @@ class ArrayFunctionsTraitTest extends TestCase
         $this->assertEquals(
             array_flip($ids),
             $collection->flip()->toArray()
+        );
+    }
+
+    public function testRandom()
+    {
+        $multiple = static::newArray();
+        $collection = new Collection($multiple);
+        $random1 = $collection->random();
+        $random2 = $collection->random(3);
+
+        $this->assertEquals(
+        	$random1->keys(),
+        	$random1->column('id')->toArray()
+        );
+
+        $this->assertEquals(
+        	$random2->keys(),
+        	$random2->column('id')->toArray()
+        );
+    }
+
+    public function testUnique()
+    {
+    	$array = [1, 3, 5, 3, 7, 2, 7, 5];
+    	$collection = new Collection($array);
+
+        $this->assertEquals(
+        	array_unique($array),
+        	$collection->unique()->toArray()
+        );
+    }
+
+    public function testIntersect()
+    {
+    	$array1 = [1, 2, 3, 4, 5];
+    	$array2 = [3, 4, 5, 6, 7];
+    	$collection = new Collection($array1);
+
+        $this->assertEquals(
+        	array_intersect($array1, $array2),
+        	$collection->intersect($array2)->toArray()
+        );
+    }
+
+    public function testDiff()
+    {
+    	$array1 = [1, 2, 3, 4, 5];
+    	$array2 = [3, 4, 5, 6, 7];
+    	$collection = new Collection($array1);
+
+        $this->assertEquals(
+        	array_diff($array1, $array2),
+        	$collection->diff($array2)->toArray()
         );
     }
 }

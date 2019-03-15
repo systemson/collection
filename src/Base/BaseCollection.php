@@ -226,7 +226,7 @@ abstract class BaseCollection extends \ArrayObject
      */
     public function prepend($value): void
     {
-        $new = array_merge($value, $this->getArrayCopy());
+        $new = array_merge([$value], $this->getArrayCopy());
 
         $this->exchangeArray($new);
     }
