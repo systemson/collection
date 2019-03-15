@@ -21,17 +21,32 @@ In your code:
 Use Amber\Collection\Collection;
 ```
 
-Instantiate an empty collection:
+1) Instantiate an empty collection:
 
 ``` php
 $collection = new Collection();
 ```
 
-Or instantiate a collection for an array:
+2) Instantiate a collection for an array:
 ``` php
 $array = ['key' => 'value'];
 
 $collection = new Collection($array);
+```
+
+3) Or use the static method make:
+``` php
+
+
+$collection = Collection::make($array);
+```
+...
+``` php
+
+$array = ['key' => 'value'];
+
+$collection = Collection::make($array);
+
 ```
 
 ## Available methods
