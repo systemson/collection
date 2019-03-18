@@ -40,9 +40,17 @@ trait AliasesTrait
         return $this->copy();
     }
 
-    public function sortBy(string $column): CollectionInterface
+    /**
+     * Alias for orderBy().
+     *
+     * @param string $column The column to order by.
+     * @param string $order  The order to sort the items.
+     *
+     * @return Collection A new collection instance.
+     */
+    public function sortBy(string $column, string $order = 'ASC')
     {
-        return $this->orderBy($column);
+        return $this->orderBy($column, $order);
     }
 
     /**
