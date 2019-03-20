@@ -34,7 +34,7 @@ $array = ['key' => 'value'];
 $collection = new Collection($array);
 ```
 
-3) Or use the static method make:
+3) Or use the static factory method make():
 ``` php
 $collection = Collection::make();
 
