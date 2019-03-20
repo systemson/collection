@@ -36,7 +36,7 @@ $collection = new Collection($array);
 
 3) Or use the static method make:
 ``` php
-$collection = Collection::make($array);
+$collection = Collection::make();
 
 ...
 
