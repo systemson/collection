@@ -8,8 +8,6 @@ use Symfony\Component\Finder\Finder;
 $iterator = Finder::create()
     ->files()
     ->name('*.php')
-    //->exclude('Resources')
-    //->exclude('Tests')
     ->in($dir = __DIR__.DIRECTORY_SEPARATOR.'src');
 
 $versions = GitVersionCollection::create($dir)
