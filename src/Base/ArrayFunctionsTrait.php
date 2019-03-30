@@ -173,7 +173,7 @@ trait ArrayFunctionsTrait
      *
      * @param int $num
      *
-     * @return array
+     * @return Collection
      */
     public function random(int $num = 1): CollectionInterface
     {
@@ -193,12 +193,24 @@ trait ArrayFunctionsTrait
      *
      * @param string $column The column to get the unique values.
      *
-     * @return array
+     * @return Collection
      */
     public function unique(string $column = null): CollectionInterface
     {
         $return = array_unique($this->getArrayCopy());
 
         return static::make($return);
+    }
+
+    /**
+     * Implode the collection into a string.
+     *
+     * @param string $delimiter The delimiter of the string.
+     *
+     * @return string
+     */
+    public function implode(string $delimiter = null): string
+    {
+        return implode($delimiter, $this->getArrayCopy());
     }
 }
