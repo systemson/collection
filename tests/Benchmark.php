@@ -2,8 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
-use Amber\Collection\Collection;
-use Amber\Collection\SimpleCollection;
+use Amber\Collection\MultilevelCollection as Collection;
+use Amber\Collection\Collection as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
 

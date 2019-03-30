@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Amber\Config\ConfigAwareTrait;
-use Amber\Collection\SimpleCollection as Collection;
+use Amber\Collection\Collection;
 use Amber\Collection\CollectionAware\CollectionAwareClass;
 use PHPUnit\Framework\TestCase;
 

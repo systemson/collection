@@ -83,6 +83,7 @@ class StatementsTest extends TestCase
             $ordered->orderBy('id')->toArray()
         );
 
+        /* Test groupBy() */
         $this->assertEquals(
             $grouped,
             $collection->groupBy('name')->toArray()

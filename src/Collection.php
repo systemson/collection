@@ -15,57 +15,9 @@ use Ds\Collection as CollectionInterface;
 
 /**
  * Wrapper class for working with arrays.
- *
- * @todo MUST add support for searching wildcars. Like: $collection->get('base.{*}.other');
- *       SHOULD return an array if many items are found, else the matching item.
  */
 class Collection extends BaseCollection implements CollectionInterface
 {
-    /**
-     * @var string The separator for multilevel keys.
-     */
-    protected $separator = '.';
-
-    /**
-     * @var string The separator for multilevel keys.
-     */
-    protected $multilevel = false;
-
-    /**
-     * Collection constructor.
-     *
-     * @param array $array      The items for the collection.
-     * @param bool  $multilevel Defines if the array should handle multilevel keys.
-     */
-    public function __construct(array $array = [], bool $multilevel = false)
-    {
-        parent::__construct($array);
-
-        $this->multilevel = $multilevel;
-    }
-
-    /**
-     * Splits a multilevel key or returns the single level key(s).
-     *
-     * @param string $key The key to split.
-     *
-     * @return array|string An array of keys or a single key string.
-     */
-    protected function splitKey(string $key)
-    {
-        if (!$this->multilevel) {
-            return $key;
-        }
-
-        $slug_array = explode($this->separator, $key);
-
-        if (count($slug_array) == 1) {
-            return $key;
-        }
-
-        return $slug_array;
-    }
-
     /**
      * Sets or updates an item in the collection.
      *
@@ -76,27 +28,7 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function set(string $key, $value): void
     {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            $this[$slug] = $value;
-            return;
-        }
-
-        $storage = $value;
-
-        foreach (array_reverse($slug) as $id => $key) {
-            if ($id === count($slug) - 1) {
-                break;
-            }
-
-            $aux[$key] = $storage;
-
-            $storage = $aux;
-            unset($aux);
-        }
-
-        $this[$key] = $storage;
+        $this[$key] = $value;
     }
 
     /**
@@ -108,23 +40,7 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function has(string $key): bool
     {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            return isset($this[$slug]);
-        }
-
-        $collection = $this->all();
-
-        foreach ($this->splitKey($key) as $search) {
-            if (!isset($collection[$search])) {
-                return false;
-            }
-
-            $collection = $collection[$search];
-        }
-
-        return true;
+        return isset($this[$key]);
     }
 
     /**
@@ -136,26 +52,7 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function get(string $key)
     {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            if (isset($this[$slug])) {
-                return $this[$slug];
-            }
-            return null;
-        }
-
-        $array = $this->getArrayCopy();
-
-        foreach ($slug as $search) {
-            if (isset($array[$search])) {
-                $array = $array[$search];
-            } else {
-                return;
-            }
-        }
-
-        return $array;
+        return $this[$key] ?? null;
     }
 
     /**
@@ -167,22 +64,10 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function delete(string $key): bool
     {
-        $slug = $this->splitKey($key);
-
-        if (is_string($slug)) {
-            if (isset($this[$slug])) {
-                unset($this[$slug]);
-                return true;
-            }
-            return false;
+        if (isset($this[$key])) {
+            unset($this[$key]);
+            return true;
         }
-
-        if ($this->hasNot($key)) {
-            return false;
-        }
-
-        $this->set($key, null);
-
-        return true;
+        return false;
     }
 }

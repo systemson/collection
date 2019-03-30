@@ -121,6 +121,8 @@ trait Statements
     /**
      * Returns a new Collection containing the items ordered by the especified column.
      *
+     * @todo MUST throw exception if the column does not exists
+     *
      * @param string $column The column to order by.
      * @param string $order  The order to sort the items.
      *
@@ -135,12 +137,15 @@ trait Statements
                 } elseif (strtoupper($order) == 'DESC') {
                     return $b[$column] <=> $a[$column];
                 }
+                // Must throw exception if item column does not exists
             }
         );
     }
 
     /**
      * Returns a new Collection grouped by the specified column.
+     *
+     * @todo MUST throw exception if the column does not exists
      *
      * @param string $column The column to group by.
      *
@@ -154,9 +159,8 @@ trait Statements
             if (isset($item[$column])) {
                 $key = $item[$column];
                 $return[$key] = $item;
-            } else {
-                $return[] = $item;
             }
+            // Must throw exception if item column does not exists
         }
 
         return $this->make($return);

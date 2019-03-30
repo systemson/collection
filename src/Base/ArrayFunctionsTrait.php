@@ -201,16 +201,4 @@ trait ArrayFunctionsTrait
 
         return static::make($return);
     }
-
-    /**
-     * Implode the collection into a string.
-     *
-     * @param string $delimiter The delimiter of the string.
-     *
-     * @return string
-     */
-    public function implode(string $delimiter = null): string
-    {
-        return implode($delimiter, $this->getArrayCopy());
-    }
 }

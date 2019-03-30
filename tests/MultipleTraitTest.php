@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Amber\Config\ConfigAwareTrait;
-use Amber\Collection\SimpleCollection as Collection;
+use Amber\Collection\Collection;
 use Amber\Collection\CollectionAware\CollectionAwareClass;
 use PHPUnit\Framework\TestCase;
 
@@ -33,5 +33,9 @@ class MultipleTraitTest extends TestCase
         $this->assertEquals($array, $collection->getMultiple(array_keys($array)));
 
         $this->assertTrue($collection->hasMultiple(array_keys($array)));
+
+        $this->assertTrue($collection->delete(array_keys($array)[0]));
+
+        $this->assertFalse($collection->hasMultiple(array_keys($array)));
     }
 }
