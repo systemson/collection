@@ -1,8 +1,11 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/systemson/collection.svg)
 [![Latest Stable Version](https://poser.pugx.org/amber/collection/v/stable.png)](https://packagist.org/packages/amber/collection)
 [![Latest Beta Version](https://img.shields.io/packagist/vpre/amber/collection.svg)](https://packagist.org/packages/amber/collection)
+![PHP from Packagist](https://img.shields.io/packagist/php-v/amber/collection.svg)
 [![Build Status](https://travis-ci.org/systemson/collection.svg?branch=master)](https://travis-ci.org/systemson/collection)
 [![Coverage Status](https://coveralls.io/repos/github/systemson/collection/badge.svg?branch=master)](https://coveralls.io/github/systemson/collection?branch=master)
 [![Total Downloads](https://poser.pugx.org/amber/collection/downloads.png)](https://packagist.org/packages/amber/collection)
+![GitHub](https://img.shields.io/github/license/systemson/collection.svg)
 
 # Collection
 Wrapper class for working with arrays.
