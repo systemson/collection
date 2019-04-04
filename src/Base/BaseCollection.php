@@ -15,6 +15,8 @@ use Amber\Config\ConfigAwareInterface;
 
 /**
  * Implements the basis for the Collection.
+ *
+ * @todo Should return self on methods returning void.
  */
 abstract class BaseCollection extends \ArrayObject
 {
@@ -201,7 +203,7 @@ abstract class BaseCollection extends \ArrayObject
 
         $item = $this->get($key);
 
-        $this->delete($key);
+        $this->unset($key);
 
         return $item;
     }
@@ -211,9 +213,28 @@ abstract class BaseCollection extends \ArrayObject
      *
      * @param string $key The item's key
      *
-     * @return bool true on success false on failure.
+     * @return bool true on success, false on failure.
      */
-    abstract public function delete(string $key): bool;
+    public function delete(string $key): bool
+    {
+        if ($this->hasNot($key)) {
+            return false;
+        }
+
+        $this->unset($key);
+
+        return true;
+    }
+
+
+    /**
+     * Deletes an item from collection.
+     *
+     * @param string $key The item's key
+     *
+     * @return void
+     */
+    abstract public function unset(string $key): void;
 
     /**
      * Sets a new item at the start of the collection.

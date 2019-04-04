@@ -159,30 +159,24 @@ class MultilevelCollection extends BaseCollection implements CollectionInterface
     }
 
     /**
-     * Deletes an item from collection.
+     * Unsets an item from collection.
      *
      * @param string $key The item's key
      *
-     * @return bool true on success false on failure.
+     * @return void
      */
-    public function delete(string $key): bool
+    public function unset(string $key): void
     {
         $slug = $this->splitKey($key);
 
         if (is_string($slug)) {
             if (isset($this[$slug])) {
                 unset($this[$slug]);
-                return true;
             }
-            return false;
+        } else {
+	        if ($this->has($key)) {
+	        	$this->set($key, null);
+	        }
         }
-
-        if ($this->hasNot($key)) {
-            return false;
-        }
-
-        $this->set($key, null);
-
-        return true;
     }
 }

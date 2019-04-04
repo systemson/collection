@@ -56,18 +56,16 @@ class Collection extends BaseCollection implements CollectionInterface
     }
 
     /**
-     * Deletes an item from collection.
+     * Unsets an item from collection.
      *
      * @param string $key The item's key
      *
-     * @return bool true on success false on failure.
+     * @return void.
      */
-    public function delete(string $key): bool
+    public function unset(string $key): void
     {
         if (isset($this[$key])) {
             unset($this[$key]);
-            return true;
         }
-        return false;
     }
 }

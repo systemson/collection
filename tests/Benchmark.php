@@ -239,7 +239,7 @@ $benchmark->add(
         }
 
         for ($x = 0; $x < $n; $x++) {
-            $collection->delete($x);
+            $collection->unset($x);
         }
 
         return $collection;
