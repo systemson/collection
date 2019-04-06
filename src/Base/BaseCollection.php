@@ -226,7 +226,6 @@ abstract class BaseCollection extends \ArrayObject
         return true;
     }
 
-
     /**
      * Deletes an item from collection.
      *
@@ -250,5 +249,33 @@ abstract class BaseCollection extends \ArrayObject
         $new = array_merge([$value], $this->getArrayCopy());
 
         $this->exchangeArray($new);
+    }
+
+    /**
+     * Returns the items of the collection that match the specified array.
+     *
+     * @param array $values
+     *
+     * @return self
+     */
+    public function only(array $values): self
+    {
+        return $this->filter(function ($value) use ($values) {
+            return in_array($value, $values);
+        });
+    }
+
+    /**
+     * Returns the items of the collections that do not match the specified array.
+     *
+     * @param array $values
+     *
+     * @return self
+     */
+    public function except(array $values): self
+    {
+        return $this->filter(function ($value) use ($values) {
+            return !in_array($value, $values);
+        });
     }
 }

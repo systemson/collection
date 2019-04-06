@@ -174,9 +174,9 @@ class MultilevelCollection extends BaseCollection implements CollectionInterface
                 unset($this[$slug]);
             }
         } else {
-	        if ($this->has($key)) {
-	        	$this->set($key, null);
-	        }
+            if ($this->has($key)) {
+                $this->set($key, null);
+            }
         }
     }
 }

@@ -103,4 +103,17 @@ class BaseCollectionTest extends TestCase
 
         return $collection;
     }
+
+    public function testExceptAndOnly()
+    {
+        $collection = new Collection();
+
+        $collection->push('value1');
+        $collection->push('value2');
+        $collection->push('value3');
+
+        $this->assertEquals(['value1', 'value2', 'value3'], $collection->all());
+        $this->assertEquals(['value1', 'value3'], $collection->except(['value2'])->toArray());
+        $this->assertEquals(['value1'], $collection->only(['value1'])->toArray());
+    }
 }
