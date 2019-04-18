@@ -14,11 +14,11 @@ use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
 
 /**
- * Wrapper class for working with arrays.
+ * Case insensitive collection.
  *
- * @todo SHOULD be renamed to Vector or ArrayObject
+ * @todo SHOULD preserve the original cases of keys.
  */
-class Collection extends BaseCollection implements CollectionInterface
+class Map extends BaseCollection implements CollectionInterface
 {
     /**
      * Sets or updates an item in the collection.
@@ -30,7 +30,7 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function set(string $key, $value): void
     {
-        $this[$key] = $value;
+        $this[strtoupper($key)] = $value;
     }
 
     /**
@@ -42,7 +42,7 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function has(string $key): bool
     {
-        return isset($this[$key]);
+        return isset($this[strtoupper($key)]);
     }
 
     /**
@@ -54,7 +54,7 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function get(string $key)
     {
-        return $this[$key] ?? null;
+        return $this[strtoupper($key)] ?? null;
     }
 
     /**
@@ -66,8 +66,8 @@ class Collection extends BaseCollection implements CollectionInterface
      */
     public function unset(string $key): void
     {
-        if (isset($this[$key])) {
-            unset($this[$key]);
+        if (isset($this[strtoupper($key)])) {
+            unset($this[strtoupper($key)]);
         }
     }
 }

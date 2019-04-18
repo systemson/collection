@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CollectionTest extends TestCase
 {
-    public function testCollection()
+    public function testBasic()
     {
         $collection = new Collection();
 

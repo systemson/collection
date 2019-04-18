@@ -175,8 +175,8 @@ abstract class BaseCollection extends \ArrayObject
      */
     public function first()
     {
-    	if ($this->isNotEmpty()) {
-        	return $this->find($this->keys()[0]);
+        if ($this->isNotEmpty()) {
+            return $this->find($this->keys()[0]);
         }
     }
 
@@ -187,9 +187,9 @@ abstract class BaseCollection extends \ArrayObject
      */
     public function last()
     {
-    	if ($this->isNotEmpty()) {
-        	return $this->find($this->keys()[$this->count() - 1]);
-    	}
+        if ($this->isNotEmpty()) {
+            return $this->find($this->keys()[$this->count() - 1]);
+        }
     }
 
     /**
