@@ -15,7 +15,7 @@ use Ds\Collection as CollectionInterface;
 /**
  * Implements the interfaces and basic methods for the Collection.
  */
-trait Essential
+trait EssentialTrait
 {
     /**
      * Returns a new collection.

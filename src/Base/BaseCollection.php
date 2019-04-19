@@ -20,7 +20,7 @@ use Amber\Config\ConfigAwareInterface;
  */
 abstract class BaseCollection extends \ArrayObject
 {
-    use Essential, ArrayFunctionsTrait, MultipleTrait, Statements, AliasesTrait;
+    use EssentialTrait, ArrayFunctionsTrait, MultipleTrait, Statements, AliasesTrait;
 
     /**
      * Whether an item is present it the collection
