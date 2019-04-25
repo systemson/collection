@@ -3,6 +3,8 @@
 require_once 'vendor/autoload.php';
 
 use Amber\Collection\Map;
+//use Amber\Collection\Base\ArrayObject;
+use ArrayObject;
 use Amber\Collection\MultilevelCollection as Collection;
 use Amber\Collection\Collection as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
@@ -142,7 +144,7 @@ $benchmark->add(
 $benchmark->add(
     'arrobject',
     function () use ($n) {
-        $collection = new \ArrayObject();
+        $collection = new ArrayObject();
 
         for ($x = 0; $x < $n; $x++) {
             $collection[$x] = $x;

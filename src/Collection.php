@@ -12,14 +12,17 @@ namespace Amber\Collection;
 
 use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
+use ArrayObject;
 
 /**
  * Wrapper class for working with arrays.
  *
  * @todo SHOULD be renamed to Vector or ArrayObject
  */
-class Collection extends BaseCollection implements CollectionInterface
+class Collection extends ArrayObject implements CollectionInterface
 {
+    use BaseCollection;
+
     /**
      * Sets or updates an item in the collection.
      *

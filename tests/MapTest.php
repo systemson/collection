@@ -3,15 +3,16 @@
 namespace Tests;
 
 use Amber\Config\ConfigAwareTrait;
-use Amber\Collection\Map as Collection;
+use Amber\Collection\Map;
+use Amber\Collection\TreeMap;
 use Amber\Collection\CollectionAware\CollectionAwareClass;
 use PHPUnit\Framework\TestCase;
 
 class MapTest extends TestCase
 {
-    public function testBasic()
+    public function testMap()
     {
-        $collection = new Collection();
+        $collection = new Map();
 
         // Sets a value
         $this->assertNull($collection->set('key', 'value'));
@@ -33,9 +34,37 @@ class MapTest extends TestCase
         $this->assertNull($collection->get('key1'));
     }
 
-    public function testInsensitiveKeys()
+    public function testTreeMap()
     {
-        $collection = new Collection();
+        $collection = new TreeMap();
+
+        // Sets a value
+        $this->assertNull($collection->set('key', 'value'));
+
+        // Checks that the value is set in the collection
+        $this->assertTrue($collection->has('key'));
+
+        // Gets the value
+        $this->assertEquals('value', $collection->get('key'));
+        
+        // Deletes the item
+        $this->assertTrue($collection->delete('key'));
+
+        // Checks that the item is not present in the collection
+        $this->assertFalse($collection->delete('key'));
+        $this->assertFalse($collection->has('key'));
+
+        // Returns null if the item does not exists in the collection.
+        $this->assertNull($collection->get('key1'));
+    }
+
+    public function testTreeMapInsensitiveKeys()
+    {
+        $collection = new TreeMap();
+
+        $collection->setComparator(function ($key, $slug) {
+        	return strtoupper($key) === strtoupper($slug);
+        });
 
         // Sets a value
         $this->assertNull($collection->set('key', 'value'));

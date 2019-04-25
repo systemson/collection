@@ -10,16 +10,23 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Base\{
+    ArrayObject,
+    BaseCollection
+};
 use Ds\Collection as CollectionInterface;
+use Closure;
+use Amber\Collection\Implementations\Pair;
 
 /**
- * Case insensitive collection.
- *
- * @todo SHOULD preserve the original cases of keys.
+ * A Collection that maps the key to the values.
  */
-class Map extends BaseCollection implements CollectionInterface
+class Map extends ArrayObject implements CollectionInterface
 {
+    use BaseCollection;
+
+    protected $comparator;
+
     /**
      * Sets or updates an item in the collection.
      *
@@ -30,7 +37,7 @@ class Map extends BaseCollection implements CollectionInterface
      */
     public function set(string $key, $value): void
     {
-        $this[strtoupper($key)] = $value;
+        $this[$key] = $value;
     }
 
     /**
@@ -42,7 +49,7 @@ class Map extends BaseCollection implements CollectionInterface
      */
     public function has(string $key): bool
     {
-        return isset($this[strtoupper($key)]);
+        return isset($this[$key]);
     }
 
     /**
@@ -54,7 +61,7 @@ class Map extends BaseCollection implements CollectionInterface
      */
     public function get(string $key)
     {
-        return $this[strtoupper($key)] ?? null;
+        return $this[$key] ?? null;
     }
 
     /**
@@ -66,8 +73,32 @@ class Map extends BaseCollection implements CollectionInterface
      */
     public function unset(string $key): void
     {
-        if (isset($this[strtoupper($key)])) {
-            unset($this[strtoupper($key)]);
+        if (isset($this[$key])) {
+            unset($this[$key]);
         }
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        $pair = new Pair($offset, $value);
+
+        parent::offsetSet($offset, $pair);
+    }
+
+    public function offsetExists($offset)
+    {
+        return parent::offsetExists($offset);
+    }
+
+    public function offsetUnset($offset)
+    {
+        return parent::offsetUnset($offset);
+    }
+
+    public function &offsetGet($offset)
+    {
+        $ret =& parent::offsetGet($offset)->value ?? null;
+
+        return $ret;
     }
 }

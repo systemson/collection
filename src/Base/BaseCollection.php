@@ -18,7 +18,7 @@ use Amber\Config\ConfigAwareInterface;
  *
  * @todo Should return self on methods returning void.
  */
-abstract class BaseCollection extends \ArrayObject
+trait BaseCollection
 {
     use EssentialTrait, ArrayFunctionsTrait, MultipleTrait, Statements, AliasesTrait;
 

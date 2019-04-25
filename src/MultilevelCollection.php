@@ -12,6 +12,7 @@ namespace Amber\Collection;
 
 use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
+use ArrayObject;
 
 /**
  * Wrapper class for working with arrays.
@@ -19,8 +20,10 @@ use Ds\Collection as CollectionInterface;
  * @todo MUST add support for searching wildcars. Like: $collection->get('base.{*}.other');
  *       SHOULD return an array if many items are found, else the matching item.
  */
-class MultilevelCollection extends BaseCollection implements CollectionInterface
+class MultilevelCollection extends ArrayObject implements CollectionInterface
 {
+    use BaseCollection;
+
     /**
      * @var string The separator for multilevel keys.
      */
