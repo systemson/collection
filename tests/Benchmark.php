@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 $benchmark = new Benchmark();
 
 $n = 10;
-/*
+
 $benchmark->add(
     'array',
     function () use ($n) {
@@ -558,7 +558,6 @@ $benchmark->add(
 
 echo PHP_EOL . 'Test as multilevel' . PHP_EOL;
 $benchmark->run();
-*/
 $benchmark = new Benchmark();
 
 $benchmark->add(
