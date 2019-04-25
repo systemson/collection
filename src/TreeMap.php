@@ -10,11 +10,10 @@
 
 namespace Amber\Collection;
 
-use Ds\Collection as CollectionInterface;
 use Closure;
 
 /**
- * A Map that uses a comparison function to map the key to the values.
+ * A Map that uses a comparison function to map the keys to the values.
  */
 class TreeMap extends Map
 {
@@ -24,9 +23,9 @@ class TreeMap extends Map
     {
         $filter = $this->getComparator($slug);
 
-        foreach ($this as $key => $value) {
-            if ($filter($key, $slug)) {
-                return $key;
+        foreach ($this->getArrayCopy() as $pair) {
+            if ($filter($pair->key, $slug)) {
+                return $pair->key;
             }
         }
 
@@ -38,14 +37,19 @@ class TreeMap extends Map
         $this->comparator = $callback;
     }
 
-    public function getComparator(): Closure
+    public function getComparator($offset): Closure
     {
-        if ($this->comparator != null) {
+        if ($this->comparator instanceof Closure) {
             return $this->comparator;
         }
 
-        return function ($key, $slug) {
-            return $key === $slug;
+        return $this->defaultComparator();
+    }
+
+    protected function defaultComparator(): Closure
+    {
+        return function ($key, $offset) {
+            return $key === $offset;
         };
     }
 

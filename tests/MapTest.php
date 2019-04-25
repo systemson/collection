@@ -62,8 +62,8 @@ class MapTest extends TestCase
     {
         $collection = new TreeMap();
 
-        $collection->setComparator(function ($key, $slug) {
-        	return strtoupper($key) === strtoupper($slug);
+        $collection->setComparator(function ($key, $offset) {
+        	return strtoupper($key) === strtoupper($offset);
         });
 
         // Sets a value

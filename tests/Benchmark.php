@@ -3,8 +3,8 @@
 require_once 'vendor/autoload.php';
 
 use Amber\Collection\Map;
-//use Amber\Collection\Base\ArrayObject;
-use ArrayObject;
+use Amber\Collection\TreeMap;
+use Amber\Collection\Base\ArrayObject as AmberArrayObject;
 use Amber\Collection\MultilevelCollection as Collection;
 use Amber\Collection\Collection as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
@@ -14,8 +14,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 $benchmark = new Benchmark();
 
-$n = 1000;
-
+$n = 10;
+/*
 $benchmark->add(
     'array',
     function () use ($n) {
@@ -221,6 +221,31 @@ $benchmark->add(
 );
 
 $benchmark->add(
+    'treemap-as-property',
+    function () use ($n) {
+        $collection = new Map();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->{$x} = $x;
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->{$x};
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            isset($collection->{$x});
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            unset($collection->{$x});
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
     'laravel-as-property',
     function () use ($n) {
         $collection = collect();
@@ -300,9 +325,59 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'Map-as-object',
+    'multilevel-collection-as-object',
+    function () use ($n) {
+        $collection = new Collection([], true);
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'map-as-object',
     function () use ($n) {
         $collection = new Map();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'treemap-as-object',
+    function () use ($n) {
+        $collection = new TreeMap();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -482,4 +557,109 @@ $benchmark->add(
 //$benchmark->setCount(10000);
 
 echo PHP_EOL . 'Test as multilevel' . PHP_EOL;
+$benchmark->run();
+*/
+$benchmark = new Benchmark();
+
+$benchmark->add(
+    'simple-collection',
+    function () use ($n) {
+        $collection = new SimpleCollection();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'multilevel-collection',
+    function () use ($n) {
+        $collection = new Collection([], true);
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'map-collection',
+    function () use ($n) {
+        $collection = new Map();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'treemap-collection',
+    function () use ($n) {
+        $collection = new TreeMap();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+echo PHP_EOL . 'Test amber collections as objects' . PHP_EOL;
 $benchmark->run();
