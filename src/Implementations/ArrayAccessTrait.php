@@ -15,6 +15,8 @@ namespace Amber\Collection\Implementations;
  */
 trait ArrayAccessTrait
 {
+    protected $storage = [];
+
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {

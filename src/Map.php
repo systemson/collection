@@ -15,39 +15,58 @@ use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
 use Closure;
 use Amber\Collection\Implementations\Pair;
-use Amber\Collection\Implementations\GenericTrait;
+use Amber\Collection\Implementations\NullablePair;
+use Amber\Collection\Implementations\MixedKeysTrait;
+use Amber\Collection\Contracts\PairInterface;
 
 /**
- * A Collection that maps the key to the values.
+ * A sequential collection of key-value pairs.
  */
 class Map extends ArrayObject implements CollectionInterface
 {
-    use BaseCollection, GenericTrait;
+    use BaseCollection, MixedKeysTrait;
+
+    protected function getPair($offset): PairInterface
+    {
+        foreach ($this as $index => $pair) {
+            if ($pair->key === $offset) {
+                $pair->index = $index;
+                return $pair;
+            }
+        }
+
+        return new NullablePair();
+    }
 
     public function offsetSet($offset, $value)
     {
-        parent::offsetSet($offset, new Pair($offset, $value));
+        if ($this->offsetExists($offset)) {
+            $pair = $this->getPair($offset);
+            $pair->value = $value;
+        } else {
+            parent::offsetSet(null, new Pair($offset, $value));
+        }
     }
 
     public function offsetExists($offset)
     {
-        if (!parent::offsetExists($offset)) {
-            return false;
-        }
+        $pair = $this->getPair($offset);
 
-        return !is_null($this->offsetGet($offset));
+        return !is_null($pair->value);
     }
 
     public function offsetUnset($offset)
     {
         if ($this->offsetExists($offset)) {
-            parent::offsetGet($offset)->clear();
+            $pair = $this->getPair($offset);
+
+            parent::offsetUnset($pair->index);
         }
     }
 
     public function &offsetGet($offset)
     {
-        $ret =& parent::offsetGet($offset)->value ?? null;
+        $ret =& $this->getPair($offset)->value;
 
         return $ret;
     }

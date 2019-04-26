@@ -46,7 +46,8 @@ trait ArrayFunctionsTrait
     {
         $array = array_filter(
             $this->getArrayCopy(),
-            $callback
+            $callback,
+            ARRAY_FILTER_USE_BOTH
         );
 
         return static::make(array_values($array));

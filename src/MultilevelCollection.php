@@ -71,7 +71,7 @@ class MultilevelCollection extends Collection
      *
      * @return void
      */
-    public function set(string $key, $value): void
+    public function set(string $key, $value = null): void
     {
         $slug = $this->splitKey($key);
 

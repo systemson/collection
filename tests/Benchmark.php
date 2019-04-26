@@ -2,7 +2,9 @@
 
 require_once 'vendor/autoload.php';
 
+use Amber\Collection\Hash;
 use Amber\Collection\Map;
+use Amber\Collection\Set;
 use Amber\Collection\TreeMap;
 use Amber\Collection\Base\ArrayObject as AmberArrayObject;
 use Amber\Collection\MultilevelCollection as Collection;
@@ -639,6 +641,56 @@ $benchmark->add(
     'treemap-collection',
     function () use ($n) {
         $collection = new TreeMap();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'set-collection',
+    function () use ($n) {
+        $collection = new Set();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'hash-collection',
+    function () use ($n) {
+        $collection = new Set();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);

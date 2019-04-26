@@ -13,7 +13,7 @@ namespace Amber\Collection\Implementations;
 /**
  * Implements basic set, get, has and unset methods.
  */
-trait GenericTrait
+trait MixedKeysTrait
 {
     /**
      * Sets or updates an item in the collection.
@@ -23,7 +23,7 @@ trait GenericTrait
      *
      * @return void
      */
-    public function set(string $key, $value = null): void
+    public function set($key, $value = null): void
     {
         $this[$key] = $value;
     }
@@ -35,7 +35,7 @@ trait GenericTrait
      *
      * @return bool
      */
-    public function has(string $key): bool
+    public function has($key): bool
     {
         return isset($this[$key]);
     }
@@ -47,7 +47,7 @@ trait GenericTrait
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
-    public function get(string $key)
+    public function get($key)
     {
         return $this[$key] ?? null;
     }
@@ -59,7 +59,7 @@ trait GenericTrait
      *
      * @return void.
      */
-    public function unset(string $key): void
+    public function unset($key): void
     {
         if (isset($this[$key])) {
             unset($this[$key]);

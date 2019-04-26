@@ -11,31 +11,32 @@
 namespace Amber\Collection\Implementations;
 
 /**
- * Implements ArrayAccess interface.
+ * A pair that will always return null or empty.
  */
-trait PropertyAccessTrait
+class NullablePair extends Pair
 {
-    use ArrayAccessTrait;
+    public function __construct()
+    {
+        //
+    }
 
     public function __set($name, $value)
     {
-        $this->offsetSet($name, $value);
+        //
     }
 
     public function __isset($name)
     {
-        return $this->offsetExists($name);
+        return false;
     }
 
     public function __unset($name)
     {
-        $this->offsetUnset($name);
+        //
     }
 
-    public function &__get($name)
+    public function __get($name)
     {
-        $ret =& $this->offsetGet($name);
-
-        return $ret;
+        return null;
     }
 }

@@ -38,7 +38,7 @@ trait BaseCollection
      *
      * @return bool
      */
-    public function contains(string $key): bool
+    public function contains($key): bool
     {
         return $this->has($key);
     }
@@ -50,7 +50,7 @@ trait BaseCollection
      *
      * @return bool
      */
-    public function hasNot(string $key): bool
+    public function hasNot($key): bool
     {
         return !$this->has($key);
     }
@@ -73,7 +73,7 @@ trait BaseCollection
      *
      * @return void
      */
-    public function put(string $key, $value): void
+    public function put($key, $value): void
     {
         $this->set($key, $value);
     }
@@ -86,7 +86,7 @@ trait BaseCollection
      *
      * @return bool true on success, false if the item already exists.
      */
-    public function add(string $key, $value): bool
+    public function add($key, $value): bool
     {
         if ($this->has($key)) {
             return false;
@@ -105,7 +105,7 @@ trait BaseCollection
      *
      * @return bool true on success, false if the item does not exists.
      */
-    public function update(string $key, $value): bool
+    public function update($key, $value): bool
     {
         if ($this->hasNot($key)) {
             return false;
@@ -140,9 +140,15 @@ trait BaseCollection
      *
      * @return bool
      */
-    public function pushTo(string $key, $value): bool
+    public function pushTo($key, $value): bool
     {
-        $this[$key][] = $value;
+        if (is_array($value)) {
+            foreach ($value as $subKeykey => $value) {
+                $this[$key][$subKeykey] = $value;
+            }
+        } else {
+            $this[$key][] = $value;
+        }
 
         return true;
     }
@@ -163,7 +169,7 @@ trait BaseCollection
      *
      * @return mixed The item's value.
      */
-    public function find(string $key)
+    public function find($key)
     {
         return $this->get($key);
     }
@@ -199,7 +205,7 @@ trait BaseCollection
      *
      * @return mixed The removed item's value, or void if the item don't exists.
      */
-    public function remove(string $key)
+    public function remove($key)
     {
         if ($this->hasNot($key)) {
             return;
@@ -219,7 +225,7 @@ trait BaseCollection
      *
      * @return bool true on success, false on failure.
      */
-    public function delete(string $key): bool
+    public function delete($key): bool
     {
         if ($this->hasNot($key)) {
             return false;

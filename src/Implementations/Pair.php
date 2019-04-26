@@ -13,14 +13,14 @@ namespace Amber\Collection\Implementations;
 use Amber\Collection\Contracts\PairInterface;
 
 /**
- * Implements PairInterface.
+ * A pair is used by Amber\Collection\Map to pair keys with values.
  */
 class Pair implements PairInterface
 {
     public $key;
     public $value;
 
-    public function __construct(string $key, $value)
+    public function __construct($key, $value)
     {
         $this->key = $key;
         $this->value = $value;
