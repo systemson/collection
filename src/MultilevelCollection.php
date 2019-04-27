@@ -26,7 +26,7 @@ class MultilevelCollection extends Collection
     /**
      * @var string The separator for multilevel keys.
      */
-    protected $multilevel = false;
+    protected $multilevel = true;
 
     /**
      * Collection constructor.
@@ -34,7 +34,7 @@ class MultilevelCollection extends Collection
      * @param array $array      The items for the collection.
      * @param bool  $multilevel Defines if the array should handle multilevel keys.
      */
-    public function __construct(array $array = [], bool $multilevel = false)
+    public function __construct(array $array = [], bool $multilevel = true)
     {
         parent::__construct($array);
 

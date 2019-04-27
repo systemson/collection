@@ -11,6 +11,10 @@ class SetTest extends TestCase
     {
         $collection = new Collection();
 
+        $ret = array_search(1, [0,2,3]);
+
+        dump($ret ? $ret : null);
+
         // Sets a value
         $this->assertNull($collection->set('key', 'value'));
 
@@ -19,6 +23,8 @@ class SetTest extends TestCase
 
         // Gets the value
         $this->assertEquals('value', $collection->get('value'));
+        $this->assertEquals('value', $collection->value);
+        $this->assertEquals('value', $collection['value']);
         
         // Deletes the item
         $this->assertTrue($collection->delete('value'));

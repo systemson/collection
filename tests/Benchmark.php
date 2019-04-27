@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 $benchmark = new Benchmark();
 
-$n = 10;
+$n = 100;
 
 $benchmark->add(
     'array',
@@ -223,31 +223,6 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'treemap-as-property',
-    function () use ($n) {
-        $collection = new Map();
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->{$x} = $x;
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->{$x};
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            isset($collection->{$x});
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            unset($collection->{$x});
-        }
-
-        return $collection;
-    }
-);
-
-$benchmark->add(
     'laravel-as-property',
     function () use ($n) {
         $collection = collect();
@@ -355,31 +330,6 @@ $benchmark->add(
     'map-as-object',
     function () use ($n) {
         $collection = new Map();
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->set($x, $x);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->get($x);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->has($x);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->unset($x);
-        }
-
-        return $collection;
-    }
-);
-
-$benchmark->add(
-    'treemap-as-object',
-    function () use ($n) {
-        $collection = new TreeMap();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -563,6 +513,31 @@ $benchmark->run();
 $benchmark = new Benchmark();
 
 $benchmark->add(
+    'array-collection',
+    function () use ($n) {
+        $collection = new AmberArrayObject();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+/*$benchmark->add(
     'simple-collection',
     function () use ($n) {
         $collection = new SimpleCollection();
@@ -585,7 +560,7 @@ $benchmark->add(
 
         return $collection;
     }
-);
+);*/
 
 $benchmark->add(
     'multilevel-collection',

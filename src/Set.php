@@ -15,52 +15,37 @@ use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
 use Closure;
 use Amber\Collection\Implementations\Pair;
-use Amber\Collection\Implementations\GenericTrait;
 
 /**
  * A sequential collection of key-value pairs.
  */
 class Set extends ArrayObject implements CollectionInterface
 {
-    use BaseCollection, GenericTrait;
+    use BaseCollection;
 
-    protected function getByValue($offset)
+    protected function getIndex($offset)
     {
-        foreach ($this as $index => $value) {
-            if ($value === $offset) {
-                return [
-                    'index' => $index,
-                    'value' => $value,
-                ];
-            }
-        }
-        return [];
+        return array_search($offset, $this->getArrayCopy());
     }
 
     public function offsetSet($offset, $value)
     {
-        parent::offsetSet(null, $value);
+        parent::offsetSet($this->getIndex($offset), $value);
     }
 
     public function offsetExists($offset)
     {
-        $ret = $this->getByValue($offset);
-
-        return !empty($ret);
+        return in_array($offset, $this->getArrayCopy());
     }
 
     public function offsetUnset($offset)
     {
-        if ($this->offsetExists($offset)) {
-            $ret = $this->getByValue($offset);
-
-            parent::offsetUnset($ret['index']);
-        }
+        parent::offsetUnset($this->getIndex($offset));
     }
 
     public function &offsetGet($offset)
     {
-        $ret =& $this->getByValue($offset)['value'] ?? null;
+        $ret =& parent::offsetGet($this->getIndex($offset)) ?? null;
 
         return $ret;
     }

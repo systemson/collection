@@ -15,28 +15,8 @@ namespace Amber\Collection\Implementations;
  */
 class NullablePair extends Pair
 {
-    public function __construct()
+    public function __construct($key)
     {
-        //
-    }
-
-    public function __set($name, $value)
-    {
-        //
-    }
-
-    public function __isset($name)
-    {
-        return false;
-    }
-
-    public function __unset($name)
-    {
-        //
-    }
-
-    public function __get($name)
-    {
-        return null;
+        $this->key = $key;
     }
 }

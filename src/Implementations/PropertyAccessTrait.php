@@ -15,7 +15,7 @@ namespace Amber\Collection\Implementations;
  */
 trait PropertyAccessTrait
 {
-    use ArrayAccessTrait;
+    //use ArrayAccessTrait;
 
     public function __set($name, $value)
     {

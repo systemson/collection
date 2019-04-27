@@ -22,6 +22,8 @@ class MapTest extends TestCase
 
         // Gets the value
         $this->assertEquals('value', $collection->get('key'));
+        $this->assertEquals('value', $collection->key);
+        $this->assertEquals('value', $collection['key']);
         
         // Deletes the item
         $this->assertTrue($collection->delete('key'));

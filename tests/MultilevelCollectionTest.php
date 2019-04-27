@@ -16,7 +16,7 @@ class MultilevelCollectionTest extends TestCase
         $slug = "{$first}.{$second}.{$third}";
         $value = 'value';
 
-        $collection = new Collection([], true);
+        $collection = new Collection();
 
         $this->assertNull($collection->put($slug, $value));
 
@@ -62,7 +62,7 @@ class MultilevelCollectionTest extends TestCase
 
     public function testSimpleCollection()
     {
-        $collection = new Collection();
+        $collection = new Collection([], false);
 
         // Sets a value
         $this->assertNull($collection->set('key', 'value'));

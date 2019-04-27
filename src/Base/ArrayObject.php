@@ -7,7 +7,9 @@ use ArrayAccess;
 use Serializable;
 use Countable;
 use Amber\Collection\Implementations\{
+    ArrayAccessTrait,
     PropertyAccessTrait,
+    GenericTrait,
     IteratorAggregateTrait,
     SerializableTrait,
     CountableTrait
@@ -15,7 +17,7 @@ use Amber\Collection\Implementations\{
 
 class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Countable
 {
-    use PropertyAccessTrait, IteratorAggregateTrait, SerializableTrait, CountableTrait;
+    use ArrayAccessTrait, PropertyAccessTrait, GenericTrait, IteratorAggregateTrait, SerializableTrait, CountableTrait;
 
     protected $storage = [];
 

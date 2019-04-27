@@ -29,13 +29,13 @@ class Map extends ArrayObject implements CollectionInterface
     protected function getPair($offset): PairInterface
     {
         foreach ($this as $index => $pair) {
-            if ($pair->key === $offset) {
+            if ($pair->key == $offset) {
                 $pair->index = $index;
                 return $pair;
             }
         }
 
-        return new NullablePair();
+        return new NullablePair($offset);
     }
 
     public function offsetSet($offset, $value)
