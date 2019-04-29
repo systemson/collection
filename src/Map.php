@@ -14,13 +14,15 @@ use Amber\Collection\Base\ArrayObject;
 use Amber\Collection\Base\BaseCollection;
 use Ds\Collection as CollectionInterface;
 use Closure;
+use Amber\Collection\Base\MixedKeysTrait;
 use Amber\Collection\Implementations\Pair;
 use Amber\Collection\Implementations\NullablePair;
-use Amber\Collection\Implementations\MixedKeysTrait;
 use Amber\Collection\Contracts\PairInterface;
 
 /**
  * A sequential collection of key-value pairs.
+ *
+ * @todo MUST remove all numeric array methods.
  */
 class Map extends ArrayObject implements CollectionInterface
 {
@@ -69,5 +71,28 @@ class Map extends ArrayObject implements CollectionInterface
         $ret =& $this->getPair($offset)->value;
 
         return $ret;
+    }
+
+    public function toArray(): array
+    {
+        foreach ($this as $item) {
+            $ret[$item->key] = $item->value;
+        }
+
+        return $ret ?? [];
+    }
+
+    public function push($value)
+    {
+        $class = get_called_class();
+
+        throw new \Exception("Call to undefined method [{$class}::push()]");
+    }
+
+    public function pushTo($key, $value)
+    {
+        $class = get_called_class();
+
+        throw new \Exception("Call to undefined method [{$class}::pushTo()]");
     }
 }

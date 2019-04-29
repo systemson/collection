@@ -26,7 +26,7 @@ trait MultipleTrait
     public function setMultiple(array $array): void
     {
         foreach ($array as $key => $value) {
-            $this->put($key, $value);
+            $this->set($key, $value);
         }
     }
 

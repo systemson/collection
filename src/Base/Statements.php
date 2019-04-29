@@ -155,7 +155,7 @@ trait Statements
     {
         $return = [];
 
-        foreach ($this->getArrayCopy() as $item) {
+        foreach ($this->toArray() as $item) {
             if (isset($item[$column])) {
                 $key = $item[$column];
                 $return[$key] = $item;
@@ -201,7 +201,7 @@ trait Statements
             return $this->column($column)->sum();
         }
 
-        return array_sum($this->getArrayCopy());
+        return array_sum($this->toArray());
     }
 
     /**

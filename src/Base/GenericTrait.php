@@ -8,13 +8,15 @@
  * @license https://opensource.org/licenses/gpl-license GNU Public License
  */
 
-namespace Amber\Collection\Implementations;
+namespace Amber\Collection\Base;
 
 /**
  * Implements basic set, get, has and unset methods.
  */
 trait GenericTrait
 {
+    use MultipleTrait;
+
     /**
      * Sets or updates an item in the collection.
      *

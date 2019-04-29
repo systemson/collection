@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of the Amber/Collection package.
+ *
+ * @package Amber/Collection
+ * @author  Deivi Peña <systemson@gmail.com>
+ * @license GPL-3.0-or-later
+ * @license https://opensource.org/licenses/gpl-license GNU public function License
+ */
 
 namespace Amber\Collection\Base;
 
@@ -7,28 +15,28 @@ use ArrayAccess;
 use Serializable;
 use Countable;
 use Amber\Collection\Implementations\{
+    IteratorAggregateTrait,
     ArrayAccessTrait,
     PropertyAccessTrait,
-    GenericTrait,
-    IteratorAggregateTrait,
     SerializableTrait,
     CountableTrait
 };
 
 class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Countable
 {
-    use ArrayAccessTrait, PropertyAccessTrait, GenericTrait, IteratorAggregateTrait, SerializableTrait, CountableTrait;
+    use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait, GenericTrait;
 
     protected $storage = [];
 
     public function __construct(array $array = [])
     {
-        $this->storage = $array;
+        $this->setMultiple($array);
     }
 
     public function exchangeArray(array $array): void
     {
-        $this->storage = $array;
+        $this->storage = [];
+        $this->setMultiple($array);
     }
 
     public function getArrayCopy(): array

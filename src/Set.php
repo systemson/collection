@@ -11,17 +11,16 @@
 namespace Amber\Collection;
 
 use Amber\Collection\Base\ArrayObject;
-use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Base\EssentialTrait;
 use Ds\Collection as CollectionInterface;
-use Closure;
-use Amber\Collection\Implementations\Pair;
+use Amber\Collection\Base\MixedKeysTrait;
 
 /**
  * A sequential collection of key-value pairs.
  */
 class Set extends ArrayObject implements CollectionInterface
 {
-    use BaseCollection;
+    use MixedKeysTrait, EssentialTrait;
 
     protected function getIndex($offset)
     {
@@ -48,5 +47,35 @@ class Set extends ArrayObject implements CollectionInterface
         $ret =& parent::offsetGet($this->getIndex($offset)) ?? null;
 
         return $ret;
+    }
+
+    /**
+     * Deletes an item from collection.
+     *
+     * @param string $key The item's key
+     *
+     * @return bool true on success, false on failure.
+     */
+    public function delete($key): bool
+    {
+        if ($this->hasNot($key)) {
+            return false;
+        }
+
+        $this->unset($key);
+
+        return true;
+    }
+
+    /**
+     * Whether an item is not present it the collection
+     *
+     * @param string $key The item's key
+     *
+     * @return bool
+     */
+    public function hasNot($key): bool
+    {
+        return !$this->has($key);
     }
 }

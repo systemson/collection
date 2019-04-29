@@ -29,7 +29,7 @@ trait ArrayFunctionsTrait
     {
         $array = array_map(
             $callback,
-            $this->getArrayCopy()
+            $this->toArray()
         );
 
         return static::make($array);
@@ -45,7 +45,7 @@ trait ArrayFunctionsTrait
     public function filter(Closure $callback): CollectionInterface
     {
         $array = array_filter(
-            $this->getArrayCopy(),
+            $this->toArray(),
             $callback,
             ARRAY_FILTER_USE_BOTH
         );
@@ -62,7 +62,7 @@ trait ArrayFunctionsTrait
      */
     public function sort(Closure $callback): CollectionInterface
     {
-        $array = $this->getArrayCopy();
+        $array = $this->toArray();
 
         usort(
             $array,
@@ -79,7 +79,7 @@ trait ArrayFunctionsTrait
      */
     public function reverse(): CollectionInterface
     {
-        $array = array_reverse($this->getArrayCopy());
+        $array = array_reverse($this->toArray());
 
         return static::make($array);
     }
@@ -93,7 +93,7 @@ trait ArrayFunctionsTrait
      */
     public function merge(...$array): CollectionInterface
     {
-        array_unshift($array, $this->getArrayCopy());
+        array_unshift($array, $this->toArray());
 
         $return = call_user_func_array('array_merge', $array);
 
@@ -110,7 +110,7 @@ trait ArrayFunctionsTrait
      */
     public function chunk(int $size, bool $preserve_keys = false): CollectionInterface
     {
-        $return = array_chunk($this->getArrayCopy(), $size, $preserve_keys);
+        $return = array_chunk($this->toArray(), $size, $preserve_keys);
 
         return static::make($return);
     }
@@ -124,7 +124,7 @@ trait ArrayFunctionsTrait
      */
     public function column(string $column): CollectionInterface
     {
-        $return = array_column($this->getArrayCopy(), $column);
+        $return = array_column($this->toArray(), $column);
 
         return static::make($return);
     }
@@ -136,7 +136,7 @@ trait ArrayFunctionsTrait
      */
     public function flip(): CollectionInterface
     {
-        $return = array_flip($this->getArrayCopy());
+        $return = array_flip($this->toArray());
 
         return static::make($return);
     }
@@ -150,7 +150,7 @@ trait ArrayFunctionsTrait
      */
     public function intersect(...$array): CollectionInterface
     {
-        $return = call_user_func_array('array_intersect', array_merge([$this->getArrayCopy()], $array));
+        $return = call_user_func_array('array_intersect', array_merge([$this->toArray()], $array));
 
         return static::make($return);
     }
@@ -164,7 +164,7 @@ trait ArrayFunctionsTrait
      */
     public function diff(...$array): CollectionInterface
     {
-        $return = call_user_func_array('array_diff', array_merge([$this->getArrayCopy()], $array));
+        $return = call_user_func_array('array_diff', array_merge([$this->toArray()], $array));
 
         return static::make($return);
     }
@@ -178,13 +178,9 @@ trait ArrayFunctionsTrait
      */
     public function random(int $num = 1): CollectionInterface
     {
-        $keys = array_rand($this->getArrayCopy(), $num);
+        $keys = array_rand($this->toArray(), $num);
 
-        if (!is_array($keys)) {
-            $keys = [$keys];
-        }
-
-        $return = $this->getMultiple($keys);
+        $return = $this->getMultiple((array) $keys);
 
         return static::make($return);
     }
@@ -198,7 +194,7 @@ trait ArrayFunctionsTrait
      */
     public function unique(string $column = null): CollectionInterface
     {
-        $return = array_unique($this->getArrayCopy());
+        $return = array_unique($this->toArray());
 
         return static::make($return);
     }

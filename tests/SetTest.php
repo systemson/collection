@@ -7,9 +7,28 @@ use PHPUnit\Framework\TestCase;
 
 class SetTest extends TestCase
 {
+    private static function newArray(int $n = 5, string $key = '')
+    {
+        for ($x = 1; $x <= $n; $x++) {
+            $multiple["{$key}{$x}"] = [
+                'id'    => $x,
+                'name'  => 'Pruebas' . $x,
+                'pass'  => 'pass' . $x,
+                'email' => "email{$x}@email.com",
+            ];
+        }
+
+        return $multiple;
+    }
+
+    private function newCollection()
+    {
+    	return new Collection();
+    }
+
     public function testBasic()
     {
-        $collection = new Collection();
+        $collection = $this->newCollection();
 
         // Sets a value
         $this->assertNull($collection->set('key', 'value'));
@@ -19,7 +38,7 @@ class SetTest extends TestCase
 
         // Gets the value
         $this->assertEquals('value', $collection->get('value'));
-        $this->assertEquals('value', $collection->value);
+        $this->assertEquals('value', $collection->key);
         $this->assertEquals('value', $collection['value']);
         
         // Deletes the item

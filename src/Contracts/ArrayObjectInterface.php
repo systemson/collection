@@ -21,35 +21,35 @@ interface ArrayObjectInterface
 
     public function asort(): void;
 
-    public function count() : int;
+    public function count(): int;
 
-    public function exchangeArray(mixed $input): array;
+    public function exchangeArray($input): array;
 
-    public function getArrayCopy() : array;
+    public function getArrayCopy(): array;
 
-    public function getFlags() : int;
+    public function getFlags(): int;
 
-    public function getIterator() : ArrayIterator;
+    public function getIterator(): ArrayIterator;
 
-    public function getIteratorClass() : string;
+    public function getIteratorClass(): string;
 
-    public function ksort() : void;
+    public function ksort(): void;
 
-    public function natcasesort() : void;
+    public function natcasesort(): void;
 
-    public function natsort() : void;
+    public function natsort(): void;
 
-    public function offsetExists(mixed $index) : bool;
+    public function offsetExists($index): bool;
 
-    public function offsetGet(mixed $index) : mixed;
+    public function offsetGet($index);
 
-    public function offsetSet(mixed $index, mixed $newval) : void;
+    public function offsetSet($index, $newval): void;
 
-    public function offsetUnset(mixed $index) : void;
+    public function offsetUnset($index): void;
 
-    public function serialize() : string;
+    public function serialize(): string;
 
-    public function setFlags(int $flags) : void;
+    public function setFlags(int $flags): void;
 
     public function setIteratorClass(string $iterator_class) : void;
 

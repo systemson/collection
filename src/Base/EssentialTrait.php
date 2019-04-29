@@ -46,7 +46,7 @@ trait EssentialTrait
      */
     public function all(): array
     {
-        return $this->getArrayCopy();
+        return $this->toArray();
     }
 
     /**
@@ -56,7 +56,7 @@ trait EssentialTrait
      */
     public function keys(): array
     {
-        return array_keys($this->getArrayCopy());
+        return array_keys($this->toArray());
     }
 
     /**
@@ -66,7 +66,7 @@ trait EssentialTrait
      */
     public function values(): array
     {
-        return array_values($this->getArrayCopy());
+        return array_values($this->toArray());
     }
 
     /**
@@ -76,7 +76,7 @@ trait EssentialTrait
      */
     public function copy(): CollectionInterface
     {
-        return static::make($this->getArrayCopy());
+        return static::make($this->toArray());
     }
 
     /**
@@ -86,7 +86,7 @@ trait EssentialTrait
      */
     public function count(): int
     {
-        return count(array_filter($this->getArrayCopy()));
+        return count(array_filter($this->toArray()));
     }
 
     /**
@@ -116,7 +116,7 @@ trait EssentialTrait
      */
     public function toJson(): string
     {
-        return json_encode($this->getArrayCopy());
+        return json_encode($this->toArray());
     }
 
     /**
@@ -126,7 +126,7 @@ trait EssentialTrait
      */
     public function jsonSerialize(): array
     {
-        return $this->getArrayCopy();
+        return $this->toArray();
     }
 
     /**
@@ -136,7 +136,7 @@ trait EssentialTrait
      */
     public function __toString()
     {
-        return json_encode($this->getArrayCopy());
+        return json_encode($this->toArray());
     }
 
     /**
@@ -158,7 +158,7 @@ trait EssentialTrait
      */
     public function implode(string $glue = ', '): string
     {
-        return implode($glue, $this->getArrayCopy());
+        return implode($glue, $this->toArray());
     }
 
     /**
@@ -170,7 +170,7 @@ trait EssentialTrait
      */
     public function max(string $column = null)
     {
-        return max($this->getArrayCopy());
+        return max($this->toArray());
     }
 
     /**
@@ -182,6 +182,6 @@ trait EssentialTrait
      */
     public function min(string $column = null)
     {
-        return min($this->getArrayCopy());
+        return min($this->toArray());
     }
 }

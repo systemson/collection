@@ -53,4 +53,9 @@ class Pair implements PairInterface
     {
         return $this->toArray();
     }
+
+    public function __toString()
+    {
+        return (string) $this->value ?? '';
+    }
 }

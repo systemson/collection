@@ -20,7 +20,7 @@ use Amber\Config\ConfigAwareInterface;
  */
 trait BaseCollection
 {
-    use EssentialTrait, ArrayFunctionsTrait, MultipleTrait, Statements, AliasesTrait;
+    use EssentialTrait, ArrayFunctionsTrait, Statements, AliasesTrait;
 
     /**
      * Whether an item is present it the collection
@@ -182,7 +182,7 @@ trait BaseCollection
     public function first()
     {
         if ($this->isNotEmpty()) {
-            return $this->find($this->keys()[0]);
+            return current($this->getArrayCopy());
         }
     }
 
@@ -194,7 +194,8 @@ trait BaseCollection
     public function last()
     {
         if ($this->isNotEmpty()) {
-            return $this->find($this->keys()[$this->count() - 1]);
+            $all = $this->getArrayCopy();
+            return end($all);
         }
     }
 

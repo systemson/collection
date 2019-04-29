@@ -13,7 +13,7 @@ namespace Amber\Collection;
 use Amber\Collection\Base\BaseCollection;
 use ArrayObject;
 use Ds\Collection as CollectionInterface;
-use Amber\Collection\Implementations\GenericTrait;
+use Amber\Collection\Base\GenericTrait;
 
 /**
  * Wrapper class for working with arrays.

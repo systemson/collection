@@ -5,6 +5,7 @@ require_once 'vendor/autoload.php';
 use Amber\Collection\Hash;
 use Amber\Collection\Map;
 use Amber\Collection\Set;
+use Amber\Collection\Bag;
 use Amber\Collection\TreeMap;
 use Amber\Collection\Base\ArrayObject as AmberArrayObject;
 use Amber\Collection\MultilevelCollection as Collection;
@@ -47,31 +48,6 @@ $benchmark->add(
     'collection-as-array',
     function () use ($n) {
         $collection = new SimpleCollection();
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection[$x] = $x;
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection[$x];
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            isset($collection[$x]);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            unset($collection[$x]);
-        }
-
-        return $collection;
-    }
-);
-
-$benchmark->add(
-    'map-as-array',
-    function () use ($n) {
-        $collection = new Map();
 
         for ($x = 0; $x < $n; $x++) {
             $collection[$x] = $x;
@@ -198,31 +174,6 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'map-as-property',
-    function () use ($n) {
-        $collection = new Map();
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->{$x} = $x;
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->{$x};
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            isset($collection->{$x});
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            unset($collection->{$x});
-        }
-
-        return $collection;
-    }
-);
-
-$benchmark->add(
     'laravel-as-property',
     function () use ($n) {
         $collection = collect();
@@ -305,31 +256,6 @@ $benchmark->add(
     'multilevel-collection-as-object',
     function () use ($n) {
         $collection = new Collection([], true);
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->set($x, $x);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->get($x);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->has($x);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection->unset($x);
-        }
-
-        return $collection;
-    }
-);
-
-$benchmark->add(
-    'map-as-object',
-    function () use ($n) {
-        $collection = new Map();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -666,6 +592,31 @@ $benchmark->add(
     'hash-collection',
     function () use ($n) {
         $collection = new Set();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'bag-collection',
+    function () use ($n) {
+        $collection = new Bag();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
