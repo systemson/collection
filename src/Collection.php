@@ -10,17 +10,10 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\BaseCollection;
-use ArrayObject;
-use Ds\Collection as CollectionInterface;
 use Amber\Collection\Base\GenericTrait;
+use Amber\Collection\Base\EssentialTrait;
 
-/**
- * Wrapper class for working with arrays.
- *
- * @todo SHOULD be renamed to Vector or ArrayObject
- */
-class Collection extends ArrayObject implements CollectionInterface
+class Collection extends CollectionCommons
 {
-    use BaseCollection, GenericTrait;
+    use EssentialTrait, GenericTrait;
 }

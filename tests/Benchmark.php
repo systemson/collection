@@ -6,15 +6,15 @@ use Amber\Collection\Hash;
 use Amber\Collection\Map;
 use Amber\Collection\Set;
 use Amber\Collection\Bag;
+use Amber\Collection\Collection;
 use Amber\Collection\TreeMap;
 use Amber\Collection\Base\ArrayObject as AmberArrayObject;
-use Amber\Collection\MultilevelCollection as Collection;
-use Amber\Collection\Collection as SimpleCollection;
+use Amber\Collection\MultilevelCollection;
+use Amber\Collection\Vector as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
 
 //declare(ticks=1);
-
 $benchmark = new Benchmark();
 
 $n = 100;
@@ -45,9 +45,34 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'collection-as-array',
+    'vector-as-array',
     function () use ($n) {
         $collection = new SimpleCollection();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection[$x] = $x;
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection[$x];
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            isset($collection[$x]);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            unset($collection[$x]);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'collection-as-array',
+    function () use ($n) {
+        $collection = new Collection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection[$x] = $x;
@@ -151,6 +176,31 @@ $benchmark = new Benchmark();
 $benchmark->add(
     'collection-as-property',
     function () use ($n) {
+        $collection = new Collection();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->{$x} = $x;
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->{$x};
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            isset($collection->{$x});
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            unset($collection->{$x});
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'vector-as-property',
+    function () use ($n) {
         $collection = new SimpleCollection();
 
         for ($x = 0; $x < $n; $x++) {
@@ -228,7 +278,7 @@ $benchmark->run();
 $benchmark = new Benchmark();
 
 $benchmark->add(
-    'collection-as-object',
+    'vector-as-object',
     function () use ($n) {
         $collection = new SimpleCollection();
 
@@ -255,7 +305,7 @@ $benchmark->add(
 $benchmark->add(
     'multilevel-collection-as-object',
     function () use ($n) {
-        $collection = new Collection([], true);
+        $collection = new MultilevelCollection([], true);
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -357,7 +407,7 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'collection-as-array-multi',
+    'vector-as-array-multi',
     function () use ($n) {
         $collection = new SimpleCollection();
 
@@ -384,10 +434,10 @@ $benchmark->add(
 $benchmark->add(
     'collection-as-object-multi',
     function () use ($n) {
-        $collection = new Collection([], true);
+        $collection = new MultilevelCollection([], true);
 
         for ($x = 0; $x < $n; $x++) {
-            $collection->put("first.second.third.{$x}", $x);
+            $collection->set("first.second.third.{$x}", $x);
         }
 
         for ($x = 0; $x < $n; $x++) {
@@ -439,7 +489,7 @@ $benchmark->run();
 $benchmark = new Benchmark();
 
 $benchmark->add(
-    'array-collection',
+    'arrayobject-collection',
     function () use ($n) {
         $collection = new AmberArrayObject();
 
@@ -491,7 +541,7 @@ $benchmark->add(
 $benchmark->add(
     'multilevel-collection',
     function () use ($n) {
-        $collection = new Collection([], true);
+        $collection = new MultilevelCollection([], true);
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -542,6 +592,7 @@ $benchmark->add(
     'treemap-collection',
     function () use ($n) {
         $collection = new TreeMap();
+        //$collection->setComparator();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -617,6 +668,31 @@ $benchmark->add(
     'bag-collection',
     function () use ($n) {
         $collection = new Bag();
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->set($x, $x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->get($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->has($x);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection->unset($x);
+        }
+
+        return $collection;
+    }
+);
+
+$benchmark->add(
+    'base-collection',
+    function () use ($n) {
+        $collection = new Collection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);

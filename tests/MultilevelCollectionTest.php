@@ -18,7 +18,7 @@ class MultilevelCollectionTest extends TestCase
 
         $collection = new Collection();
 
-        $this->assertNull($collection->put($slug, $value));
+        $this->assertNull($collection->set($slug, $value));
 
         $this->assertTrue($collection->has("$first"));
         $this->assertTrue($collection->has("{$first}.{$second}"));
@@ -45,7 +45,7 @@ class MultilevelCollectionTest extends TestCase
 
         //$collection->clear();
 
-        $this->assertNull($collection->put($slug, $value));
+        $this->assertNull($collection->set($slug, $value));
 
         $this->assertEquals($value, $collection->remove("{$first}.{$second}.{$third}"));
         $this->assertFalse($collection->has("{$first}.{$second}.{$third}"));
@@ -56,7 +56,7 @@ class MultilevelCollectionTest extends TestCase
         $this->assertEquals([$second => null], $collection->remove("{$first}"));
         $this->assertFalse($collection->has("$first"));
 
-        $this->assertNull($collection->put("$first", $value));
+        $this->assertNull($collection->set("$first", $value));
         $this->assertEquals($value, $collection->get("$first", $value));
     }
 

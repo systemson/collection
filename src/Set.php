@@ -10,21 +10,19 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\ArrayObject;
-use Amber\Collection\Base\EssentialTrait;
-use Ds\Collection as CollectionInterface;
+use Amber\Collection\Contracts\CollectionInterface;
 use Amber\Collection\Base\MixedKeysTrait;
 
 /**
  * A sequential collection of key-value pairs.
  */
-class Set extends ArrayObject implements CollectionInterface
+class Set extends CollectionCommons implements CollectionInterface
 {
-    use MixedKeysTrait, EssentialTrait;
+    use MixedKeysTrait;
 
     protected function getIndex($offset)
     {
-        return array_search($offset, $this->getArrayCopy());
+        return array_search($offset, $this->toArray());
     }
 
     public function offsetSet($offset, $value)
@@ -34,7 +32,7 @@ class Set extends ArrayObject implements CollectionInterface
 
     public function offsetExists($offset)
     {
-        return in_array($offset, $this->getArrayCopy());
+        return in_array($offset, $this->toArray());
     }
 
     public function offsetUnset($offset)

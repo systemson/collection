@@ -20,6 +20,7 @@ class PairTest extends TestCase
         // Gets the value
         $this->assertEquals('key', $pair->key);
         $this->assertEquals('value', $pair->value);
+        $this->assertEquals('value', (string) $pair);
         $this->assertFalse($pair->isEmpty());
         $this->assertEquals(['key'=>'key', 'value'=>'value'], $pair->toArray());
         

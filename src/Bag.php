@@ -22,7 +22,6 @@ use Amber\Collection\Base\GenericTrait;
 /**
  * Bag or multiset is an unordered collections that may contain duplicate elements.
  */
-class Bag implements \IteratorAggregate, \ArrayAccess, \Serializable, \Countable
+class Bag extends Collection
 {
-    use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait, GenericTrait;
 }

@@ -10,6 +10,9 @@
 
 namespace Amber\Collection;
 
+use Amber\Collection\Contracts\PairInterface;
+use Amber\Collection\Implementations\Pair;
+use Amber\Collection\Implementations\NullablePair;
 use Closure;
 
 /**
@@ -19,17 +22,23 @@ class TreeMap extends Map
 {
     protected $comparator;
 
-    protected function findKey($slug)
+    public function getPair($offset): PairInterface
     {
-        $filter = $this->getComparator($slug);
+        $filter = $this->getComparator();
 
-        foreach ($this->getArrayCopy() as $pair) {
-            if ($filter($pair->key, $slug)) {
-                return $pair->key;
+        foreach ($this as $index => $pair) {
+            if ($filter($pair->key, $pair->value, $offset)) {
+                $pair->index = $index;
+                return $pair;
             }
         }
 
-        return $slug;
+        return new NullablePair($offset);
+    }
+
+    protected function getIndex($offset)
+    {
+        $this->getPair($offset)->index ?? false;
     }
 
     public function setComparator(Closure $callback): void
@@ -37,7 +46,7 @@ class TreeMap extends Map
         $this->comparator = $callback;
     }
 
-    public function getComparator($offset): Closure
+    public function getComparator(): Closure
     {
         if ($this->comparator instanceof Closure) {
             return $this->comparator;
@@ -48,37 +57,8 @@ class TreeMap extends Map
 
     protected function defaultComparator(): Closure
     {
-        return function ($key, $offset) {
+        return function ($key, $value, $offset) {
             return $key === $offset;
         };
-    }
-
-    public function offsetSet($offset, $value)
-    {
-        $offset = $this->findKey($offset);
-
-        parent::offsetSet($offset, $value);
-    }
-
-    public function offsetExists($offset)
-    {
-        $offset = $this->findKey($offset);
-
-        return parent::offsetExists($offset);
-    }
-
-    public function offsetUnset($offset)
-    {
-        $offset = $this->findKey($offset);
-
-        return parent::offsetUnset($offset);
-    }
-
-    public function &offsetGet($offset)
-    {
-        $offset = $this->findKey($offset);
-        $ret =& parent::offsetGet($offset);
-
-        return $ret;
     }
 }

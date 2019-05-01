@@ -10,15 +10,15 @@
 
 namespace Amber\Collection\Base;
 
-use Ds\Collection as CollectionInterface;
+use Amber\Collection\Contracts\CollectionInterface;
 
 /**
- * Implements the interfaces and basic methods for the Collection.
+ * Implements basic methods for the Collection.
  */
 trait EssentialTrait
 {
     /**
-     * Returns a new collection.
+     * Creates a new collection.
      *
      * @param array $array The items for the new collection.
      *
@@ -27,16 +27,6 @@ trait EssentialTrait
     public static function make(array $array = []): CollectionInterface
     {
         return new static($array);
-    }
-
-    /**
-     * Returns an array of the collection.
-     *
-     * @return array The items in the collection.
-     */
-    public function toArray(): array
-    {
-        return $this->getArrayCopy();
     }
 
     /**
@@ -70,36 +60,6 @@ trait EssentialTrait
     }
 
     /**
-     * Creates a shallow copy of the collection.
-     *
-     * @return Collection a shallow copy of the collection.
-     */
-    public function copy(): CollectionInterface
-    {
-        return static::make($this->toArray());
-    }
-
-    /**
-     * Returns the size of the collection.
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        return count(array_filter($this->toArray()));
-    }
-
-    /**
-     * Returns whether the collection is empty.
-     *
-     * @return bool Whether the collection is empty.
-     */
-    public function isEmpty(): bool
-    {
-        return $this->count() === 0;
-    }
-
-    /**
      * Returns whether the collection is not empty.
      *
      * @return bool Whether the collection is empty.
@@ -107,46 +67,6 @@ trait EssentialTrait
     public function isNotEmpty(): bool
     {
         return !$this->isEmpty();
-    }
-
-    /**
-     * Returns an json representation of the collection.
-     *
-     * @return string The json representation of the collection.
-     */
-    public function toJson(): string
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
-     * Returns an array of the collection.
-     *
-     * @return array The items in the collection.
-     */
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
-    }
-
-    /**
-     * Returns a json representation to the Collection.
-     *
-     * @return string Json representation to the Collection.
-     */
-    public function __toString()
-    {
-        return json_encode($this->toArray());
-    }
-
-    /**
-     * Removes all values from the collection.
-     *
-     * @return void
-     */
-    public function clear(): void
-    {
-        $this->exchangeArray([]);
     }
 
     /**
@@ -183,5 +103,15 @@ trait EssentialTrait
     public function min(string $column = null)
     {
         return min($this->toArray());
+    }
+
+    /**
+     * Returns a json representation to the Collection.
+     *
+     * @return string Json representation to the Collection.
+     */
+    public function __toString()
+    {
+        return json_encode($this->toArray());
     }
 }

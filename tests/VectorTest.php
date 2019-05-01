@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use Amber\Collection\Collection;
+use Amber\Collection\Vector as Collection;
 use PHPUnit\Framework\TestCase;
 
-class CollectionTest extends TestCase
+class VectorTest extends TestCase
 {
     private static function newArray(int $n = 5, string $key = '')
     {
@@ -63,7 +63,7 @@ class CollectionTest extends TestCase
 
         $this->assertTrue($collection->hasMultiple(array_keys($array)));
 
-        $this->assertTrue($collection->delete(array_keys($array)[0]));
+        $this->assertNull($collection->unsetMultiple(array_keys($array)));
 
         $this->assertFalse($collection->hasMultiple(array_keys($array)));
     }
@@ -80,11 +80,10 @@ class CollectionTest extends TestCase
         $this->assertFalse($collection->update('key1', 'value'));
 
         /* Tests adding items */
-        $this->assertNull($collection->put('key', 'value'));
+        $this->assertNull($collection->set('key', 'value'));
         $this->assertTrue($collection->add('key1', 'value1'));
 
         /* Tests adding an item that already exists */
-        /* Insert alias for put */
         $this->assertFalse($collection->add('key1', 'value'));
 
         /* Tests updating an item */
@@ -96,7 +95,7 @@ class CollectionTest extends TestCase
 
         /* Tests getting items */
         $this->assertEquals('value', $collection->get('key'));
-        $this->assertEquals('value1', $collection->find('key1'));
+        $this->assertEquals('value1', $collection->get('key1'));
         $this->assertEquals('value', $collection->first());
         $this->assertEquals('value1', $collection->last());
 
@@ -420,32 +419,6 @@ class CollectionTest extends TestCase
 
         $collection->clear();
 
-        /* Retuns the new added key's value */
-        $this->assertEquals(
-            'value',
-            $collection->firstOrNew('key', 'value')
-        );
-
-        /* Returns the initial value */
-        $this->assertEquals(
-            'value',
-            $collection->firstOrNew('key', 'new_value')
-        );
-
-        /* Updates the key and returns the new value */
-        $this->assertEquals(
-            'new_value',
-            $collection->updateOrNew('key', 'new_value')
-        );
-
-        /* Retuns the new added key's value */
-        $this->assertEquals(
-            'another_value',
-            $collection->updateOrNew('key1', 'another_value')
-        );
-
-        $collection->clear();
-
         $collection = $this->newCollection($array);
 
         for ($x = 1; $x <= $qty; $x++) {
@@ -457,10 +430,10 @@ class CollectionTest extends TestCase
             $collection->join($roles, 'id', 'user_id')->toArray()
         );
 
-        $collection->exchangeArray($array);
+        $collection = new Collection($array);
         $this->assertEquals(array_sum(array_column($array, 'id')), $collection->sum('id'));
 
-        $collection->exchangeArray($grouped);
+        $collection = new Collection($grouped);
         $this->assertEquals(array_sum(array_column($grouped, 'id')), $collection->sum('id'));
     }
 

@@ -16,7 +16,7 @@ namespace Amber\Collection;
  * @todo MUST add support for searching wildcars. Like: $collection->get('base.{*}.other');
  *       SHOULD return an array if many items are found, else the matching item.
  */
-class MultilevelCollection extends Collection
+class MultilevelCollection extends Vector
 {
     /**
      * @var string The separator for multilevel keys.
@@ -142,7 +142,7 @@ class MultilevelCollection extends Collection
             return null;
         }
 
-        $array = $this->getArrayCopy();
+        $array = $this->toArray();
 
         foreach ($slug as $search) {
             if (isset($array[$search])) {

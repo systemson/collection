@@ -10,34 +10,48 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\ArrayObject;
+use Amber\Collection\Contracts\CollectionInterface;
+use Amber\Collection\Contracts\PairInterface;
 use Amber\Collection\Base\BaseCollection;
-use Ds\Collection as CollectionInterface;
-use Closure;
 use Amber\Collection\Base\MixedKeysTrait;
+use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Implementations\Pair;
 use Amber\Collection\Implementations\NullablePair;
-use Amber\Collection\Contracts\PairInterface;
 
 /**
  * A sequential collection of key-value pairs.
  *
  * @todo MUST remove all numeric array methods.
  */
-class Map extends ArrayObject implements CollectionInterface
+class Map extends CollectionCommons implements CollectionInterface
 {
-    use BaseCollection, MixedKeysTrait;
+    use EssentialTrait, MixedKeysTrait, BaseCollection;
+
+    /**
+     * Collection consructor.
+     *
+     * @param array $array The items for the new collection.
+     */
+    public function __construct(array $array = [])
+    {
+        $this->setMultiple($array);
+    }
 
     protected function getPair($offset): PairInterface
     {
         foreach ($this as $index => $pair) {
-            if ($pair->key == $offset) {
+            if ($pair->value === $offset) {
                 $pair->index = $index;
                 return $pair;
             }
         }
 
         return new NullablePair($offset);
+    }
+
+    protected function getIndex($offset)
+    {
+        $this->getPair($offset)->index ?? false;
     }
 
     public function offsetSet($offset, $value)
@@ -52,9 +66,7 @@ class Map extends ArrayObject implements CollectionInterface
 
     public function offsetExists($offset)
     {
-        $pair = $this->getPair($offset);
-
-        return !is_null($pair->value);
+        return !is_null($this->getPair($offset)->value);
     }
 
     public function offsetUnset($offset)
@@ -62,7 +74,7 @@ class Map extends ArrayObject implements CollectionInterface
         if ($this->offsetExists($offset)) {
             $pair = $this->getPair($offset);
 
-            parent::offsetUnset($pair->index);
+            $pair->clear();
         }
     }
 
@@ -80,19 +92,5 @@ class Map extends ArrayObject implements CollectionInterface
         }
 
         return $ret ?? [];
-    }
-
-    public function push($value)
-    {
-        $class = get_called_class();
-
-        throw new \Exception("Call to undefined method [{$class}::push()]");
-    }
-
-    public function pushTo($key, $value)
-    {
-        $class = get_called_class();
-
-        throw new \Exception("Call to undefined method [{$class}::pushTo()]");
     }
 }

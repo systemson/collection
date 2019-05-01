@@ -10,7 +10,7 @@
 
 namespace Amber\Collection\Base;
 
-use Ds\Collection as CollectionInterface;
+use Amber\Collection\Contracts\CollectionInterface;
 
 /**
  * Adds sql like methods to the collection.
@@ -202,37 +202,5 @@ trait Statements
         }
 
         return array_sum($this->toArray());
-    }
-
-    /**
-     * Gets the first item of the Collection or adds and returns a new one.
-     *
-     * @param string $key   The key of the item.
-     * @param mixed  $value The value of the item.
-     *
-     * @return mixed
-     */
-    public function firstOrNew(string $key, $value)
-    {
-        if ($this->hasNot($key)) {
-            $this->add($key, $value);
-        }
-
-        return $this->get($key);
-    }
-
-    /**
-     * Updates an item from the Collection or adds a new one.
-     *
-     * @param string $key   The key of the item.
-     * @param mixed  $value The value of the item.
-     *
-     * @return mixed
-     */
-    public function updateOrNew(string $key, $value)
-    {
-        $this->put($key, $value);
-
-        return $this->get($key);
     }
 }

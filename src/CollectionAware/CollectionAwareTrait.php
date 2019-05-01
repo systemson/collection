@@ -10,7 +10,7 @@
 
 namespace Amber\Collection\CollectionAware;
 
-use Amber\Collection\Collection;
+use Amber\Collection\Contracts\CollectionInterface;
 
 /**
  * Collection setter and getter.
@@ -29,7 +29,7 @@ trait CollectionAwareTrait
      *
      * @return void
      */
-    public function setCollection(Collection $collection): void
+    public function setCollection(CollectionInterface $collection): void
     {
         $this->collection = $collection;
     }
@@ -39,20 +39,8 @@ trait CollectionAwareTrait
      *
      * @return Collection The instance of the Collection.
      */
-    public function getCollection(): Collection
+    public function getCollection(): CollectionInterface
     {
         return $this->collection;
-    }
-
-    /**
-     * Creates a Collection instance.
-     *
-     * @param array $array The items for the collection.
-     *
-     * @return void
-     */
-    protected function initCollection(array $array = []): void
-    {
-        $this->collection = new Collection($array);
     }
 }

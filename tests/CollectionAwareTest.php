@@ -17,17 +17,14 @@ class CollectionAwareTest extends TestCase
 
         $this->assertNull($container->setCollection($collection));
 
-        $this->assertEquals([], $container->getCollection()->all());
+        $this->assertEquals([], $container->getCollection()->toArray());
 
         $this->assertInstanceOf(Collection::class, $container->getCollection());
 
-        $class = new \ReflectionClass(CollectionAwareClass::class);
-        $method = $class->getMethod('initCollection');
-        $method->setAccessible(true);
-
         $array = [1, 2, 3, 4];
-        $output = $method->invoke($container, $array);
+        $new = new Collection($array);
 
+        $this->assertNull($container->setCollection($new));
         $this->assertEquals($array, $container->getCollection()->toArray());
     }
 }

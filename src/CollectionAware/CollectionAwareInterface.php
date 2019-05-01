@@ -10,7 +10,7 @@
 
 namespace Amber\Collection\CollectionAware;
 
-use Amber\Collection\Collection;
+use Amber\Collection\Contracts\CollectionInterface;
 
 /**
  * Collection setter and getter.
@@ -24,12 +24,12 @@ interface CollectionAwareInterface
      *
      * @return void
      */
-    public function setCollection(Collection $collection): void;
+    public function setCollection(CollectionInterface $collection): void;
 
     /**
      * Gets the Collection instance.
      *
      * @return array The instance of the Collection.
      */
-    public function getCollection(): Collection;
+    public function getCollection(): CollectionInterface;
 }

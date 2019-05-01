@@ -10,22 +10,32 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\ArrayObject;
-use Amber\Collection\Base\BaseCollection;
-use Ds\Collection as CollectionInterface;
+use Amber\Collection\Contracts\CollectionInterface;
+use Amber\Collection\Contracts\PairInterface;
+use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Base\MixedKeysTrait;
+use Amber\Collection\Base\BaseCollection;
 use Amber\Collection\Implementations\Pair;
 use Amber\Collection\Implementations\NullablePair;
-use Amber\Collection\Contracts\PairInterface;
 
 /**
  * A sequential collection of key-value pairs.
  *
  * @todo MUST remove all numeric array methods.
  */
-class Hash extends ArrayObject implements CollectionInterface
+class Hash extends CollectionCommons implements CollectionInterface
 {
-    use BaseCollection, MixedKeysTrait;
+    use EssentialTrait, MixedKeysTrait, BaseCollection;
+
+    /**
+     * Collection consructor.
+     *
+     * @param array $array The items for the new collection.
+     */
+    public function __construct(array $array = [])
+    {
+        $this->setMultiple($array);
+    }
 
     protected function hashKey($key)
     {
@@ -66,19 +76,5 @@ class Hash extends ArrayObject implements CollectionInterface
         }
 
         return $ret ?? [];
-    }
-
-    public function push($value)
-    {
-        $class = get_called_class();
-
-        throw new \Exception("Call to undefined method [{$class}::push()]");
-    }
-
-    public function pushTo($key, $value)
-    {
-        $class = get_called_class();
-
-        throw new \Exception("Call to undefined method [{$class}::pushTo()]");
     }
 }

@@ -19,8 +19,24 @@ trait SerializableTrait
     {
         return serialize($this->storage);
     }
+
     public function unserialize($data)
     {
         $this->storage = unserialize($data);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * Returns as json representation of the collection.
+     *
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
     }
 }

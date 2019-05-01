@@ -10,7 +10,7 @@
 
 namespace Amber\Collection\Base;
 
-use Ds\Collection as CollectionInterface;
+use Amber\Collection\Contracts\CollectionInterface;
 use Closure;
 
 /**
