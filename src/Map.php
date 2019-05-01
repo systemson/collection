@@ -39,19 +39,14 @@ class Map extends CollectionCommons implements CollectionInterface
 
     protected function getPair($offset): PairInterface
     {
-        foreach ($this as $index => $pair) {
-            if ($pair->value === $offset) {
+        foreach ($this->storage as $index => $pair) {
+            if ($pair->key === $offset) {
                 $pair->index = $index;
                 return $pair;
             }
         }
 
         return new NullablePair($offset);
-    }
-
-    protected function getIndex($offset)
-    {
-        $this->getPair($offset)->index ?? false;
     }
 
     public function offsetSet($offset, $value)
@@ -66,16 +61,12 @@ class Map extends CollectionCommons implements CollectionInterface
 
     public function offsetExists($offset)
     {
-        return !is_null($this->getPair($offset)->value);
+        return !$this->getPair($offset)->isEmpty();
     }
 
     public function offsetUnset($offset)
     {
-        if ($this->offsetExists($offset)) {
-            $pair = $this->getPair($offset);
-
-            $pair->clear();
-        }
+        $this->getPair($offset)->clear();
     }
 
     public function &offsetGet($offset)
@@ -87,7 +78,7 @@ class Map extends CollectionCommons implements CollectionInterface
 
     public function toArray(): array
     {
-        foreach ($this as $item) {
+        foreach (parent::toArray() as $item) {
             $ret[$item->key] = $item->value;
         }
 

@@ -18,19 +18,6 @@ use Amber\Collection\Contracts\CollectionInterface;
 trait AliasesTrait
 {
     /**
-     * Alias for add().
-     *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
-     *
-     * @return bool true on success, false if the item already exists.
-     */
-    public function insert(string $key, $value): bool
-    {
-        return $this->add($key, $value);
-    }
-
-    /**
      * Alias for copy().
      *
      * @return Collection A shallow copy of the collection.

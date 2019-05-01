@@ -60,14 +60,18 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function sort(Closure $callback): CollectionInterface
+    public function sort(Closure $callback = null): CollectionInterface
     {
         $array = $this->toArray();
 
-        usort(
-            $array,
-            $callback
-        );
+        if (is_null($callback)) {
+            sort($array);
+        } else {
+            usort(
+                $array,
+                $callback
+            );
+        }
 
         return static::make($array);
     }
@@ -148,7 +152,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function intersect(...$array): CollectionInterface
+    public function intersect(array ...$array): CollectionInterface
     {
         $return = call_user_func_array('array_intersect', array_merge([$this->toArray()], $array));
 
@@ -162,7 +166,7 @@ trait ArrayFunctionsTrait
      *
      * @return Collection A new collection instance.
      */
-    public function diff(...$array): CollectionInterface
+    public function diff(array ...$array): CollectionInterface
     {
         $return = call_user_func_array('array_diff', array_merge([$this->toArray()], $array));
 
@@ -178,6 +182,10 @@ trait ArrayFunctionsTrait
      */
     public function random(int $num = 1): CollectionInterface
     {
+        if ($this->isEmpty()) {
+            return static::make();
+        }
+
         $keys = array_rand($this->toArray(), $num);
 
         $return = $this->getMultiple((array) $keys);

@@ -23,8 +23,6 @@ abstract class CollectionCommons implements CollectionInterface
 {
     use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait;
 
-    protected $storage = [];
-
     /**
      * Collection consructor.
      *

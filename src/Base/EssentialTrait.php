@@ -86,11 +86,15 @@ trait EssentialTrait
      *
      * @param string $column The column to get the max value.
      *
-     * @return string
+     * @return mixed
      */
     public function max(string $column = null)
     {
-        return max($this->toArray());
+        if ($this->isNotEmpty()) {
+            return max($this->toArray());
+        }
+
+        return false;
     }
 
     /**
@@ -98,11 +102,15 @@ trait EssentialTrait
      *
      * @param string $column The column to get the min value.
      *
-     * @return string
+     * @return mixed
      */
     public function min(string $column = null)
     {
-        return min($this->toArray());
+        if ($this->isNotEmpty()) {
+            return min($this->toArray());
+        }
+
+        return false;
     }
 
     /**

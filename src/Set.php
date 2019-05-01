@@ -10,19 +10,38 @@
 
 namespace Amber\Collection;
 
+use Amber\Collection\Contracts\SetInterface;
 use Amber\Collection\Contracts\CollectionInterface;
-use Amber\Collection\Base\MixedKeysTrait;
+use Amber\Collection\Base\NoKeysTrait;
+use Amber\Collection\Base\EssentialTrait;
+use Amber\Collection\Base\AliasesTrait;
+use Amber\Collection\Base\BaseCollection;
 
 /**
  * A sequential collection of key-value pairs.
  */
-class Set extends CollectionCommons implements CollectionInterface
+class Set extends CollectionCommons implements SetInterface
 {
-    use MixedKeysTrait;
+    use EssentialTrait, NoKeysTrait, BaseCollection;
+
+    /**
+     * Collection consructor.
+     *
+     * @param array $array The items for the new collection.
+     */
+    public function __construct(array $array = [])
+    {
+        $this->storage = array_values($array);
+    }
 
     protected function getIndex($offset)
     {
-        return array_search($offset, $this->toArray());
+        $search = array_search($offset, $this->toArray());
+        if (is_int($search)) {
+            return $search;
+        }
+
+        return null;
     }
 
     public function offsetSet($offset, $value)
@@ -48,32 +67,26 @@ class Set extends CollectionCommons implements CollectionInterface
     }
 
     /**
-     * Deletes an item from collection.
+     * Returns a new Collection grouped by the specified column.
      *
-     * @param string $key The item's key
+     * @todo MUST throw exception if the column does not exists
      *
-     * @return bool true on success, false on failure.
+     * @param string $column The column to group by.
+     *
+     * @return Collection A new collection instance.
      */
-    public function delete($key): bool
+    public function groupBy(string $column): CollectionInterface
     {
-        if ($this->hasNot($key)) {
-            return false;
+        $return = [];
+
+        foreach ($this->toArray() as $item) {
+            if (isset($item[$column])) {
+                $key = $item[$column];
+                $return[$key] = $item;
+            }
+            // Must throw exception if item column does not exists
         }
 
-        $this->unset($key);
-
-        return true;
-    }
-
-    /**
-     * Whether an item is not present it the collection
-     *
-     * @param string $key The item's key
-     *
-     * @return bool
-     */
-    public function hasNot($key): bool
-    {
-        return !$this->has($key);
+        return new Collection($return);
     }
 }

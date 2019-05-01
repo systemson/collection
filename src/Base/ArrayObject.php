@@ -43,4 +43,9 @@ class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Count
     {
         return $this->storage;
     }
+
+    public function toArray(): array
+    {
+        return $this->getArrayCopy();
+    }
 }

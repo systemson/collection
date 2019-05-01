@@ -13,36 +13,35 @@ namespace Amber\Collection\Base;
 /**
  * Implements basic set, get, has and unset methods.
  */
-trait GenericTrait
+trait NoKeysTrait
 {
     /**
      * Sets or updates an item in the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param mixed $value
+     * @param mixed $new
      *
      * @return void
      */
-    public function set(string $key, $value = null): void
+    public function set($value, $new = null): void
     {
-        $this[$key] = $value;
+        $this[$value] = $new ?? $value;
     }
 
     /**
      * Adds a new item to the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param mixed $value
      *
      * @return bool true on success, false if the item already exists.
      */
-    public function add(string $key, $value): bool
+    public function add($value): bool
     {
-        if ($this->has($key)) {
+        if ($this->has($value)) {
             return false;
         }
 
-        $this->set($key, $value);
+        $this->set($value);
 
         return true;
     }
@@ -50,18 +49,18 @@ trait GenericTrait
     /**
      * Updates an existent item in the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param mixed $old The item's key.
+     * @param mixed $new The item's value.
      *
      * @return bool true on success, false if the item does not exists.
      */
-    public function update(string $key, $value): bool
+    public function update($old, $new): bool
     {
-        if ($this->hasNot($key)) {
+        if ($this->hasNot($old)) {
             return false;
         }
 
-        $this->set($key, $value);
+        $this->set($old, $new);
 
         return true;
     }
@@ -69,25 +68,25 @@ trait GenericTrait
     /**
      * Whether an item is present it the collection
      *
-     * @param string $key The item's key
+     * @param string $value The item's key
      *
      * @return bool
      */
-    public function has(string $key): bool
+    public function has($value): bool
     {
-        return isset($this[$key]);
+        return isset($this[$value]);
     }
 
     /**
      * Whether an item is not present it the collection
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return bool
      */
-    public function hasNot(string $key): bool
+    public function hasNot($value): bool
     {
-        return !$this->has($key);
+        return !$this->has($value);
     }
 
     /**
@@ -97,9 +96,9 @@ trait GenericTrait
      *
      * @return bool
      */
-    public function contains(string $key): bool
+    public function contains($value): bool
     {
-        return $this->has($key);
+        return $this->has($value);
     }
 
     /**
@@ -109,9 +108,9 @@ trait GenericTrait
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
-    public function get(string $key)
+    public function get($value)
     {
-        return $this[$key] ?? null;
+        return $this[$value] ?? null;
     }
 
     /**
@@ -121,10 +120,10 @@ trait GenericTrait
      *
      * @return void.
      */
-    public function unset(string $key): void
+    public function unset($value): void
     {
-        if (isset($this[$key])) {
-            unset($this[$key]);
+        if (isset($this[$value])) {
+            unset($this[$value]);
         }
     }
 
@@ -135,10 +134,10 @@ trait GenericTrait
      *
      * @return bool true on success, false on failure.
      */
-    public function delete(string $key): bool
+    public function delete($value): bool
     {
-        if ($this->has($key)) {
-            $this->unset($key);
+        if ($this->has($value)) {
+            $this->unset($value);
             return true;
         }
 
@@ -152,15 +151,15 @@ trait GenericTrait
      *
      * @return mixed The removed item's value, or void if the item don't exists.
      */
-    public function remove(string $key)
+    public function remove($value)
     {
-        if ($this->hasNot($key)) {
+        if ($this->hasNot($value)) {
             return;
         }
 
-        $item = $this->get($key);
+        $item = $this->get($value);
 
-        $this->unset($key);
+        $this->unset($value);
 
         return $item;
     }
@@ -168,14 +167,14 @@ trait GenericTrait
     /**
      * Sets or updates an array of items in the collection, and returns true on success.
      *
-     * @param array $array The item's key => value pairs
+     * @param array $array The item's values
      *
      * @return void
      */
     public function setMultiple(array $array): void
     {
-        foreach ($array as $key => $value) {
-            $this->set($key, $value);
+        foreach ($array as $value) {
+            $this->set($value);
         }
     }
 
@@ -190,8 +189,8 @@ trait GenericTrait
     {
         $return = [];
 
-        foreach ($array as $key) {
-            $return[$key] = $this->get($key);
+        foreach ($array as $value) {
+            $return[] = $this->get($value);
         }
 
         return $return;
@@ -208,8 +207,8 @@ trait GenericTrait
     {
         $return = [];
 
-        foreach ($array as $key) {
-            if ($this->hasNot($key)) {
+        foreach ($array as $value) {
+            if ($this->hasNot($value)) {
                 return false;
             }
         }
@@ -226,8 +225,8 @@ trait GenericTrait
      */
     public function unsetMultiple(array $array): void
     {
-        foreach ($array as $key) {
-            $this->unset($key);
+        foreach ($array as $value) {
+            $this->unset($value);
         }
     }
 }

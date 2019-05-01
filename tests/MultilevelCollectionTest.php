@@ -4,9 +4,32 @@ namespace Tests;
 
 use Amber\Collection\MultilevelCollection as Collection;
 use PHPUnit\Framework\TestCase;
+use Tests\Traits\{
+    BasicTrait,
+    MultipleTrait,
+    AssociativeCollectionTrait,
+    PushToTrait,
+    SecuencialCollectionTrait,
+    ArrayFunctionsTrait,
+    StatementsTrait,
+    CommonTrait
+};
 
 class MultilevelCollectionTest extends TestCase
 {
+    use
+        BasicTrait,
+        MultipleTrait,
+        AssociativeCollectionTrait,
+        PushToTrait,
+        SecuencialCollectionTrait,
+        ArrayFunctionsTrait,
+        StatementsTrait,
+        CommonTrait
+    ;
+
+    protected $collection = Collection::class;
+
     public function testMultiLevelCollection()
     {
         $first = 'first';

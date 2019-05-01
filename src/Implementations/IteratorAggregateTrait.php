@@ -19,6 +19,6 @@ trait IteratorAggregateTrait
 {
     public function getIterator()
     {
-        return new ArrayIterator($this->storage);
+        return new ArrayIterator($this->toArray());
     }
 }

@@ -10,11 +10,11 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Contracts\CollectionInterface;
-use Amber\Collection\Contracts\PairInterface;
+use Amber\Collection\Base\BaseCollection;
 use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Base\MixedKeysTrait;
-use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Contracts\CollectionInterface;
+use Amber\Collection\Contracts\PairInterface;
 use Amber\Collection\Implementations\Pair;
 use Amber\Collection\Implementations\NullablePair;
 
@@ -71,7 +71,7 @@ class Hash extends CollectionCommons implements CollectionInterface
 
     public function toArray(): array
     {
-        foreach ($this as $item) {
+        foreach (parent::toArray() as $item) {
             $ret[$item->key] = $item->value;
         }
 
