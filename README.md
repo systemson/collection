@@ -8,7 +8,7 @@
 ![GitHub](https://img.shields.io/github/license/systemson/collection.svg)
 
 # Collection
-Wrapper classes for working with arrays.
+Data structures provided as an alternative to the array.
 
 ## Usage
 
