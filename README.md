@@ -8,7 +8,7 @@
 [![GitHub](https://img.shields.io/github/license/systemson/collection.svg)](https://www.gnu.org/licenses/gpl.html)
 
 # Collection
-Data structures provided as an alternative to the array.
+Data structures as an alternative to the array.
 
 ## Usage
 
