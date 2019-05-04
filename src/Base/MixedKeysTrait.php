@@ -25,7 +25,7 @@ trait MixedKeysTrait
      */
     public function set($key, $value = null): void
     {
-        $this[$key] = $value;
+        $this->offsetSet($key, $value);
     }
 
     /**
@@ -75,7 +75,7 @@ trait MixedKeysTrait
      */
     public function has($key): bool
     {
-        return isset($this[$key]);
+        return $this->offsetExists($key);
     }
 
     /**
@@ -97,9 +97,9 @@ trait MixedKeysTrait
      *
      * @return bool
      */
-    public function contains($key): bool
+    public function contains($value): bool
     {
-        return $this->has($key);
+        return in_array($value, $this->toArray());
     }
 
     /**
@@ -111,7 +111,7 @@ trait MixedKeysTrait
      */
     public function get($key)
     {
-        return $this[$key] ?? null;
+        return $this->offsetGet($key) ?? null;
     }
 
     /**
@@ -123,9 +123,7 @@ trait MixedKeysTrait
      */
     public function unset($key): void
     {
-        if (isset($this[$key])) {
-            unset($this[$key]);
-        }
+        $this->offsetUnset($key);
     }
 
     /**

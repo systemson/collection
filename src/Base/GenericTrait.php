@@ -25,7 +25,7 @@ trait GenericTrait
      */
     public function set(string $key, $value = null): void
     {
-        $this[$key] = $value;
+        $this->offsetSet($key, $value);
     }
 
     /**
@@ -75,7 +75,7 @@ trait GenericTrait
      */
     public function has(string $key): bool
     {
-        return isset($this[$key]);
+        return $this->offsetExists($key);
     }
 
     /**
@@ -91,15 +91,15 @@ trait GenericTrait
     }
 
     /**
-     * Alias for has().
+     * Whether an item is not present it the collection by it's value.
      *
-     * @param string $key The item's key
+     * @param mixed $value The item's value
      *
      * @return bool
      */
-    public function contains(string $key): bool
+    public function contains($value): bool
     {
-        return $this->has($key);
+        return in_array($value, $this->toArray());
     }
 
     /**
@@ -111,7 +111,7 @@ trait GenericTrait
      */
     public function get(string $key)
     {
-        return $this[$key] ?? null;
+        return $this->offsetGet($key) ?? null;
     }
 
     /**
@@ -123,9 +123,7 @@ trait GenericTrait
      */
     public function unset(string $key): void
     {
-        if (isset($this[$key])) {
-            unset($this[$key]);
-        }
+        $this->offsetUnset($key);
     }
 
     /**

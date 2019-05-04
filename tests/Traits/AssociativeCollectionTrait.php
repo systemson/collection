@@ -26,8 +26,10 @@ trait AssociativeCollectionTrait
         $this->assertTrue($collection->update('key1', 'value1'));
 
         /* Tests that items exist */
-        $this->assertTrue($collection->contains('key'));
-        $this->assertTrue($collection->contains('key1'));
+        $this->assertTrue($collection->has('key'));
+        $this->assertTrue($collection->has('key1'));
+        $this->assertTrue($collection->contains('value'));
+        $this->assertTrue($collection->contains('value1'));
 
         /* Tests getting items */
         $this->assertEquals('value', $collection->get('key'));
@@ -43,8 +45,10 @@ trait AssociativeCollectionTrait
         /* Tests that the item doesn't exists */
         $this->assertNull($collection->get('key'));
         $this->assertNull($collection->get('key1'));
-        $this->assertFalse($collection->contains('key'));
-        $this->assertFalse($collection->contains('key1'));
+        $this->assertFalse($collection->has('key'));
+        $this->assertFalse($collection->has('key1'));
+        $this->assertFalse($collection->contains('value'));
+        $this->assertFalse($collection->contains('value1'));
         $this->assertNull($collection->remove('key'));
         $this->assertNull($collection->remove('key1'));
         $this->assertNull($collection->first());

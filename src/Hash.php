@@ -49,17 +49,22 @@ class Hash extends CollectionCommons implements CollectionInterface
 
     public function offsetSet($offset, $value)
     {
-        parent::offsetSet($this->hashKey($offset), new Pair($offset, $value));
+        if ($this->offsetExists($offset)) {
+            $pair = $this->getPair($offset);
+            $pair->value = $value;
+        } else {
+            parent::offsetSet($this->hashKey($offset), new Pair($offset, $value));
+        }
     }
 
     public function offsetExists($offset)
     {
-        return parent::offsetExists($this->hashKey($offset));
+        return !$this->getPair($offset)->isEmpty();
     }
 
     public function offsetUnset($offset)
     {
-        parent::offsetUnset($this->hashKey($offset));
+        $this->getPair($offset)->clear();
     }
 
     public function &offsetGet($offset)
