@@ -19,6 +19,9 @@ use Amber\Collection\Implementations\{
 };
 use Amber\Collection\Contracts\CollectionInterface;
 
+/**
+ * Implements the CollectionInterface contract
+ */
 abstract class CollectionCommons implements CollectionInterface
 {
     use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait;

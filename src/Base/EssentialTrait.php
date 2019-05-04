@@ -114,6 +114,59 @@ trait EssentialTrait
     }
 
     /**
+     * Returns the first element of the collection.
+     *
+     * @return mixed The item's value.
+     */
+    public function first()
+    {
+        if ($this->isNotEmpty()) {
+            return current($this->toArray());
+        }
+    }
+
+    /**
+     * Returns the last element of the collection.
+     *
+     * @return mixed The item's value.
+     */
+    public function last()
+    {
+        if ($this->isNotEmpty()) {
+            $all = $this->toArray();
+            return end($all);
+        }
+    }
+
+    /**
+     * Returns the items of the collection that match the specified array.
+     *
+     * @param array $values
+     *
+     * @return self
+     */
+    public function only(array $values): self
+    {
+        return $this->filter(function ($value) use ($values) {
+            return in_array($value, $values);
+        });
+    }
+
+    /**
+     * Returns the items of the collections that do not match the specified array.
+     *
+     * @param array $values
+     *
+     * @return self
+     */
+    public function except(array $values): self
+    {
+        return $this->filter(function ($value) use ($values) {
+            return !in_array($value, $values);
+        });
+    }
+
+    /**
      * Returns a json representation to the Collection.
      *
      * @return string Json representation to the Collection.

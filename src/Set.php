@@ -16,13 +16,14 @@ use Amber\Collection\Base\NoKeysTrait;
 use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Base\AliasesTrait;
 use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Base\SecuentialCollectionTrait;
 
 /**
  * A sequential collection of key-value pairs.
  */
 class Set extends CollectionCommons implements SetInterface
 {
-    use EssentialTrait, NoKeysTrait, BaseCollection;
+    use EssentialTrait, NoKeysTrait, BaseCollection, SecuentialCollectionTrait;
 
     /**
      * Collection consructor.

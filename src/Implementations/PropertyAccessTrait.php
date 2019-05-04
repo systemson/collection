@@ -15,8 +15,6 @@ namespace Amber\Collection\Implementations;
  */
 trait PropertyAccessTrait
 {
-    //use ArrayAccessTrait;
-
     public function __set($name, $value)
     {
         $this->offsetSet($name, $value);

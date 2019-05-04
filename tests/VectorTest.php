@@ -22,7 +22,6 @@ class VectorTest extends TestCase
         BasicTrait,
         MultipleTrait,
         AssociativeCollectionTrait,
-        PushToTrait,
         SecuencialCollectionTrait,
         ArrayFunctionsTrait,
         StatementsTrait

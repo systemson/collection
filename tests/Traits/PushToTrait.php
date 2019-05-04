@@ -18,17 +18,4 @@ trait PushToTrait
         $this->assertTrue($collection->pushTo('key3', ['key2' => 'value2']));
         $this->assertEquals(['key1' => 'value1', 'key2' => 'value2'], $collection->get('key3'));
     }
-
-    public function testAppend()
-    {
-        $collection = $this->newCollection();
-
-        $this->assertNull($collection->append(1));
-        $this->assertNull($collection->append(2));
-        $this->assertNull($collection->append(3));
-
-        $this->assertEquals(1, $collection->first());
-        $this->assertEquals(3, $collection->last());
-        $this->assertEquals(3, $collection->count());
-    }
 }

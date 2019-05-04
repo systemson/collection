@@ -12,10 +12,7 @@ namespace Amber\Collection;
 
 use Amber\Collection\Base\BaseCollection;
 use Amber\Collection\Contracts\CollectionInterface;
-use Amber\Collection\Base\GenericTrait;
-use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Implementations\SerializableTrait;
-use Amber\Collection\Base\ArrayObject;
 
 /**
  * Wrapper class for working with arrays.

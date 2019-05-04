@@ -39,16 +39,4 @@ trait AliasesTrait
     {
         return $this->orderBy($column, $order);
     }
-
-    /**
-     * Alias for push().
-     *
-     * @param mixed $value The item's value
-     *
-     * @return void
-     */
-    public function append($value): void
-    {
-        $this->push($value);
-    }
 }

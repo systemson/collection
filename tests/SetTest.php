@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Amber\Collection\Set as Collection;
+use Amber\Collection\Collection as SimpleCollection;
 use Amber\Collection\Vector;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits\{
@@ -129,7 +130,7 @@ class SetTest extends TestCase
     {
         $collection = $this->newCollection();
 
-        $collection->push('value');
+        $collection[] = 'value';
             
         $this->assertTrue($collection->contains('value'));
 

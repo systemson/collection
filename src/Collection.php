@@ -12,8 +12,12 @@ namespace Amber\Collection;
 
 use Amber\Collection\Base\GenericTrait;
 use Amber\Collection\Base\EssentialTrait;
+use Amber\Collection\Base\SecuentialCollectionTrait;
 
+/**
+ * Multi-purpose collection
+ */
 class Collection extends CollectionCommons
 {
-    use EssentialTrait, GenericTrait;
+    use EssentialTrait, GenericTrait, SecuentialCollectionTrait;
 }

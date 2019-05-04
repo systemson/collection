@@ -129,7 +129,7 @@ class BagTest extends TestCase
     {
         $collection = $this->newCollection();
 
-        $collection->push('value');
+        $collection->append('value');
             
         $this->assertTrue($collection->contains('value'));
 

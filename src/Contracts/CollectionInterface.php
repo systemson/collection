@@ -13,9 +13,9 @@ namespace Amber\Collection\Contracts;
 interface CollectionInterface extends
     \IteratorAggregate,
     \ArrayAccess,
-    \Countable,
     \Serializable,
-    \JsonSerializable
+    \JsonSerializable,
+    \Countable
 {
     /**
      * Removes all values from the collection.
