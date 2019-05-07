@@ -1,4 +1,5 @@
 <?php
+echo memory_get_usage(true)/1024/1024 . PHP_EOL;
 
 require_once 'vendor/autoload.php';
 
@@ -41,6 +42,31 @@ $benchmark->add(
         }
 
         return $array;
+    }
+);
+
+$benchmark->add(
+    'splfixedarray-as-array',
+    function () use ($n) {
+        $collection = new SplFixedArray();
+
+		$collection->setSize($n);
+        for ($x = 0; $x < $n; $x++) {
+            $collection[$x] = $x;
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            $collection[$x];
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            isset($collection[$x]);
+        }
+
+        for ($x = 0; $x < $n; $x++) {
+            unset($collection[$x]);
+        }
+		unset($collection);
     }
 );
 
@@ -147,7 +173,7 @@ $benchmark->add(
 $benchmark->add(
     'arrobject',
     function () use ($n) {
-        $collection = new ArrayObject();
+        $collection = new \ArrayObject();
 
         for ($x = 0; $x < $n; $x++) {
             $collection[$x] = $x;

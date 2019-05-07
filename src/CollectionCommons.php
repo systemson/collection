@@ -21,6 +21,9 @@ use Amber\Collection\Contracts\CollectionInterface;
 
 /**
  * Implements the CollectionInterface contract
+ *
+ * @todo Secuential and Paired collections COULD extend SplFixedArray
+ * @todo Asociative collections COULD extend ArrayObject
  */
 abstract class CollectionCommons implements CollectionInterface
 {
