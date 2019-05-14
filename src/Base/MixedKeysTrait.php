@@ -93,7 +93,7 @@ trait MixedKeysTrait
     /**
      * Alias for has().
      *
-     * @param string $key The item's key
+     * @param string $value The item's value
      *
      * @return bool
      */
