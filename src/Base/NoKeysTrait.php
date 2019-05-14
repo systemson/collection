@@ -80,7 +80,7 @@ trait NoKeysTrait
     /**
      * Whether an item is not present it the collection
      *
-     * @param mixed $key The item's key
+     * @param mixed $value The item's value
      *
      * @return bool
      */
@@ -92,7 +92,7 @@ trait NoKeysTrait
     /**
      * Alias for has().
      *
-     * @param string $key The item's key
+     * @param string $value The item's value
      *
      * @return bool
      */
@@ -104,7 +104,7 @@ trait NoKeysTrait
     /**
      * Gets an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $value The item's value
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
@@ -116,7 +116,7 @@ trait NoKeysTrait
     /**
      * Deletes an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $value The item's value
      *
      * @return void.
      */
@@ -130,7 +130,7 @@ trait NoKeysTrait
     /**
      * Deletes an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $value The item's value
      *
      * @return bool true on success, false on failure.
      */
@@ -147,7 +147,7 @@ trait NoKeysTrait
     /**
      * Deletes and retrives an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $value The item's value
      *
      * @return mixed The removed item's value, or void if the item don't exists.
      */
