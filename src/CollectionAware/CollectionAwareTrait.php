@@ -18,14 +18,14 @@ use Amber\Collection\Contracts\CollectionInterface;
 trait CollectionAwareTrait
 {
     /**
-     * @var The instance of the Collection.
+     * @var CollectionInterface The instance of the Collection.
      */
     protected $collection;
 
     /**
      * Sets the Collection instance.
      *
-     * @param CacheDriver $collection An instance of the Collection.
+     * @param CollectionInterface $collection An instance of the Collection.
      *
      * @return void
      */
@@ -37,7 +37,7 @@ trait CollectionAwareTrait
     /**
      * Gets the Collection instance.
      *
-     * @return Collection The instance of the Collection.
+     * @return CollectionInterface The instance of the Collection.
      */
     public function getCollection(): CollectionInterface
     {

@@ -22,7 +22,7 @@ trait Statements
      *
      * @param array|string $columns The columns to filter by.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function select(...$columns): CollectionInterface
     {
@@ -47,7 +47,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param mixed  $value  The value to compare each item.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function where(string $column, $value): CollectionInterface
     {
@@ -66,7 +66,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param mixed  $value  The value to compare each item.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function whereNot(string $column, $value): CollectionInterface
     {
@@ -85,7 +85,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function whereIn(string $column, array $values = []): CollectionInterface
     {
@@ -105,7 +105,7 @@ trait Statements
      * @param string $column The columns to filter by.
      * @param array  $values The values to compare each item.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function whereNotIn(string $column, array $values = []): CollectionInterface
     {
@@ -126,7 +126,7 @@ trait Statements
      * @param string $column The column to order by.
      * @param string $order  The order to sort the items.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function orderBy(string $column, string $order = 'ASC'): CollectionInterface
     {
@@ -149,7 +149,7 @@ trait Statements
      *
      * @param string $column The column to group by.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function groupBy(string $column): CollectionInterface
     {
@@ -173,7 +173,7 @@ trait Statements
      * @param string $pkey  The key to compare on the current collection.
      * @param string $fkey  The key to compare on the provided array.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function join(array $array, string $pkey, string $fkey): CollectionInterface
     {

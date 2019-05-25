@@ -182,7 +182,7 @@ trait GenericTrait
      *
      * @param array $array The item's keys
      *
-     * @return mixed
+     * @return array
      */
     public function getMultiple(array $array): array
     {

@@ -143,9 +143,9 @@ trait EssentialTrait
      *
      * @param array $values
      *
-     * @return self
+     * @return CollectionInterface
      */
-    public function only(array $values): self
+    public function only(array $values): CollectionInterface
     {
         return $this->filter(function ($value) use ($values) {
             return in_array($value, $values);
@@ -157,9 +157,9 @@ trait EssentialTrait
      *
      * @param array $values
      *
-     * @return self
+     * @return CollectionInterface
      */
-    public function except(array $values): self
+    public function except(array $values): CollectionInterface
     {
         return $this->filter(function ($value) use ($values) {
             return !in_array($value, $values);
@@ -171,8 +171,12 @@ trait EssentialTrait
      *
      * @return string Json representation to the Collection.
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return json_encode($this->toArray());
+        if ($json = json_encode($this->toArray())) {
+            return $json;
+        }
+
+        return  '{}';
     }
 }

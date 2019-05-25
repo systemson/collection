@@ -38,7 +38,7 @@
         "docs": "php sami.phar update samiConfig.php -v",
         "sniff": "phpcs --standard=PSR12 ./src",
         "fix-cs": "phpcbf --standard=PSR12 ./src",
-        "type-check": "psalm",
+        "type-hint": "psalm --show-info=false",
         "speed": "php ./tests/Benchmark.php",
         "pull": [
             "git pull",

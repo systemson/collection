@@ -83,6 +83,8 @@ class MultilevelCollection extends Vector
         $storage = $value;
 
         foreach (array_reverse($slug) as $id => $key) {
+            $aux = [];
+
             if ($id === count($slug) - 1) {
                 break;
             }
@@ -113,7 +115,7 @@ class MultilevelCollection extends Vector
 
         $collection = $this->all();
 
-        foreach ($this->splitKey($key) as $search) {
+        foreach ($slug as $search) {
             if (!isset($collection[$search])) {
                 return false;
             }

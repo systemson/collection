@@ -20,7 +20,7 @@ interface CollectionAwareInterface
     /**
      * Sets the Collection instance.
      *
-     * @param Collection $collection An instance of a Collection.
+     * @param CollectionInterface $collection An instance of a Collection.
      *
      * @return void
      */
@@ -29,7 +29,7 @@ interface CollectionAwareInterface
     /**
      * Gets the Collection instance.
      *
-     * @return array The instance of the Collection.
+     * @return CollectionInterface The instance of the Collection.
      */
     public function getCollection(): CollectionInterface;
 }

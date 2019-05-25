@@ -76,10 +76,12 @@ class Hash extends CollectionCommons implements CollectionInterface
 
     public function toArray(): array
     {
+        $ret = [];
+
         foreach (parent::toArray() as $item) {
             $ret[$item->key] = $item->value;
         }
 
-        return $ret ?? [];
+        return $ret;
     }
 }

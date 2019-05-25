@@ -62,7 +62,9 @@ interface CollectionInterface extends
     /**
      * Replaces the collection storage with a new array.
      *
-     * @return array
+     * @param array $array
+     *
+     * @return void
      */
     public function exchangeArray(array $array): void;
 }

@@ -33,7 +33,7 @@ class Pair implements PairInterface
 
     public function setKey($key)
     {
-        $this->key = $Key;
+        $this->key = $key;
     }
 
     public function &getValue()

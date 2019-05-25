@@ -10,6 +10,8 @@
 
 namespace Amber\Collection\Contracts;
 
+use ArrayIterator;
+
 /**
  * Base Object for the collections
  */
