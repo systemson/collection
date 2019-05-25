@@ -14,6 +14,14 @@ use JsonSerializable;
 
 interface PairInterface extends JsonSerializable
 {
+    public function &getKey();
+
+    public function setKey($key);
+
+    public function &getValue();
+
+    public function setValue($value);
+
     public function clear(): void;
 
     public function copy(): PairInterface;

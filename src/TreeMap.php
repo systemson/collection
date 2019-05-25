@@ -20,8 +20,16 @@ use Closure;
  */
 class TreeMap extends Map
 {
+    /**
+     * @var void|Closure
+     */
     protected $comparator;
 
+    /**
+     * @param mixed $offset
+     *
+     * @return PairInterface
+     */
     public function getPair($offset): PairInterface
     {
         $filter = $this->getComparator();
@@ -36,11 +44,19 @@ class TreeMap extends Map
         return new NullablePair($offset);
     }
 
+    /**
+     * @param Closure $callback
+     *
+     * @return void
+     */
     public function setComparator(Closure $callback): void
     {
         $this->comparator = $callback;
     }
 
+    /**
+     * @return Closure
+     */
     public function getComparator(): Closure
     {
         if ($this->comparator instanceof Closure) {
@@ -50,9 +66,13 @@ class TreeMap extends Map
         return $this->defaultComparator();
     }
 
+    /**
+     * @return Closure
+     */
     protected function defaultComparator(): Closure
     {
-        return function ($key, $value, $offset) {
+        /** @psalm-suppress MissingClosureParamType */
+        return function ($key, $value, $offset): bool {
             return $key === $offset;
         };
     }

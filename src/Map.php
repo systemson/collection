@@ -49,29 +49,42 @@ class Map extends CollectionCommons implements CollectionInterface
         return new NullablePair($offset);
     }
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
         if ($this->offsetExists($offset)) {
             $pair = $this->getPair($offset);
-            $pair->value = $value;
+            $pair->setValue($value);
         } else {
             parent::offsetSet(null, new Pair($offset, $value));
         }
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetExists($offset)
     {
         return !$this->getPair($offset)->isEmpty();
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetUnset($offset)
     {
         $this->getPair($offset)->clear();
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function &offsetGet($offset)
     {
-        $ret =& $this->getPair($offset)->value;
+        $ret =& $this->getPair($offset)->getValue();
 
         return $ret;
     }

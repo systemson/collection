@@ -26,6 +26,26 @@ class Pair implements PairInterface
         $this->value = $value;
     }
 
+    public function &getKey()
+    {
+        return $this->key;
+    }
+
+    public function setKey($key)
+    {
+        $this->key = $Key;
+    }
+
+    public function &getValue()
+    {
+        return $this->value;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
     public function clear(): void
     {
         $this->value = null;

@@ -30,13 +30,15 @@
         "php-coveralls/php-coveralls": "^2.1",
         "phpunit/phpunit": "^8.0",
         "squizlabs/php_codesniffer": "^3.3",
-        "tightenco/collect": "^5.7"
+        "tightenco/collect": "^5.7",
+        "vimeo/psalm": "^3.3"
     },
     "scripts": {
         "test": "phpunit",
         "docs": "php sami.phar update samiConfig.php -v",
         "sniff": "phpcs --standard=PSR12 ./src",
         "fix-cs": "phpcbf --standard=PSR12 ./src",
+        "type-check": "psalm",
         "speed": "php ./tests/Benchmark.php",
         "pull": [
             "git pull",
@@ -45,7 +47,8 @@
         "full-check": [
             "@test",
             "@docs",
-            "@sniff"
+            "@sniff",
+            "@type-check"
         ],
         "post-update-cmd": [
             "@test"

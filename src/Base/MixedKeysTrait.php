@@ -18,8 +18,8 @@ trait MixedKeysTrait
     /**
      * Sets or updates an item in the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param mixed $key   The item's key
+     * @param mixed $value The item's value
      *
      * @return void
      */
@@ -31,8 +31,8 @@ trait MixedKeysTrait
     /**
      * Adds a new item to the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param mixed $key   The item's key
+     * @param mixed $value The item's value
      *
      * @return bool true on success, false if the item already exists.
      */
@@ -50,7 +50,7 @@ trait MixedKeysTrait
     /**
      * Updates an existent item in the collection.
      *
-     * @param string $key   The item's key
+     * @param mixed $key   The item's key
      * @param mixed  $value The item's value
      *
      * @return bool true on success, false if the item does not exists.
@@ -69,7 +69,7 @@ trait MixedKeysTrait
     /**
      * Whether an item is present it the collection
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return bool
      */
@@ -81,7 +81,7 @@ trait MixedKeysTrait
     /**
      * Whether an item is not present it the collection
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return bool
      */
@@ -105,7 +105,7 @@ trait MixedKeysTrait
     /**
      * Gets an item from collection.
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
@@ -117,7 +117,7 @@ trait MixedKeysTrait
     /**
      * Deletes an item from collection.
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return void.
      */
@@ -129,7 +129,7 @@ trait MixedKeysTrait
     /**
      * Deletes an item from collection.
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return bool true on success, false on failure.
      */
@@ -146,7 +146,7 @@ trait MixedKeysTrait
     /**
      * Deletes and retrives an item from collection.
      *
-     * @param string $key The item's key
+     * @param mixed $key The item's key
      *
      * @return mixed The removed item's value, or void if the item don't exists.
      */

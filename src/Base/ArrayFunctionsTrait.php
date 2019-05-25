@@ -23,7 +23,7 @@ trait ArrayFunctionsTrait
      *
      * @param Closure $callback
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function map(Closure $callback): CollectionInterface
     {
@@ -40,7 +40,7 @@ trait ArrayFunctionsTrait
      *
      * @param Closure $callback
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function filter(Closure $callback): CollectionInterface
     {
@@ -58,7 +58,7 @@ trait ArrayFunctionsTrait
      *
      * @param Closure $callback The user-defined comparison function.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function sort(Closure $callback = null): CollectionInterface
     {
@@ -79,7 +79,7 @@ trait ArrayFunctionsTrait
     /**
      * Returns a new reversed collection.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function reverse(): CollectionInterface
     {
@@ -93,7 +93,7 @@ trait ArrayFunctionsTrait
      *
      * @param array $array The array(s) to merge with the collection.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function merge(...$array): CollectionInterface
     {
@@ -110,7 +110,7 @@ trait ArrayFunctionsTrait
      * @param int  $size          The size of each chunk.
      * @param bool $preserve_keys Whether the keys should be preserved.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function chunk(int $size, bool $preserve_keys = false): CollectionInterface
     {
@@ -124,7 +124,7 @@ trait ArrayFunctionsTrait
      *
      * @param string $column The column.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function column(string $column): CollectionInterface
     {
@@ -136,7 +136,7 @@ trait ArrayFunctionsTrait
     /**
      * Exchanges all keys with their associated values.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function flip(): CollectionInterface
     {
@@ -150,7 +150,7 @@ trait ArrayFunctionsTrait
      *
      * @param array $array The array(s) to compare.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function intersect(array ...$array): CollectionInterface
     {
@@ -164,7 +164,7 @@ trait ArrayFunctionsTrait
      *
      * @param array $array The array(s) to compare.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
     public function diff(array ...$array): CollectionInterface
     {
@@ -178,7 +178,7 @@ trait ArrayFunctionsTrait
      *
      * @param int $num
      *
-     * @return Collection
+     * @return CollectionInterface
      */
     public function random(int $num = 1): CollectionInterface
     {
@@ -198,7 +198,7 @@ trait ArrayFunctionsTrait
      *
      * @param string $column The column to get the unique values.
      *
-     * @return Collection
+     * @return CollectionInterface
      */
     public function unique(string $column = null): CollectionInterface
     {

@@ -62,7 +62,7 @@ abstract class CollectionCommons implements CollectionInterface
     /**
      * Returns a shallow copy of the collection.
      *
-     * @return self a copy of the collection.
+     * @return CollectionInterface a copy of the collection.
      */
     public function copy(): CollectionInterface
     {

@@ -35,6 +35,11 @@ class Set extends CollectionCommons implements SetInterface
         $this->storage = array_values($array);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return int|null
+     */
     protected function getIndex($offset)
     {
         $search = array_search($offset, $this->toArray());
@@ -45,21 +50,34 @@ class Set extends CollectionCommons implements SetInterface
         return null;
     }
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
         parent::offsetSet($this->getIndex($offset), $value);
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetExists($offset)
     {
         return in_array($offset, $this->toArray());
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetUnset($offset)
     {
         parent::offsetUnset($this->getIndex($offset));
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function &offsetGet($offset)
     {
         $ret =& parent::offsetGet($this->getIndex($offset)) ?? null;

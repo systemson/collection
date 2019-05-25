@@ -20,7 +20,7 @@ trait AliasesTrait
     /**
      * Alias for copy().
      *
-     * @return Collection A shallow copy of the collection.
+     * @return CollectionInterface A shallow copy of the collection.
      */
     public function clone(): CollectionInterface
     {
@@ -33,9 +33,9 @@ trait AliasesTrait
      * @param string $column The column to order by.
      * @param string $order  The order to sort the items.
      *
-     * @return Collection A new collection instance.
+     * @return CollectionInterface A new collection instance.
      */
-    public function sortBy(string $column, string $order = 'ASC')
+    public function sortBy(string $column, string $order = 'ASC'): CollectionInterface
     {
         return $this->orderBy($column, $order);
     }

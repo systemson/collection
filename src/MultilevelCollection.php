@@ -24,7 +24,7 @@ class MultilevelCollection extends Vector
     protected $separator = '.';
 
     /**
-     * @var string The separator for multilevel keys.
+     * @var boolean The separator for multilevel keys.
      */
     protected $multilevel = true;
 
