@@ -68,6 +68,11 @@ trait CommonTrait
 
         $this->assertNull($collection->clear());
 
+        $this->assertEquals(json_encode([]), $collection->toJson());
+        $this->assertEquals(json_encode([]), json_encode($collection));
+
+        $this->assertEquals(json_encode([]), (string) $collection);
+
         $this->assertEquals([], $collection->all());
         $this->assertEquals(0, $collection->count());
         $this->assertTrue($collection->isEmpty());

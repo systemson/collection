@@ -19,41 +19,6 @@ use Closure;
 trait ArrayFunctionsTrait
 {
     /**
-     * Iterates through the collection and passes each value to the given callback.
-     *
-     * @param Closure $callback
-     *
-     * @return CollectionInterface A new collection instance.
-     */
-    public function map(Closure $callback): CollectionInterface
-    {
-        $array = array_map(
-            $callback,
-            $this->toArray()
-        );
-
-        return static::make($array);
-    }
-
-    /**
-     * Returns a new filtered collection using a user-defined function.
-     *
-     * @param Closure $callback
-     *
-     * @return CollectionInterface A new collection instance.
-     */
-    public function filter(Closure $callback): CollectionInterface
-    {
-        $array = array_filter(
-            $this->toArray(),
-            $callback,
-            ARRAY_FILTER_USE_BOTH
-        );
-
-        return static::make(array_values($array));
-    }
-
-    /**
      * Returns a new sorted collection using a user-defined comparison function.
      *
      * @param Closure $callback The user-defined comparison function.

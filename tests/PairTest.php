@@ -14,12 +14,12 @@ class PairTest extends TestCase
         $pair = new Pair('key', 'value');
 
         // Checks that the value is set in the pair
-        $this->assertTrue($pair->key == 'key');
-        $this->assertTrue($pair->value == 'value');
+        $this->assertTrue($pair->getKey() == 'key');
+        $this->assertTrue($pair->getValue() == 'value');
 
         // Gets the value
-        $this->assertEquals('key', $pair->key);
-        $this->assertEquals('value', $pair->value);
+        $this->assertEquals('key', $pair->getKey());
+        $this->assertEquals('value', $pair->getValue());
         $this->assertEquals('value', (string) $pair);
         $this->assertFalse($pair->isEmpty());
         $this->assertEquals(['key'=>'key', 'value'=>'value'], $pair->toArray());
@@ -28,9 +28,9 @@ class PairTest extends TestCase
         $this->assertNull($pair->clear());
 
         // Checks that the item is not present in the collection
-        $this->assertNull($pair->value);
-        $this->assertFalse(isset($pair->value));
-        $this->assertFalse($pair->value == 'value');
+        $this->assertNull($pair->getValue());
+        $this->assertTrue(is_null($pair->getValue()));
+        $this->assertFalse($pair->getvalue() == 'value');
         $this->assertTrue($pair->isEmpty());
 
         $this->assertEquals($pair, $pair->copy());
@@ -52,9 +52,9 @@ class PairTest extends TestCase
         $this->assertNull($pair->clear());
 
         // Checks that the item is not present in the collection
-        $this->assertNull($pair->value);
-        $this->assertFalse(isset($pair->value));
-        $this->assertFalse($pair->value == 'value');
+        $this->assertNull($pair->getValue());
+        $this->assertTrue(is_null($pair->getValue()));
+        $this->assertFalse($pair->getvalue() == 'value');
         $this->assertTrue($pair->isEmpty());
 
         $this->assertEquals($pair, $pair->copy());

@@ -35,7 +35,7 @@ class TreeMap extends Map
         $filter = $this->getComparator();
 
         foreach ($this->storage as $index => $pair) {
-            if ($filter($pair->key, $pair->value, $offset)) {
+            if ($filter($pair->getKey(), $pair->getValue(), $offset)) {
                 $pair->index = $index;
                 return $pair;
             }

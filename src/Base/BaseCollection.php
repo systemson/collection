@@ -17,5 +17,5 @@ namespace Amber\Collection\Base;
  */
 trait BaseCollection
 {
-    use ArrayFunctionsTrait, Statements, AliasesTrait;
+    use ArrayFunctionsTrait, StatementsTrait, AliasesTrait;
 }

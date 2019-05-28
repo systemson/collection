@@ -37,6 +37,16 @@ trait SerializableTrait
      */
     public function toJson(): string
     {
-        return json_encode($this->toArray());
+        return json_encode($this->toArray()) ?? json_encode([]);
+    }
+
+    /**
+     * Returns a json representation to the Collection.
+     *
+     * @return string Json representation to the Collection.
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

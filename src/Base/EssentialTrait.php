@@ -30,6 +30,41 @@ trait EssentialTrait
     }
 
     /**
+     * Iterates through the collection and passes each value to the given callback.
+     *
+     * @param \Closure $callback
+     *
+     * @return CollectionInterface A new collection instance.
+     */
+    public function map(\Closure $callback): CollectionInterface
+    {
+        $array = array_map(
+            $callback,
+            $this->toArray()
+        );
+
+        return static::make($array);
+    }
+
+    /**
+     * Returns a new filtered collection using a user-defined function.
+     *
+     * @param \Closure $callback
+     *
+     * @return CollectionInterface A new collection instance.
+     */
+    public function filter(\Closure $callback): CollectionInterface
+    {
+        $array = array_filter(
+            $this->toArray(),
+            $callback,
+            ARRAY_FILTER_USE_BOTH
+        );
+
+        return static::make(array_values($array));
+    }
+
+    /**
      * Alias for toArray().
      *
      * @return array The items in the collection.
@@ -164,19 +199,5 @@ trait EssentialTrait
         return $this->filter(function ($value) use ($values) {
             return !in_array($value, $values);
         });
-    }
-
-    /**
-     * Returns a json representation to the Collection.
-     *
-     * @return string Json representation to the Collection.
-     */
-    public function __toString(): string
-    {
-        if ($json = json_encode($this->toArray())) {
-            return $json;
-        }
-
-        return  '{}';
     }
 }

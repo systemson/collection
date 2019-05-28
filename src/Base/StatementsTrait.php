@@ -15,7 +15,7 @@ use Amber\Collection\Contracts\CollectionInterface;
 /**
  * Adds sql like methods to the collection.
  */
-trait Statements
+trait StatementsTrait
 {
     /**
      * Returns a new Collection containing the items in the specified column(s).

@@ -51,7 +51,7 @@ class Hash extends CollectionCommons implements CollectionInterface
     {
         if ($this->offsetExists($offset)) {
             $pair = $this->getPair($offset);
-            $pair->value = $value;
+            $pair->setValue($value);
         } else {
             parent::offsetSet($this->hashKey($offset), new Pair($offset, $value));
         }
@@ -69,7 +69,7 @@ class Hash extends CollectionCommons implements CollectionInterface
 
     public function &offsetGet($offset)
     {
-        $ret =& $this->getPair($offset)->value;
+        $ret =& $this->getPair($offset)->getValue();
 
         return $ret;
     }
@@ -79,7 +79,7 @@ class Hash extends CollectionCommons implements CollectionInterface
         $ret = [];
 
         foreach (parent::toArray() as $item) {
-            $ret[$item->key] = $item->value;
+            $ret[$item->getKey()] = $item->getValue();
         }
 
         return $ret;

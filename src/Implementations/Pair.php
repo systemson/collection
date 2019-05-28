@@ -17,13 +17,13 @@ use Amber\Collection\Contracts\PairInterface;
  */
 class Pair implements PairInterface
 {
-    public $key;
-    public $value;
+    protected $key;
+    protected $value;
 
     public function __construct($key, $value)
     {
-        $this->key = $key;
-        $this->value = $value;
+        $this->setKey($key);
+        $this->setValue($value);
     }
 
     public function &getKey()

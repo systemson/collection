@@ -40,7 +40,7 @@ class Map extends CollectionCommons implements CollectionInterface
     protected function getPair($offset): PairInterface
     {
         foreach ($this->storage as $index => $pair) {
-            if ($pair->key === $offset) {
+            if ($pair->getKey() === $offset) {
                 $pair->index = $index;
                 return $pair;
             }
@@ -94,7 +94,7 @@ class Map extends CollectionCommons implements CollectionInterface
         $ret = [];
 
         foreach (parent::toArray() as $item) {
-            $ret[$item->key] = $item->value;
+            $ret[$item->getKey()] = $item->getValue();
         }
 
         return $ret;
