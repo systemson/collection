@@ -65,6 +65,22 @@ trait EssentialTrait
     }
 
     /**
+     * Returns a new collection merged with one or more arrays.
+     *
+     * @param array $array The array(s) to merge with the collection.
+     *
+     * @return CollectionInterface A new collection instance.
+     */
+    public function merge(...$array): CollectionInterface
+    {
+        array_unshift($array, $this->toArray());
+
+        $return = call_user_func_array('array_merge', $array);
+
+        return static::make($return);
+    }
+
+    /**
      * Alias for toArray().
      *
      * @return array The items in the collection.

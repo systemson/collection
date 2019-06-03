@@ -54,22 +54,6 @@ trait ArrayFunctionsTrait
     }
 
     /**
-     * Returns a new collection merged with one or more arrays.
-     *
-     * @param array $array The array(s) to merge with the collection.
-     *
-     * @return CollectionInterface A new collection instance.
-     */
-    public function merge(...$array): CollectionInterface
-    {
-        array_unshift($array, $this->toArray());
-
-        $return = call_user_func_array('array_merge', $array);
-
-        return static::make($return);
-    }
-
-    /**
      * Splits an array into chunks.
      *
      * @param int  $size          The size of each chunk.
