@@ -11,3 +11,4 @@
 /README.md export-ignore
 /samiConfig.php export-ignore
 /tests export-ignore
+./psalm.xml

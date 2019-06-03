@@ -10,12 +10,12 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Implementations\ImmutableTrait;
 
 /**
- * Wrapper class for working with arrays.
+ *
  */
-class Vector extends Collection
+class ImmutableCollection extends Collection
 {
-    use BaseCollection;
+    use ImmutableTrait;
 }

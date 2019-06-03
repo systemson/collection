@@ -151,7 +151,7 @@ trait EssentialTrait
     /**
      * Returns the first element of the collection.
      *
-     * @return mixed The item's value.
+     * @return mixed
      */
     public function first()
     {
@@ -163,7 +163,7 @@ trait EssentialTrait
     /**
      * Returns the last element of the collection.
      *
-     * @return mixed The item's value.
+     * @return mixed
      */
     public function last()
     {

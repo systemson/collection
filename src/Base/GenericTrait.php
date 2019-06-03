@@ -148,7 +148,7 @@ trait GenericTrait
      *
      * @param string $key The item's key
      *
-     * @return mixed The removed item's value, or void if the item don't exists.
+     * @return mixed|null The removed item's value, or void if the item don't exists.
      */
     public function remove(string $key)
     {
