@@ -18,16 +18,6 @@ use Amber\Collection\Contracts\CollectionInterface;
 trait ImmutableTrait
 {
     /**
-     * Alias for copy().
-     *
-     * @return CollectionInterface A shallow copy of the collection.
-     */
-    public function clone(): CollectionInterface
-    {
-        return $this->copy();
-    }
-
-    /**
      * @throws RuntimeException
      */
     public function offsetSet($offset, $value)

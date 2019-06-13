@@ -28,7 +28,7 @@ trait SecuentialCollectionTrait
      */
     public function append($value): CollectionInterface
     {
-        $new = $this->clone();
+        $new = $this->copy();
 
         $new->offsetSet(null, $value);
 
@@ -46,7 +46,7 @@ trait SecuentialCollectionTrait
      */
     public function prepend($value): CollectionInterface
     {
-        $new = $this->clone();
+        $new = $this->copy();
 
         $array = array_merge([$value], $this->toArray());
 

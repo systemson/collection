@@ -37,16 +37,6 @@ class ImmutableCollectionTest extends TestCase
         return $multiple;
     }
 
-    public function testClone()
-    {
-        $collection = $this->newCollection();
-
-        $this->assertInstanceOf($this->collection, $collection->clone());
-        $this->assertInstanceOf(CollectionInterface::class, $collection);
-
-        $this->assertEquals(clone $collection, $collection->clone());
-    }
-
     public function testEssentials()
     {
         $array = $this->newArray(1);
@@ -64,9 +54,6 @@ class ImmutableCollectionTest extends TestCase
 
         $this->assertNotSame($collection, $collection->copy());
         $this->assertInstanceOf($this->collection, $collection->copy());
-
-        $this->assertNotSame($collection, $collection->clone());
-        $this->assertInstanceOf($this->collection, $collection->clone());
 
         $this->assertEquals(1, $collection->count());
 
