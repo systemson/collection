@@ -17,7 +17,7 @@ trait SecuencialCollectionTrait
         
         $this->assertEquals(['value'], $collection->values());
 
-        $collection->prepend('first');
+        $collection = $collection->prepend('first');
 
         $this->assertNotEquals('value', $collection->get(0));
         $this->assertNotEquals('value', $collection->first());
@@ -38,9 +38,12 @@ trait SecuencialCollectionTrait
     {
         $collection = $this->newCollection();
 
-        $this->assertNull($collection->append(1));
-        $this->assertNull($collection->append(2));
-        $this->assertNull($collection->append(3));
+        $collection = $collection->append(1);
+        $this->assertEquals([1], $collection->toArray());
+        $collection = $collection->append(2);
+        $this->assertEquals([1, 2], $collection->toArray());
+        $collection = $collection->append(3);
+        $this->assertEquals([1, 2, 3], $collection->toArray());
 
         $this->assertEquals(1, $collection->first());
         $this->assertEquals(3, $collection->last());
@@ -51,9 +54,12 @@ trait SecuencialCollectionTrait
     {
         $collection = $this->newCollection();
 
-        $this->assertNull($collection->prepend(3));
-        $this->assertNull($collection->prepend(2));
-        $this->assertNull($collection->prepend(1));
+        $collection = $collection->prepend(3);
+        $this->assertEquals([3], $collection->toArray());
+        $collection = $collection->prepend(2);
+        $this->assertEquals([2, 3], $collection->toArray());
+        $collection = $collection->prepend(1);
+        $this->assertEquals([1, 2, 3], $collection->toArray());
 
         $this->assertEquals(1, $collection->first());
         $this->assertEquals(3, $collection->last());

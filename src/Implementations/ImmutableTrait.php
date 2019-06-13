@@ -10,24 +10,57 @@
 
 namespace Amber\Collection\Implementations;
 
+use Amber\Collection\Contracts\CollectionInterface;
+
 /**
  *
  */
 trait ImmutableTrait
 {
+    /**
+     * Alias for copy().
+     *
+     * @return CollectionInterface A shallow copy of the collection.
+     */
+    public function clone(): CollectionInterface
+    {
+        return $this->copy();
+    }
+
+    /**
+     * @throws RuntimeException
+     */
     public function offsetSet($offset, $value)
     {
-        $this->throwImmutableException();
+        throw $this->immutableException();
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function offsetUnset($offset)
     {
-        $this->throwImmutableException();
+        throw $this->immutableException();
     }
 
-    protected function throwImmutableException(): RuntimeException
+    /**
+     * Replaces the collection storage with a new array.
+     *
+     * @param array $array
+     *
+     * @throws RuntimeException
+     */
+    public function exchangeArray(array $array): void
+    {
+        throw $this->immutableException();
+    }
+
+    /**
+     * @throws RuntimeException
+     */
+    protected function immutableException(): \RuntimeException
     {
         $class = static::class;
-        throw new \RuntimeException("This collection [{$class}] is inmutable.");
+        return new \RuntimeException("This collection [{$class}] is inmutable.");
     }
 }

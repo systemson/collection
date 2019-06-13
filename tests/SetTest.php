@@ -140,8 +140,8 @@ class SetTest extends TestCase
         
         $this->assertEquals(['value'], $collection->values());
 
-        $collection->prepend('first');
-        $collection->append('last');
+        $collection = $collection->prepend('first');
+        $collection = $collection->append('last');
 
         $this->assertNotEquals('value', $collection->first());
         $this->assertNotEquals('value', $collection->last());

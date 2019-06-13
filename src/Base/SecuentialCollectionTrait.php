@@ -10,38 +10,48 @@
 
 namespace Amber\Collection\Base;
 
+use Amber\Collection\Contracts\CollectionInterface;
+
 /**
  * Implements the interfaces and basic methods for the Collection.
  */
 trait SecuentialCollectionTrait
 {
     /**
-     * Sets a new item at the end of the collection.
+     * Returns a new collection with the item appended.
      *
      * This should be used for none associative collections.
      *
      * @param mixed $value The item's value
      *
-     * @return void
+     * @return CollectionInterface
      */
-    public function append($value): void
+    public function append($value): CollectionInterface
     {
-        $this->offsetSet(null, $value);
+        $new = $this->clone();
+
+        $new->offsetSet(null, $value);
+
+        return $new;
     }
 
     /**
-     * Sets a new item at the start of the collection.
+     * Returns a new collection with the item prepended.
      *
      * This should be used for none associative collections.
      *
      * @param mixed $value The item's value
      *
-     * @return void
+     * @return CollectionInterface
      */
-    public function prepend($value): void
+    public function prepend($value): CollectionInterface
     {
-        $new = array_merge([$value], $this->toArray());
+        $new = $this->clone();
 
-        $this->exchangeArray($new);
+        $array = array_merge([$value], $this->toArray());
+
+        $new->exchangeArray($array);
+
+        return $new;
     }
 }

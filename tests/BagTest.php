@@ -129,7 +129,7 @@ class BagTest extends TestCase
     {
         $collection = $this->newCollection();
 
-        $collection->append('value');
+        $collection = $collection->append('value');
             
         $this->assertTrue($collection->contains('value'));
 
@@ -139,8 +139,8 @@ class BagTest extends TestCase
         
         $this->assertEquals(['value'], $collection->values());
 
-        $collection->prepend('first');
-        $collection->append('last');
+        $collection = $collection->prepend('first');
+        $collection = $collection->append('last');
 
         $this->assertNotEquals('value', $collection->first());
         $this->assertNotEquals('value', $collection->last());
