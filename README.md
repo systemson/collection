@@ -4,8 +4,10 @@
 ![PHP from Packagist](https://img.shields.io/packagist/php-v/amber/collection.svg)
 [![Build Status](https://travis-ci.org/systemson/collection.svg?branch=master)](https://travis-ci.org/systemson/collection)
 [![Coverage Status](https://coveralls.io/repos/github/systemson/collection/badge.svg?branch=master)](https://coveralls.io/github/systemson/collection?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/systemson/collection/badge)](https://www.codefactor.io/repository/github/systemson/collection)
 [![Total Downloads](https://poser.pugx.org/amber/collection/downloads.png)](https://packagist.org/packages/amber/collection)
 [![GitHub](https://img.shields.io/github/license/systemson/collection.svg)](https://www.gnu.org/licenses/gpl.html)
+
 
 # Collection
 Data structures as an alternative to the array.
