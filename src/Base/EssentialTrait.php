@@ -61,6 +61,12 @@ trait EssentialTrait
             ARRAY_FILTER_USE_BOTH
         );
 
+        // Check if the array is associative.
+        if (count(array_filter(array_keys($array), 'is_string')) > 0) {
+            return static::make($array);
+        }
+
+        // If the array is secuential reset its keys.
         return static::make(array_values($array));
     }
 
