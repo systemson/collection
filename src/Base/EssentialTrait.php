@@ -196,30 +196,30 @@ trait EssentialTrait
     }
 
     /**
-     * Returns the items of the collection that match the specified array.
+     * Returns the items of the collection that match the specified array of keys.
      *
-     * @param array $values
+     * @param array $keys
      *
      * @return CollectionInterface
      */
-    public function only(array $values): CollectionInterface
+    public function only(array $keys): CollectionInterface
     {
-        return $this->filter(function ($value) use ($values) {
-            return in_array($value, $values);
+        return $this->filter(function ($value, $key) use ($keys) {
+            return in_array($key, $keys);
         });
     }
 
     /**
-     * Returns the items of the collections that do not match the specified array.
+     * Returns the items of the collections that do not match the specified array of keys.
      *
-     * @param array $values
+     * @param array $keys
      *
      * @return CollectionInterface
      */
-    public function except(array $values): CollectionInterface
+    public function except(array $keys): CollectionInterface
     {
-        return $this->filter(function ($value) use ($values) {
-            return !in_array($value, $values);
+        return $this->filter(function ($value, $key) use ($keys) {
+            return !in_array($key, $keys);
         });
     }
 }
