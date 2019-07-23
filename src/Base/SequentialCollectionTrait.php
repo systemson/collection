@@ -15,7 +15,7 @@ use Amber\Collection\Contracts\CollectionInterface;
 /**
  * Implements the interfaces and basic methods for the Collection.
  */
-trait SecuentialCollectionTrait
+trait SequentialCollectionTrait
 {
     /**
      * Returns a new collection with the item appended.

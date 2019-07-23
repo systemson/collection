@@ -11,12 +11,14 @@
 namespace Amber\Collection\Base;
 
 use Amber\Collection\Contracts\CollectionInterface;
+use Closure;
 
 /**
  * Implements basic methods for the Collection.
  */
 trait EssentialTrait
 {
+
     /**
      * Creates a new collection.
      *
@@ -62,6 +64,29 @@ trait EssentialTrait
         );
 
         return static::make(array_values($array));
+    }
+
+    /**
+     * Returns a new sorted collection using a user-defined comparison function.
+     *
+     * @param Closure $callback The user-defined comparison function.
+     *
+     * @return CollectionInterface A new collection instance.
+     */
+    public function sort(Closure $callback = null): CollectionInterface
+    {
+        $array = $this->toArray();
+
+        if (is_null($callback)) {
+            sort($array);
+        } else {
+            usort(
+                $array,
+                $callback
+            );
+        }
+
+        return static::make($array);
     }
 
     /**

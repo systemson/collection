@@ -19,29 +19,6 @@ use Closure;
 trait ArrayFunctionsTrait
 {
     /**
-     * Returns a new sorted collection using a user-defined comparison function.
-     *
-     * @param Closure $callback The user-defined comparison function.
-     *
-     * @return CollectionInterface A new collection instance.
-     */
-    public function sort(Closure $callback = null): CollectionInterface
-    {
-        $array = $this->toArray();
-
-        if (is_null($callback)) {
-            sort($array);
-        } else {
-            usort(
-                $array,
-                $callback
-            );
-        }
-
-        return static::make($array);
-    }
-
-    /**
      * Returns a new reversed collection.
      *
      * @return CollectionInterface A new collection instance.
