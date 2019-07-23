@@ -18,8 +18,8 @@ trait GenericTrait
     /**
      * Sets or updates an item in the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param string $key   The item's key.
+     * @param mixed  $value The item's value.
      *
      * @return void
      */
@@ -31,8 +31,8 @@ trait GenericTrait
     /**
      * Adds a new item to the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param string $key   The item's key.
+     * @param mixed  $value The item's value.
      *
      * @return bool true on success, false if the item already exists.
      */
@@ -50,8 +50,8 @@ trait GenericTrait
     /**
      * Updates an existent item in the collection.
      *
-     * @param string $key   The item's key
-     * @param mixed  $value The item's value
+     * @param string $key   The item's key.
+     * @param mixed  $value The item's value.
      *
      * @return bool true on success, false if the item does not exists.
      */
@@ -67,9 +67,9 @@ trait GenericTrait
     }
 
     /**
-     * Whether an item is present it the collection
+     * Whether an item is present it the collection.
      *
-     * @param string $key The item's key
+     * @param string $key The item's key.
      *
      * @return bool
      */
@@ -79,9 +79,9 @@ trait GenericTrait
     }
 
     /**
-     * Whether an item is not present it the collection
+     * Whether an item is not present it the collection.
      *
-     * @param string $key The item's key
+     * @param string $key The item's key.
      *
      * @return bool
      */
@@ -93,7 +93,7 @@ trait GenericTrait
     /**
      * Whether an item is not present it the collection by it's value.
      *
-     * @param mixed $value The item's value
+     * @param mixed $value The item's value.
      *
      * @return bool
      */
@@ -105,19 +105,20 @@ trait GenericTrait
     /**
      * Gets an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $key     The item's key.
+     * @param mixed  $default The default value if the key doesn't exists.
      *
-     * @return mixed|void The item's value or void if the key doesn't exists.
+     * @return mixed|void The item's value or the default argument.
      */
-    public function get(string $key)
+    public function get(string $key, $default = null)
     {
-        return $this->offsetGet($key) ?? null;
+        return $this->offsetGet($key) ?? $default;
     }
 
     /**
      * Deletes an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $key The item's key.
      *
      * @return void.
      */
@@ -129,7 +130,7 @@ trait GenericTrait
     /**
      * Deletes an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $key The item's key.
      *
      * @return bool true on success, false on failure.
      */
@@ -146,7 +147,7 @@ trait GenericTrait
     /**
      * Deletes and retrives an item from collection.
      *
-     * @param string $key The item's key
+     * @param string $key The item's key.
      *
      * @return mixed|null The removed item's value, or void if the item don't exists.
      */
@@ -166,7 +167,7 @@ trait GenericTrait
     /**
      * Sets or updates an array of items in the collection, and returns true on success.
      *
-     * @param array $array The item's key => value pairs
+     * @param array $array The item's key => value pairs.
      *
      * @return void
      */
@@ -180,7 +181,7 @@ trait GenericTrait
     /**
      * Gets multiple items from the collection.
      *
-     * @param array $array The item's keys
+     * @param array $array The item's keys.
      *
      * @return array
      */
@@ -198,7 +199,7 @@ trait GenericTrait
     /**
      * Whether multiple items are present in the collection.
      *
-     * @param array $array The item's keys
+     * @param array $array The item's keys.
      *
      * @return bool
      */
@@ -218,7 +219,7 @@ trait GenericTrait
     /**
      * Unsets an array of items in the collection.
      *
-     * @param array $array The item's key => value pairs
+     * @param array $array The item's key => value pairs.
      *
      * @return void
      */
