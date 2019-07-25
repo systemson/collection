@@ -12,8 +12,8 @@ trait ArrayFunctionsTrait
         $collection->setMultiple(['value1', 'value2', 'value3']);
 
         $this->assertEquals(['value1', 'value2', 'value3'], $collection->toArray());
-        $this->assertEquals(['value1', 'value3'], $collection->except(['value2'])->toArray());
-        $this->assertEquals(['value1'], $collection->only(['value1'])->toArray());
+        $this->assertEquals(['value1', 'value3'], $collection->except([1])->toArray());
+        $this->assertEquals(['value1'], $collection->only([0])->toArray());
         
         $collection->clear();
     }
@@ -35,13 +35,34 @@ trait ArrayFunctionsTrait
         $collection->clear();
     }
 
-    public function testFilter()
+    public function testFilterSequential()
     {
         $multiple = static::newArray();
         $collection = $this->newCollection($multiple);
 
         $callback = function ($value) {
-            return $value === 1;
+            return $value['id'] === 1;
+        };
+
+        $this->assertEquals(
+            array_values(array_filter($multiple, $callback)),
+            $collection->filter($callback)->toArray()
+        );
+    }
+
+    public function testFilterAssociative()
+    {
+        $multiple = static::newArray(5, 'key');
+        $collection = $this->newCollection($multiple);
+
+        // Skip this test if it's a sequential collection.
+        if ($collection instanceof \Amber\Collection\Bag) {
+            $this->assertInstanceOf(\Amber\Collection\Bag::class, $collection);
+            return;
+        }
+
+        $callback = function ($value) {
+            return $value['id'] === 1;
         };
 
         $this->assertEquals(

@@ -133,7 +133,7 @@ class MultilevelCollection extends Vector
      *
      * @return mixed|void The item's value or void if the key doesn't exists.
      */
-    public function get(string $key)
+    public function get(string $key, $default = null)
     {
         $slug = $this->splitKey($key);
 
@@ -141,7 +141,7 @@ class MultilevelCollection extends Vector
             if (isset($this[$slug])) {
                 return $this[$slug];
             }
-            return null;
+            return $default;
         }
 
         $array = $this->toArray();

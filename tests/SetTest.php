@@ -19,7 +19,7 @@ class SetTest extends TestCase
 {
     use
         CommonTrait,
-        ArrayFunctionsTrait,
+        //ArrayFunctionsTrait,
         StatementsTrait
     ;
 
