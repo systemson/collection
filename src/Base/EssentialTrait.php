@@ -96,6 +96,20 @@ trait EssentialTrait
     }
 
     /**
+     * Returns the items that are not present in the collection and the array.
+     *
+     * @param array $array The array(s) to compare.
+     *
+     * @return CollectionInterface A new collection instance.
+     */
+    public function diff(array ...$array): CollectionInterface
+    {
+        $return = call_user_func_array('array_diff', array_merge([$this->toArray()], $array));
+
+        return static::make($return);
+    }
+
+    /**
      * Returns a new collection merged with one or more arrays.
      *
      * @param array $array The array(s) to merge with the collection.
