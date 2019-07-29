@@ -17,8 +17,8 @@ use Amber\Collection\Contracts\PairInterface;
  */
 class Pair implements PairInterface
 {
-    protected $key;
-    protected $value;
+    public $key;
+    public $value;
 
     public function __construct($key, $value)
     {

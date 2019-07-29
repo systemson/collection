@@ -15,8 +15,13 @@ namespace Amber\Collection\Implementations;
  */
 trait CountableTrait
 {
+    /**
+     * Returns the size of the collection.
+     *
+     * @return int
+     */
     public function count(): int
     {
-        return count($this->storage);
+        return count(array_filter($this->storage));
     }
 }

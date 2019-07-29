@@ -22,13 +22,14 @@ use Amber\Collection\Implementations\NullablePair;
  * A sequential collection of key-value pairs.
  *
  * @todo MUST remove all numeric array methods.
+ * @todo MUST use spl_​object_​hash() or spl_object_id() to hash the keys.
  */
 class Hash extends CollectionCommons implements CollectionInterface
 {
     use EssentialTrait, MixedKeysTrait, BaseCollection;
 
     /**
-     * Collection consructor.
+     * Collection constructor.
      *
      * @param array $array The items for the new collection.
      */
@@ -39,7 +40,11 @@ class Hash extends CollectionCommons implements CollectionInterface
 
     protected function hashKey($key)
     {
-        return hash('sha1', serialize($key));
+        if (is_object($key)) {
+            return \spl_object_hash($key);
+        }
+
+        return hash('sha1', $key);
     }
 
     protected function getPair($offset): PairInterface

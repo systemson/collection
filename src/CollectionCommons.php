@@ -10,13 +10,11 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Implementations\{
-    IteratorAggregateTrait,
-    ArrayAccessTrait,
-    PropertyAccessTrait,
-    SerializableTrait,
-    CountableTrait
-};
+use Amber\Collection\Implementations\IteratorAggregateTrait;
+use Amber\Collection\Implementations\ArrayAccessTrait;
+use Amber\Collection\Implementations\PropertyAccessTrait;
+use Amber\Collection\Implementations\SerializableTrait;
+use Amber\Collection\Implementations\CountableTrait;
 use Amber\Collection\Contracts\CollectionInterface;
 
 /**
@@ -28,6 +26,18 @@ use Amber\Collection\Contracts\CollectionInterface;
 abstract class CollectionCommons implements CollectionInterface
 {
     use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait;
+
+    /**
+     * Creates a new collection.
+     *
+     * @param array $array The items for the new collection.
+     *
+     * @return CollectionInterface a new Instance of the collection.
+     */
+    public static function make(array $array = []): CollectionInterface
+    {
+        return new static($array);
+    }
 
     /**
      * Collection consructor.
@@ -47,16 +57,6 @@ abstract class CollectionCommons implements CollectionInterface
     public function clear(): void
     {
         $this->storage = [];
-    }
-
-    /**
-     * Returns the size of the collection.
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        return count(array_filter($this->storage));
     }
 
     /**

@@ -54,13 +54,13 @@ class MultilevelCollection extends Vector
             return $key;
         }
 
-        $slug_array = explode($this->separator, $key);
+        $array = explode($this->separator, $key);
 
-        if (count($slug_array) == 1) {
+        if (count($array) == 1) {
             return $key;
         }
 
-        return $slug_array;
+        return $array;
     }
 
     /**

@@ -18,19 +18,6 @@ use Closure;
  */
 trait EssentialTrait
 {
-
-    /**
-     * Creates a new collection.
-     *
-     * @param array $array The items for the new collection.
-     *
-     * @return CollectionInterface a new Instance of the collection.
-     */
-    public static function make(array $array = []): CollectionInterface
-    {
-        return new static($array);
-    }
-
     /**
      * Iterates through the collection and passes each value to the given callback.
      *

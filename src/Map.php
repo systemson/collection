@@ -19,7 +19,7 @@ use Amber\Collection\Implementations\Pair;
 use Amber\Collection\Implementations\NullablePair;
 
 /**
- * A sequential collection of key-value pairs.
+ * A sequential collection of key-value pairs that can use objects as keys.
  *
  * @todo MUST remove all numeric array methods.
  */

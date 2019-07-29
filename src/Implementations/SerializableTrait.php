@@ -43,7 +43,17 @@ trait SerializableTrait
     /**
      * Returns a json representation to the Collection.
      *
-     * @return string Json representation to the Collection.
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->toJson();
+    }
+
+    /**
+     * Returns a json representation to the Collection.
+     *
+     * @return string
      */
     public function __toString(): string
     {

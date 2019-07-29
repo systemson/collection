@@ -33,14 +33,14 @@ trait ArrayFunctionsTrait
     /**
      * Splits an array into chunks.
      *
-     * @param int  $size          The size of each chunk.
-     * @param bool $preserve_keys Whether the keys should be preserved.
+     * @param int  $size         The size of each chunk.
+     * @param bool $preserveKeys Whether the keys should be preserved.
      *
      * @return CollectionInterface A new collection instance.
      */
-    public function chunk(int $size, bool $preserve_keys = false): CollectionInterface
+    public function chunk(int $size, bool $preserveKeys = false): CollectionInterface
     {
-        $return = array_chunk($this->toArray(), $size, $preserve_keys);
+        $return = array_chunk($this->toArray(), $size, $preserveKeys);
 
         return static::make($return);
     }

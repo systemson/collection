@@ -10,13 +10,11 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Implementations\{
-    IteratorAggregateTrait,
-    ArrayAccessTrait,
-    PropertyAccessTrait,
-    SerializableTrait,
-    CountableTrait
-};
+use Amber\Collection\Implementations\IteratorAggregateTrait;
+use Amber\Collection\Implementations\ArrayAccessTrait;
+use Amber\Collection\Implementations\PropertyAccessTrait;
+use Amber\Collection\Implementations\SerializableTrait;
+use Amber\Collection\Implementations\CountableTrait;
 use Amber\Collection\Base\GenericTrait;
 
 /**
