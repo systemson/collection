@@ -25,7 +25,9 @@ trait NoKeysTrait
      */
     public function set($value, $new = null): void
     {
-        $this[$value] = $new ?? $value;
+        $index = $this->getIndex($value);
+
+        parent::offsetSet($index, $new ?? $value);
     }
 
     /**

@@ -12,7 +12,7 @@ namespace Amber\Collection;
 
 use Amber\Collection\Base\BaseCollection;
 use Amber\Collection\Base\EssentialTrait;
-use Amber\Collection\Base\MixedKeysTrait;
+use Amber\Collection\Base\MixedKeysEncapsulationTrait;
 use Amber\Collection\Contracts\CollectionInterface;
 use Amber\Collection\Contracts\PairInterface;
 use Amber\Collection\Implementations\Pair;
@@ -26,7 +26,10 @@ use Amber\Collection\Implementations\NullablePair;
  */
 class Hash extends CollectionCommons implements CollectionInterface
 {
-    use EssentialTrait, MixedKeysTrait, BaseCollection;
+    use EssentialTrait,
+        MixedKeysEncapsulationTrait,
+        BaseCollection
+    ;
 
     /**
      * Collection constructor.
@@ -49,7 +52,13 @@ class Hash extends CollectionCommons implements CollectionInterface
 
     protected function getPair($offset): PairInterface
     {
-        return parent::offsetGet($this->hashKey($offset)) ?? new NullablePair($offset);
+        $key = $this->hashKey($offset);
+
+        if (parent::offsetExists($key)) {
+            return parent::offsetGet($key);
+        }
+
+        return new NullablePair($offset);
     }
 
     public function offsetSet($offset, $value)

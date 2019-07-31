@@ -13,7 +13,7 @@ namespace Amber\Collection\Base;
 /**
  * Implements basic set, get, has and unset methods.
  */
-trait GenericTrait
+trait GenericEncapsulationTrait
 {
     /**
      * Sets or updates an item in the collection.

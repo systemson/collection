@@ -10,7 +10,7 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\GenericTrait;
+use Amber\Collection\Base\GenericEncapsulationTrait;
 use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Base\SequentialCollectionTrait;
 
@@ -19,5 +19,5 @@ use Amber\Collection\Base\SequentialCollectionTrait;
  */
 class Collection extends CollectionCommons
 {
-    use EssentialTrait, GenericTrait, SequentialCollectionTrait;
+    use EssentialTrait, GenericEncapsulationTrait, SequentialCollectionTrait;
 }

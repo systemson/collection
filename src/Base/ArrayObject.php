@@ -22,7 +22,13 @@ use Amber\Collection\Implementations\CountableTrait;
 
 class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Countable
 {
-    use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait, GenericTrait;
+    use IteratorAggregateTrait,
+        ArrayAccessTrait,
+        PropertyAccessTrait,
+        SerializableTrait,
+        CountableTrait,
+        GenericEncapsulationTrait
+    ;
 
     protected $storage = [];
 

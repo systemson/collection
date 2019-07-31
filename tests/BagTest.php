@@ -106,23 +106,25 @@ class BagTest extends TestCase
     {
         $collection = $this->newCollection();
 
+        $value = 'value';
+
         // Sets a value
-        $collection[] = 'value';
+        $collection[] = $value;
 
         // Checks that the value is set in the collection
-        isset($collection[0]);
+        isset($collection[$value]);
 
         // Gets the value
-        $this->assertEquals('value', $collection[0]);
+        $this->assertEquals('value', $collection[$value]);
         
         // Deletes the item
-        unset($collection[0]);
+        unset($collection[$value]);
 
         // Checks that the item is not present in the collection
-        $this->assertFalse(isset($collection[0]));
+        $this->assertFalse(isset($collection[$value]));
 
         // Returns null if the item does not exists in the collection.
-        $this->assertNull($collection[0]);
+        $this->assertNull($collection[$value]);
     }
 
     public function testNumericCollection()
@@ -158,5 +160,14 @@ class BagTest extends TestCase
         $this->assertNull($collection->remove('first'));
         $this->assertFalse($collection->contains('value'));
         $this->assertFalse($collection->contains('last'));
+    }
+
+    public function testException()
+    {
+        $collection = $this->newCollection();
+
+        $this->expectException(\RuntimeException::class);
+
+        $collection[1] = 'value';
     }
 }

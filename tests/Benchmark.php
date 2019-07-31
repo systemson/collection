@@ -1,5 +1,4 @@
 <?php
-echo memory_get_usage(true)/1024/1024 . PHP_EOL;
 
 require_once 'vendor/autoload.php';
 
@@ -14,6 +13,7 @@ use Amber\Collection\MultilevelCollection;
 use Amber\Collection\Vector as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
+/*
 
 //declare(ticks=1);
 $benchmark = new Benchmark();
@@ -539,7 +539,7 @@ $benchmark->add(
     }
 );
 
-/*$benchmark->add(
+$benchmark->add(
     'simple-collection',
     function () use ($n) {
         $collection = new SimpleCollection();
@@ -562,7 +562,7 @@ $benchmark->add(
 
         return $collection;
     }
-);*/
+);
 
 $benchmark->add(
     'multilevel-collection',
@@ -646,7 +646,7 @@ $benchmark->add(
         $collection = new Set();
 
         for ($x = 0; $x < $n; $x++) {
-            $collection->set($x, $x);
+            $collection->set($x);
         }
 
         for ($x = 0; $x < $n; $x++) {
@@ -668,7 +668,7 @@ $benchmark->add(
 $benchmark->add(
     'hash-collection',
     function () use ($n) {
-        $collection = new Set();
+        $collection = new Hash();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -742,3 +742,17 @@ $benchmark->add(
 
 echo PHP_EOL . 'Test amber collections as objects' . PHP_EOL;
 $benchmark->run();
+*/
+
+$set = new Set();
+
+$object1 = new stdClass();
+$object2 = new stdClass();
+$object3 = new stdClass();
+
+$set->add($object1);
+$set->set($object1);
+$set->set($object2);
+$set->update($object2, $object3);
+
+var_dump($set);

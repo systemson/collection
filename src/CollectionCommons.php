@@ -25,7 +25,12 @@ use Amber\Collection\Contracts\CollectionInterface;
  */
 abstract class CollectionCommons implements CollectionInterface
 {
-    use IteratorAggregateTrait, ArrayAccessTrait, PropertyAccessTrait, SerializableTrait, CountableTrait;
+    use IteratorAggregateTrait,
+        ArrayAccessTrait,
+        PropertyAccessTrait,
+        SerializableTrait,
+        CountableTrait
+    ;
 
     /**
      * Creates a new collection.

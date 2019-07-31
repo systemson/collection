@@ -13,7 +13,7 @@ namespace Amber\Collection;
 use Amber\Collection\Contracts\CollectionInterface;
 use Amber\Collection\Contracts\PairInterface;
 use Amber\Collection\Base\BaseCollection;
-use Amber\Collection\Base\MixedKeysTrait;
+use Amber\Collection\Base\MixedKeysEncapsulationTrait;
 use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Implementations\Pair;
 use Amber\Collection\Implementations\NullablePair;
@@ -21,11 +21,14 @@ use Amber\Collection\Implementations\NullablePair;
 /**
  * A sequential collection of key-value pairs that can use objects as keys.
  *
- * @todo MUST remove all numeric array methods.
+ * @todo MUST remove all sequential array methods.
  */
 class Map extends CollectionCommons implements CollectionInterface
 {
-    use EssentialTrait, MixedKeysTrait, BaseCollection;
+    use EssentialTrait,
+        MixedKeysEncapsulationTrait,
+        BaseCollection
+    ;
 
     /**
      * Collection consructor.

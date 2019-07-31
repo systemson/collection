@@ -23,10 +23,14 @@ use Amber\Collection\Base\SequentialCollectionTrait;
  */
 class Set extends CollectionCommons implements SetInterface
 {
-    use EssentialTrait, NoKeysTrait, BaseCollection, SequentialCollectionTrait;
+    use EssentialTrait,
+        NoKeysTrait,
+        BaseCollection,
+        SequentialCollectionTrait
+    ;
 
     /**
-     * Collection consructor.
+     * Collection constructor.
      *
      * @param array $array The items for the new collection.
      */
@@ -36,13 +40,13 @@ class Set extends CollectionCommons implements SetInterface
     }
 
     /**
-     * @param mixed $offset
+     * @param mixed $value
      *
      * @return int|null
      */
-    protected function getIndex($offset)
+    protected function getIndex($value)
     {
-        $search = array_search($offset, $this->toArray());
+        $search = array_search($value, $this->toArray(), true);
         if (is_int($search)) {
             return $search;
         }
@@ -56,31 +60,37 @@ class Set extends CollectionCommons implements SetInterface
      */
     public function offsetSet($offset, $value)
     {
-        parent::offsetSet($this->getIndex($offset), $value);
+        if ($offset !== null) {
+            throw new \RuntimeException("This class [" .  get_called_class() . "] doesn't accepts indexes/keys.");
+        }
+
+        $index = $this->getIndex($value);
+
+        parent::offsetSet($index, $value);
     }
 
     /**
-     * @param mixed $offset
+     * @param mixed $value
      */
-    public function offsetExists($offset)
+    public function offsetExists($value)
     {
-        return in_array($offset, $this->toArray());
+        return in_array($value, $this->toArray());
     }
 
     /**
-     * @param mixed $offset
+     * @param mixed $value
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($value)
     {
-        parent::offsetUnset($this->getIndex($offset));
+        parent::offsetUnset($this->getIndex($value));
     }
 
     /**
-     * @param mixed $offset
+     * @param mixed $value
      */
-    public function &offsetGet($offset)
+    public function &offsetGet($value)
     {
-        $ret =& parent::offsetGet($this->getIndex($offset)) ?? null;
+        $ret =& parent::offsetGet($this->getIndex($value)) ?? null;
 
         return $ret;
     }
