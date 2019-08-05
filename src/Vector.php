@@ -14,6 +14,8 @@ use Amber\Collection\Base\BaseCollection;
 
 /**
  * Wrapper class for working with arrays.
+ *
+ * @deprecated
  */
 class Vector extends Collection
 {

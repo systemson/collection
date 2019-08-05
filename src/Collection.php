@@ -15,7 +15,7 @@ use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Base\SequentialCollectionTrait;
 
 /**
- * Multi-purpose collection
+ * Multi-purpose collection.
  */
 class Collection extends CollectionCommons
 {

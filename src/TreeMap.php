@@ -35,8 +35,7 @@ class TreeMap extends Map
         $filter = $this->getComparator();
 
         foreach ($this->storage as $index => $pair) {
-            if ($filter($pair->getKey(), $pair->getValue(), $offset)) {
-                $pair->index = $index;
+            if ($filter->__invoke($pair->getKey(), $pair->getValue(), $offset)) {
                 return $pair;
             }
         }
@@ -71,7 +70,6 @@ class TreeMap extends Map
      */
     protected function defaultComparator(): Closure
     {
-        /** @psalm-suppress MissingClosureParamType */
         return function ($key, $value, $offset): bool {
             return $key === $offset;
         };

@@ -2,7 +2,7 @@
 
 require_once 'vendor/autoload.php';
 
-use Amber\Collection\Hash;
+use Amber\Collection\HashMap;
 use Amber\Collection\Map;
 use Amber\Collection\Set;
 use Amber\Collection\Bag;
@@ -13,7 +13,7 @@ use Amber\Collection\MultilevelCollection;
 use Amber\Collection\Vector as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
-/*
+
 
 //declare(ticks=1);
 $benchmark = new Benchmark();
@@ -540,7 +540,7 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'simple-collection',
+    'vector-collection',
     function () use ($n) {
         $collection = new SimpleCollection();
 
@@ -668,7 +668,7 @@ $benchmark->add(
 $benchmark->add(
     'hash-collection',
     function () use ($n) {
-        $collection = new Hash();
+        $collection = new HashMap();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -742,17 +742,3 @@ $benchmark->add(
 
 echo PHP_EOL . 'Test amber collections as objects' . PHP_EOL;
 $benchmark->run();
-*/
-
-$set = new Set();
-
-$object1 = new stdClass();
-$object2 = new stdClass();
-$object3 = new stdClass();
-
-$set->add($object1);
-$set->set($object1);
-$set->set($object2);
-$set->update($object2, $object3);
-
-var_dump($set);

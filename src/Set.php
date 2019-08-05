@@ -19,7 +19,7 @@ use Amber\Collection\Base\BaseCollection;
 use Amber\Collection\Base\SequentialCollectionTrait;
 
 /**
- * A sequential collection of key-value pairs.
+ * A sequential collection of unique values.
  */
 class Set extends CollectionCommons implements SetInterface
 {
@@ -74,7 +74,7 @@ class Set extends CollectionCommons implements SetInterface
      */
     public function offsetExists($value)
     {
-        return in_array($value, $this->toArray());
+        return $this->getIndex($value) !== null;
     }
 
     /**

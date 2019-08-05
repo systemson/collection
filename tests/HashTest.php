@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Amber\Collection\Hash as Collection;
+use Amber\Collection\HashMap as Collection;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits\{
     BasicTrait,

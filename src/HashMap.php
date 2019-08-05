@@ -24,23 +24,8 @@ use Amber\Collection\Implementations\NullablePair;
  * @todo MUST remove all numeric array methods.
  * @todo MUST use spl_​object_​hash() or spl_object_id() to hash the keys.
  */
-class Hash extends CollectionCommons implements CollectionInterface
+class HashMap extends Map implements CollectionInterface
 {
-    use EssentialTrait,
-        MixedKeysEncapsulationTrait,
-        BaseCollection
-    ;
-
-    /**
-     * Collection constructor.
-     *
-     * @param array $array The items for the new collection.
-     */
-    public function __construct(array $array = [])
-    {
-        $this->setMultiple($array);
-    }
-
     protected function hashKey($key)
     {
         if (is_object($key)) {
@@ -54,8 +39,8 @@ class Hash extends CollectionCommons implements CollectionInterface
     {
         $key = $this->hashKey($offset);
 
-        if (parent::offsetExists($key)) {
-            return parent::offsetGet($key);
+        if (isset($this->storage[$key])) {
+            return $this->storage[$key];
         }
 
         return new NullablePair($offset);
@@ -67,35 +52,7 @@ class Hash extends CollectionCommons implements CollectionInterface
             $pair = $this->getPair($offset);
             $pair->setValue($value);
         } else {
-            parent::offsetSet($this->hashKey($offset), new Pair($offset, $value));
+            $this->storage[$this->hashKey($offset)] = new Pair($offset, $value);
         }
-    }
-
-    public function offsetExists($offset)
-    {
-        return !$this->getPair($offset)->isEmpty();
-    }
-
-    public function offsetUnset($offset)
-    {
-        $this->getPair($offset)->clear();
-    }
-
-    public function &offsetGet($offset)
-    {
-        $ret =& $this->getPair($offset)->getValue();
-
-        return $ret;
-    }
-
-    public function toArray(): array
-    {
-        $ret = [];
-
-        foreach (parent::toArray() as $item) {
-            $ret[$item->getKey()] = $item->getValue();
-        }
-
-        return $ret;
     }
 }
