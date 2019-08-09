@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 
 //declare(ticks=1);
+
 $benchmark = new Benchmark();
 
 $n = 100;
