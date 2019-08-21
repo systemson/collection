@@ -19,6 +19,8 @@ use Amber\Collection\Base\GenericTrait;
 
 /**
  * Bag or multiset is an unordered collections that may contain duplicate elements.
+ *
+ * @deprecated
  */
 class Bag extends Set
 {

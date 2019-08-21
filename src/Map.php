@@ -35,9 +35,9 @@ class Map extends CollectionCommons implements CollectionInterface
      *
      * @param array $array The items for the new collection.
      */
-    public function __construct(array $array = [])
+    public function __construct($array = [])
     {
-        $this->setMultiple($array);
+        $this->setMultiple($this->extractArray($array));
     }
 
     protected function getPair($offset): PairInterface

@@ -36,7 +36,7 @@ class TypedCollection extends Collection
         'callable',
     ];
 
-    public function __construct(array $array = [], string $type = 'array')
+    public function __construct($array = [], string $type = 'array')
     {
         parent::__construct($array);
 

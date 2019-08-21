@@ -15,8 +15,25 @@ interface CollectionInterface extends
     \ArrayAccess,
     \Serializable,
     \JsonSerializable,
-    \Countable
+    \Countable,
+    Arrayable
 {
+    /**
+     * Creates a new collection.
+     *
+     * @param array|Arrayable $array The items for the new collection.
+     *
+     * @return CollectionInterface a new Instance of the collection.
+     */
+    public static function make($array = []): CollectionInterface;
+
+    /**
+     * Collection consructor.
+     *
+     * @param array $array The items for the new collection.
+     */
+    public function __construct($array = []);
+
     /**
      * Removes all values from the collection.
      *
@@ -47,17 +64,6 @@ interface CollectionInterface extends
      * @return bool
      */
     public function isEmpty(): bool;
-
-    /**
-     * Returns an array representation of the collection.
-     *
-     * The format of the returned array is implementation-dependent.
-     * Some implementations may throw an exception if an array representation
-     * could not be created.
-     *
-     * @return array
-     */
-    public function toArray(): array;
 
     /**
      * Replaces the collection storage with a new array.

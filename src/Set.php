@@ -34,9 +34,9 @@ class Set extends CollectionCommons implements SetInterface
      *
      * @param array $array The items for the new collection.
      */
-    public function __construct(array $array = [])
+    public function __construct($array = [])
     {
-        $this->storage = array_values($array);
+        $this->storage = array_values($this->extractArray($array));
     }
 
     /**

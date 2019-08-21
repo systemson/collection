@@ -16,6 +16,7 @@ use Amber\Collection\Implementations\PropertyAccessTrait;
 use Amber\Collection\Implementations\SerializableTrait;
 use Amber\Collection\Implementations\CountableTrait;
 use Amber\Collection\Contracts\CollectionInterface;
+use Amber\Collection\Contracts\Arrayable;
 
 /**
  * Implements the CollectionInterface contract
@@ -35,11 +36,11 @@ abstract class CollectionCommons implements CollectionInterface
     /**
      * Creates a new collection.
      *
-     * @param array $array The items for the new collection.
+     * @param array|Arrayable $array The items for the new collection.
      *
      * @return CollectionInterface a new Instance of the collection.
      */
-    public static function make(array $array = []): CollectionInterface
+    public static function make($array = []): CollectionInterface
     {
         return new static($array);
     }
@@ -49,9 +50,20 @@ abstract class CollectionCommons implements CollectionInterface
      *
      * @param array $array The items for the new collection.
      */
-    public function __construct(array $array = [])
+    public function __construct($array = [])
     {
-        $this->storage = $array;
+        $this->storage = $this->extractArray($array);
+    }
+
+    protected function extractArray($storage = []): array
+    {
+        if ($storage instanceof Arrayable || method_exists($storage, 'toArray')) {
+            $storage = $storage->toArray();
+        } elseif (method_exists($storage, 'getArrayCopy')) {
+            $storage = $storage->getArrayCopy();
+        }
+
+        return $storage;
     }
 
     /**

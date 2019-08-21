@@ -34,7 +34,7 @@ class MultilevelCollection extends Vector
      * @param array $array      The items for the collection.
      * @param bool  $multilevel Defines if the array should handle multilevel keys.
      */
-    public function __construct(array $array = [], bool $multilevel = true)
+    public function __construct($array = [], bool $multilevel = true)
     {
         parent::__construct($array);
 

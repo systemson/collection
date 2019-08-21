@@ -76,6 +76,8 @@ class CollectionCommonsTest extends TestCase
         $this->assertFalse($collection->isEmpty());
 
         $this->assertEquals($array, $collection->toArray());
+        $this->assertEquals($array, $collection::make($collection)->toArray());
+        $this->assertEquals($array, $collection::make(new \ArrayObject($array))->toArray());
 
         $this->assertEquals($collection, $collection->copy());
 
