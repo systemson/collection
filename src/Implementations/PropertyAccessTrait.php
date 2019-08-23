@@ -15,21 +15,38 @@ namespace Amber\Collection\Implementations;
  */
 trait PropertyAccessTrait
 {
+    /**
+     * @param mixed $name
+     * @param mixed $value
+     */
     public function __set($name, $value)
     {
         $this->offsetSet($name, $value);
     }
 
+    /**
+     * @param mixed $name
+     *
+     * @return bool
+     */
     public function __isset($name)
     {
         return $this->offsetExists($name);
     }
 
+    /**
+     * @param mixed $name
+     */
     public function __unset($name)
     {
         $this->offsetUnset($name);
     }
 
+    /**
+     * @param mixed $name
+     *
+     * @return mixed
+     */
     public function &__get($name)
     {
         $ret =& $this->offsetGet($name);

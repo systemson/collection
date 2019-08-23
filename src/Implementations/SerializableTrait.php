@@ -15,17 +15,36 @@ namespace Amber\Collection\Implementations;
  */
 trait SerializableTrait
 {
-    public function serialize()
+    /**
+     * Serialize the collection.
+     *
+     * @param array data
+     *
+     * @return string
+     */
+    public function serialize(): string
     {
         return serialize($this->storage);
     }
 
-    public function unserialize($data)
+    /**
+     * Unserialize the collection.
+     *
+     * @param array data
+     *
+     * @return void
+     */
+    public function unserialize($data): void
     {
         $this->storage = unserialize($data);
     }
 
-    public function jsonSerialize()
+    /**
+     * Returns as json representation of the collection.
+     *
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

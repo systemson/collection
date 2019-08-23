@@ -10,15 +10,14 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\GenericEncapsulationTrait;
-use Amber\Collection\Base\EssentialTrait;
-use Amber\Collection\Base\SequentialCollectionTrait;
-
 /**
  * Hint typed collection.
  */
 class TypedCollection extends Collection
 {
+    /**
+     * @var mixed $type;
+     */
     protected $type;
 
     const VALID_TYPES = [
@@ -36,16 +35,27 @@ class TypedCollection extends Collection
         'callable',
     ];
 
+    /**
+     * Collection constructor.
+     *
+     * @param array $array The items for the new collection.
+     */
     public function __construct($array = [], string $type = 'array')
     {
-        parent::__construct($array);
-
         $this->setType($type);
+
+        $this->setMultiple($this->extractArray($array));
     }
 
+    /**
+     * Sets a value at the specified key/index.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
-        if (!$this->isValidType($value)) {
+        if (!$this->validateType($value)) {
             $type = gettype($value);
 
             throw new \RuntimeException("The type of the value [\"{$type}\"]  is not compatible with the [\"{$this->type}\"] type.");
@@ -54,10 +64,16 @@ class TypedCollection extends Collection
         parent::offsetSet($offset, $value);
     }
 
-
+    /**
+     * Sets the type of the collection.
+     *
+     * @param string $type
+     *
+     * @return void
+     */
     public function setType(string $type): void
     {
-        if (in_array($type, static::VALID_TYPES) || (is_string($type) && class_exists($type))) {
+        if (in_array($type, static::VALID_TYPES) || class_exists($type)) {
             $this->type = $type;
             return;
         }
@@ -65,12 +81,24 @@ class TypedCollection extends Collection
         throw new \RuntimeException("The type hint [\"{$type}\"] is not a valid type");
     }
 
+    /**
+     * Returns the collection type.
+     *
+     * @return string
+     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    protected function isValidType($value): bool
+    /**
+     * Validates the value's type.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    protected function validateType($value): bool
     {
         switch ($this->type) {
             case 'numeric':

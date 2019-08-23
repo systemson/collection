@@ -46,9 +46,9 @@ abstract class CollectionCommons implements CollectionInterface
     }
 
     /**
-     * Collection consructor.
+     * Collection constructor.
      *
-     * @param array $array The items for the new collection.
+     * @param array|Arrayable $array The items for the new collection.
      */
     public function __construct($array = [])
     {

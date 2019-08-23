@@ -17,50 +17,93 @@ use Amber\Collection\Contracts\PairInterface;
  */
 class Pair implements PairInterface
 {
+    /**
+     * @var mixed
+     */
     public $key;
+
+    /**
+     * @var mixed
+     */
     public $value;
 
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     */
     public function __construct($key, $value)
     {
         $this->setKey($key);
         $this->setValue($value);
     }
 
+    /**
+     * @param mixed $key
+     *
+     * @return PairInterface
+     */
+    public function setKey($key): PairInterface
+    {
+        $this->key = $key;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function &getKey()
     {
         return $this->key;
     }
 
-    public function setKey($key)
+    /**
+     * @param mixed $value
+     *
+     * @return PairInterface
+     */
+    public function setValue($value): PairInterface
     {
-        $this->key = $key;
+        $this->value = $value;
+
+        return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function &getValue()
     {
         return $this->value;
     }
 
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
+    /**
+     * @return void
+     */
     public function clear(): void
     {
         $this->value = null;
     }
 
+    /**
+     * @return PairInterface
+     */
     public function copy(): PairInterface
     {
         return clone $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isEmpty(): bool
     {
         return is_null($this->value);
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -69,12 +112,18 @@ class Pair implements PairInterface
         ];
     }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }
 
-    public function __toString()
+    /**
+     * @return string
+     */
+    public function __toString(): string
     {
         return (string) $this->value ?? '';
     }

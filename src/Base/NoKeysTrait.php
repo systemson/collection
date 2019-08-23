@@ -120,7 +120,7 @@ trait NoKeysTrait
      *
      * @param string $value The item's value
      *
-     * @return void.
+     * @return void
      */
     public function unset($value): void
     {

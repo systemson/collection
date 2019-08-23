@@ -17,7 +17,7 @@ use ArrayIterator;
  */
 interface ArrayObjectInterface
 {
-    public function __construct(iterable $input, int $flags = 0, string $iterator = "ArrayIterator");
+    /*public function __construct(iterable $input, int $flags = 0, string $iterator = "ArrayIterator");
 
     public function append($value): void;
 
@@ -59,5 +59,5 @@ interface ArrayObjectInterface
 
     public function uksort(callable $callback) : void;
 
-    public function unserialize(string $serialized) : void;
+    public function unserialize(string $serialized) : void;*/
 }

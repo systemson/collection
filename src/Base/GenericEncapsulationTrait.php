@@ -120,7 +120,7 @@ trait GenericEncapsulationTrait
      *
      * @param string $key The item's key.
      *
-     * @return void.
+     * @return void
      */
     public function unset(string $key): void
     {

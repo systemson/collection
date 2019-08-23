@@ -26,7 +26,12 @@ use Amber\Collection\Implementations\NullablePair;
  */
 class HashMap extends Map implements CollectionInterface
 {
-    protected function hashKey($key)
+    /**
+     * @param mixed $key
+     *
+     * @return string
+     */
+    protected function hashKey($key): string
     {
         if (is_object($key)) {
             return \spl_object_hash($key);
@@ -35,6 +40,11 @@ class HashMap extends Map implements CollectionInterface
         return hash('sha1', $key);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return PairInterface
+     */
     protected function getPair($offset): PairInterface
     {
         $key = $this->hashKey($offset);
@@ -46,6 +56,10 @@ class HashMap extends Map implements CollectionInterface
         return new NullablePair($offset);
     }
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
         if ($this->offsetExists($offset)) {

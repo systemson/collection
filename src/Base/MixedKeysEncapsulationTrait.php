@@ -119,7 +119,7 @@ trait MixedKeysEncapsulationTrait
      *
      * @param mixed $key The item's key
      *
-     * @return void.
+     * @return void
      */
     public function unset($key): void
     {

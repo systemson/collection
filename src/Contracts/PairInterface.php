@@ -14,19 +14,47 @@ use JsonSerializable;
 
 interface PairInterface extends JsonSerializable
 {
+    /**
+     * @param mixed $key
+     *
+     * @return PairInterface
+     */
+    public function setKey($key): PairInterface;
+
+    /**
+     * @return mixed
+     */
     public function &getKey();
 
-    public function setKey($key);
+    /**
+     * @param mixed $value
+     *
+     * @return PairInterface
+     */
+    public function setValue($value): PairInterface;
 
+    /**
+     * @return mixed
+     */
     public function &getValue();
 
-    public function setValue($value);
-
+    /**
+     * @return void
+     */
     public function clear(): void;
 
+    /**
+     * @return PairInterface
+     */
     public function copy(): PairInterface;
 
+    /**
+     * @return bool
+     */
     public function isEmpty(): bool;
 
+    /**
+     * @return array
+     */
     public function toArray(): array;
 }

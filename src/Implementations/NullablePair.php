@@ -15,6 +15,9 @@ namespace Amber\Collection\Implementations;
  */
 class NullablePair extends Pair
 {
+    /**
+     * @param mixed $key
+     */
     public function __construct($key)
     {
         $this->key = $key;

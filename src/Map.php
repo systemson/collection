@@ -40,6 +40,11 @@ class Map extends CollectionCommons implements CollectionInterface
         $this->setMultiple($this->extractArray($array));
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return PairInterface
+     */
     protected function getPair($offset): PairInterface
     {
         foreach ($this->storage as $index => $pair) {
