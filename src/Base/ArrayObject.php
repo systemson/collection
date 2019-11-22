@@ -30,6 +30,9 @@ class ArrayObject implements IteratorAggregate, ArrayAccess, Serializable, Count
         GenericEncapsulationTrait
     ;
 
+    /**
+     * @var array
+     */
     protected $storage = [];
 
     public function __construct(array $array = [])

@@ -55,11 +55,20 @@ abstract class CollectionCommons implements CollectionInterface
         $this->storage = $this->extractArray($array);
     }
 
-    protected function extractArray($storage = []): array
+    /**
+     * @param iterable $storage
+     */
+    protected function extractArray(iterable $storage = []): array
     {
+        if (is_array($storage)) {
+            return $storage;
+        }
+
         if ($storage instanceof Arrayable || method_exists($storage, 'toArray')) {
-            $storage = $storage->toArray();
-        } elseif (method_exists($storage, 'getArrayCopy')) {
+            return $storage->toArray();
+        }
+
+        if (method_exists($storage, 'getArrayCopy')) {
             $storage = $storage->getArrayCopy();
         }
 

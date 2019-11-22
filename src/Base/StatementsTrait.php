@@ -197,8 +197,8 @@ trait StatementsTrait
      */
     public function sum(string $column = null): int
     {
-        if (!is_null($column)) {
-            return $this->column($column)->sum();
+        if (!is_null($column) && method_exists($collection = $this->column($column), 'sum')) {
+            return $collection->sum();
         }
 
         return array_sum($this->toArray());

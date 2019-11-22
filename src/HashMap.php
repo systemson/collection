@@ -22,7 +22,6 @@ use Amber\Collection\Implementations\NullablePair;
  * A sequential collection of key-value pairs.
  *
  * @todo MUST remove all numeric array methods.
- * @todo MUST use spl_​object_​hash() or spl_object_id() to hash the keys.
  */
 class HashMap extends Map implements CollectionInterface
 {

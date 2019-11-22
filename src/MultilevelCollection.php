@@ -28,7 +28,7 @@ class MultilevelCollection extends Collection
     protected $separator = '.';
 
     /**
-     * @var boolean The separator for multilevel keys.
+     * @var boolean Is the collection multileveled.
      */
     protected $multilevel = true;
 

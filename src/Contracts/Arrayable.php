@@ -10,7 +10,7 @@
 
 namespace Amber\Collection\Contracts;
 
-interface Arrayable
+interface Arrayable extends \Traversable
 {
     /**
      * Returns an array representation of the collection.
