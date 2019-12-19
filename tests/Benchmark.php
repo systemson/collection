@@ -72,9 +72,9 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'vector-as-array',
+    'collection-as-array',
     function () use ($n) {
-        $collection = new SimpleCollection();
+        $collection = new Collection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection[$x] = $x;
@@ -226,9 +226,9 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'vector-as-property',
+    'collection-as-property',
     function () use ($n) {
-        $collection = new SimpleCollection();
+        $collection = new Collection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->{$x} = $x;
@@ -305,9 +305,9 @@ $benchmark->run();
 $benchmark = new Benchmark();
 
 $benchmark->add(
-    'vector-as-object',
+    'collection-as-object',
     function () use ($n) {
-        $collection = new SimpleCollection();
+        $collection = new Collection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->set($x, $x);
@@ -434,9 +434,9 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'vector-as-array-multi',
+    'collection-as-array-multi',
     function () use ($n) {
-        $collection = new SimpleCollection();
+        $collection = new Collection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection['first']['second']['third'][$x] = $x;

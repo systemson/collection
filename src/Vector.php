@@ -10,7 +10,9 @@
 
 namespace Amber\Collection;
 
-use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Base\ArrayFunctionsTrait;
+use Amber\Collection\Base\StatementsTrait;
+use Amber\Collection\Base\AliasesTrait;
 
 /**
  * Wrapper class for working with arrays.
@@ -19,5 +21,5 @@ use Amber\Collection\Base\BaseCollection;
  */
 class Vector extends Collection
 {
-    use BaseCollection;
+    use ArrayFunctionsTrait, StatementsTrait, AliasesTrait;
 }

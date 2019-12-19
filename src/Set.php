@@ -10,12 +10,13 @@
 
 namespace Amber\Collection;
 
+use Amber\Collection\Base\ArrayFunctionsTrait;
+use Amber\Collection\Base\StatementsTrait;
+use Amber\Collection\Base\AliasesTrait;
 use Amber\Collection\Contracts\SetInterface;
 use Amber\Collection\Contracts\CollectionInterface;
 use Amber\Collection\Base\NoKeysTrait;
 use Amber\Collection\Base\EssentialTrait;
-use Amber\Collection\Base\AliasesTrait;
-use Amber\Collection\Base\BaseCollection;
 use Amber\Collection\Base\SequentialCollectionTrait;
 
 /**
@@ -25,7 +26,9 @@ class Set extends CollectionCommons implements SetInterface
 {
     use EssentialTrait,
         NoKeysTrait,
-        BaseCollection,
+        ArrayFunctionsTrait,
+        StatementsTrait,
+        AliasesTrait,
         SequentialCollectionTrait
     ;
 

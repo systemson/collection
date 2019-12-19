@@ -12,7 +12,9 @@ namespace Amber\Collection;
 
 use Amber\Collection\Contracts\CollectionInterface;
 use Amber\Collection\Contracts\PairInterface;
-use Amber\Collection\Base\BaseCollection;
+use Amber\Collection\Base\ArrayFunctionsTrait;
+use Amber\Collection\Base\StatementsTrait;
+use Amber\Collection\Base\AliasesTrait;
 use Amber\Collection\Base\MixedKeysEncapsulationTrait;
 use Amber\Collection\Base\EssentialTrait;
 use Amber\Collection\Implementations\Pair;
@@ -27,7 +29,9 @@ class Map extends CollectionCommons implements CollectionInterface
 {
     use EssentialTrait,
         MixedKeysEncapsulationTrait,
-        BaseCollection
+        ArrayFunctionsTrait,
+        StatementsTrait,
+        AliasesTrait
     ;
 
     /**
