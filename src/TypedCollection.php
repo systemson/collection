@@ -10,14 +10,15 @@
 
 namespace Amber\Collection;
 
+use Amber\Collection\Base\GenericEncapsulationTrait;
+use Amber\Collection\Base\EssentialTrait;
+use Amber\Collection\Base\SequentialCollectionTrait;
+
 /**
  * Hint typed collection.
  */
 class TypedCollection extends Collection
 {
-    /**
-     * @var mixed $type;
-     */
     protected $type;
 
     const VALID_TYPES = [
@@ -28,7 +29,7 @@ class TypedCollection extends Collection
         'float',
         'string',
         'array',
-        //'iterable',
+        'iterable',
         'bool',
         'boolean',
         'object',
@@ -38,42 +39,29 @@ class TypedCollection extends Collection
     /**
      * Collection constructor.
      *
-     * @param array $array The items for the new collection.
+     * @param array|Arrayable $array The items for the new collection.
      */
-    public function __construct($array = [], string $type = 'array')
+    public function __construct(array $array = [], string $type = 'array')
     {
+        parent::__construct($array);
+
         $this->setType($type);
-
-        $this->setMultiple($this->extractArray($array));
     }
 
     /**
-     * Sets a value at the specified key/index.
-     *
-     * @param mixed $offset
-     * @param mixed $value
+     * Whether the provided type is a class.
      */
-    public function offsetSet($offset, $value)
+    protected function isClass($type): bool
     {
-        if (!$this->validateType($value)) {
-            $type = gettype($value);
-
-            throw new \RuntimeException("The type of the value [\"{$type}\"]  is not compatible with the [\"{$this->type}\"] type.");
-        }
-
-        parent::offsetSet($offset, $value);
+        return is_string($type) && (class_exists($type) || interface_exists($type));
     }
 
     /**
-     * Sets the type of the collection.
-     *
-     * @param string $type
-     *
-     * @return void
+     * Sets the collection type hint.
      */
-    public function setType(string $type): void
+    protected function setType(string $type): void
     {
-        if (in_array($type, static::VALID_TYPES) || class_exists($type)) {
+        if (in_array($type, static::VALID_TYPES) || $this->isClass($type)) {
             $this->type = $type;
             return;
         }
@@ -82,9 +70,7 @@ class TypedCollection extends Collection
     }
 
     /**
-     * Returns the collection type.
-     *
-     * @return string
+     * Gets the collection's type.
      */
     public function getType(): string
     {
@@ -92,13 +78,23 @@ class TypedCollection extends Collection
     }
 
     /**
-     * Validates the value's type.
-     *
-     * @param mixed $value
-     *
-     * @return bool
+     * Sets an element in the collection at the specified key/index.
      */
-    protected function validateType($value): bool
+    public function offsetSet($offset, $value)
+    {
+        if (!$this->isValidType($value)) {
+            $type = gettype($value);
+
+            throw new \RuntimeException("The type of [\"{$type}\"]  is not compatible with the [\"{$this->type}\"] type.");
+        }
+
+        parent::offsetSet($offset, $value);
+    }
+
+    /**
+     * Whether the provided value is a valid type.
+     */
+    protected function isValidType($value): bool
     {
         switch ($this->type) {
             case 'numeric':
@@ -123,6 +119,10 @@ class TypedCollection extends Collection
                 return is_array($value);
                 break;
 
+            case 'iterable':
+                return is_iterable($value);
+                break;
+
             case 'bool':
             case 'boolean':
                 return is_bool($value);
@@ -137,7 +137,7 @@ class TypedCollection extends Collection
                 break;
 
             default:
-                return is_string($this->type) && class_exists($this->type) && is_a($value, $this->type, true);
+                return $this->isClass($this->type) && is_a($value, $this->type, true);
                 break;
         }
     }

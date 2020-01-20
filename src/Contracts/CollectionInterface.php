@@ -28,13 +28,6 @@ interface CollectionInterface extends
     public static function make($array = []): CollectionInterface;
 
     /**
-     * Collection consructor.
-     *
-     * @param array $array The items for the new collection.
-     */
-    public function __construct($array = []);
-
-    /**
      * Removes all values from the collection.
      *
      * @return void

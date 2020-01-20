@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Amber\Collection\Vector as Collection;
+use Amber\Collection\ArrayCollection as Collection;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits\{
     BasicTrait,
@@ -15,7 +15,7 @@ use Tests\Traits\{
     CommonTrait
 };
 
-class VectorTest extends TestCase
+class ArrayCollectionTest extends TestCase
 {
     use
         CommonTrait,

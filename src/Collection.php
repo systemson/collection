@@ -16,8 +16,6 @@ use Amber\Collection\Base\SequentialCollectionTrait;
 
 /**
  * Multi-purpose collection.
- *
- * @todo SHOULD be renamed to ArrayCollection.
  */
 class Collection extends CollectionCommons
 {

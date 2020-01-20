@@ -10,7 +10,7 @@ use Amber\Collection\Collection;
 use Amber\Collection\TreeMap;
 use Amber\Collection\Base\ArrayObject as AmberArrayObject;
 use Amber\Collection\MultilevelCollection;
-use Amber\Collection\Vector as SimpleCollection;
+use Amber\Collection\ArrayCollection as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
 

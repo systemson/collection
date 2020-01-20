@@ -16,10 +16,8 @@ use Amber\Collection\Base\AliasesTrait;
 
 /**
  * Wrapper class for working with arrays.
- *
- * @deprecated
  */
-class Vector extends Collection
+class ArrayCollection extends Collection
 {
     use ArrayFunctionsTrait, StatementsTrait, AliasesTrait;
 }

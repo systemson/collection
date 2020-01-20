@@ -50,6 +50,7 @@ class TypeCollectionTest extends TestCase
                 return 'string';
                 break;
 
+            case 'iterable':
             case 'array':
                 return [];
                 break;
@@ -123,6 +124,11 @@ class TypeCollectionTest extends TestCase
     public function testArray()
     {
         $this->typedTest('array');
+    }
+
+    public function testIterable()
+    {
+        $this->typedTest('iterable');
     }
 
     public function testBool()
