@@ -20,6 +20,8 @@ use Amber\Collection\Implementations\NullablePair;
 
 /**
  * A sequential collection of key-value pairs.
+ * 
+ * @deprecated
  *
  * @todo MUST remove all numeric array methods.
  */
