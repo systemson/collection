@@ -130,8 +130,9 @@ class MultilevelCollection extends ArrayCollection
      * Gets an item from collection.
      *
      * @param string $key The item's key
+     * @param mixed  $default The default value if the key doesn't exists.
      *
-     * @return mixed|void The item's value or void if the key doesn't exists.
+     * @return mixed|void The item's value or $default if the key doesn't exists.
      */
     public function get(string $key, $default = null)
     {

@@ -40,6 +40,7 @@ class TypedCollection extends Collection
      * Collection constructor.
      *
      * @param array|Arrayable $array The items for the new collection.
+     * @param string          $type  The collection type
      */
     public function __construct(array $array = [], string $type = 'array')
     {

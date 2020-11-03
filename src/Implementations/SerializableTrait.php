@@ -18,8 +18,6 @@ trait SerializableTrait
     /**
      * Serialize the collection.
      *
-     * @param array data
-     *
      * @return string
      */
     public function serialize(): string
