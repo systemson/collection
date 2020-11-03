@@ -33,16 +33,27 @@ trait ArrayAccessTrait
         }
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return isset($this->storage[$offset]);
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function offsetUnset($offset)
     {
         unset($this->storage[$offset]);
     }
 
+    /**
+     * @param mixed $offset
+     */
     public function &offsetGet($offset)
     {
         $ret =& $this->storage[$offset] ?? null;

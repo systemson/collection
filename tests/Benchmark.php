@@ -13,6 +13,7 @@ use Amber\Collection\MultilevelCollection;
 use Amber\Collection\ArrayCollection as SimpleCollection;
 use Lavoiesl\PhpBenchmark\Benchmark;
 use Doctrine\Common\Collections\ArrayCollection;
+use Tightenco\Collect\Support\Collection as LaravelCollection;
 
 
 //declare(ticks=1);
@@ -97,34 +98,9 @@ $benchmark->add(
 );
 
 $benchmark->add(
-    'collection-as-array',
-    function () use ($n) {
-        $collection = new Collection();
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection[$x] = $x;
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            $collection[$x];
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            isset($collection[$x]);
-        }
-
-        for ($x = 0; $x < $n; $x++) {
-            unset($collection[$x]);
-        }
-
-        return $collection;
-    }
-);
-
-$benchmark->add(
     'laravel-as-array',
     function () use ($n) {
-        $collection = collect();
+        $collection = new LaravelCollection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection[$x] = $x;
@@ -253,7 +229,7 @@ $benchmark->add(
 $benchmark->add(
     'laravel-as-property',
     function () use ($n) {
-        $collection = collect();
+        $collection = new LaravelCollection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->{$x} = $x;
@@ -357,7 +333,7 @@ $benchmark->add(
 $benchmark->add(
     'laravel-as-object',
     function () use ($n) {
-        $collection = collect();
+        $collection = new LaravelCollection();
 
         for ($x = 0; $x < $n; $x++) {
             $collection->put($x, $x);
