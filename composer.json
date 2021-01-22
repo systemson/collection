@@ -28,6 +28,7 @@
         "doctrine/collections": "^1.5",
         "lavoiesl/php-benchmark": "^1.4",
         "php-coveralls/php-coveralls": "^2.1",
+        "phpunit/phpunit": "^9.5",
         "tightenco/collect": "^5.7"
     },
     "scripts": {
